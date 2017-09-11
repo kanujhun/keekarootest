@@ -1,0 +1,44 @@
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko foreach: getRegion('authentication') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('progressBar') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('estimation') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('messages') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div class="checkout-notice-wrapper">
+    <div class="checkout-notice-header" onclick="jQuery('.checkout-notice-content').toggle(); jQuery('.checkout-notice-wrapper').toggleClass('soHotRightNow');"><strong>Important Notice for Retailers</strong> <span>Please Read</span></div>
+    <div class="checkout-notice-content">
+        <ul>
+            <li>When shipping to <strong>HI, AK, PR, and APO,</strong> these services have an additional cost. Enter
+            your Ship To address, then select your Shipping Method below at the pull-down menu and click the Apply
+            button. We will email you the cost for your approval prior to processing your order. Please be sure to
+            monitor your email for our reply.</li>
+        </ul>
+    </div>
+</div>
+<div class="checkout-content-wrapper-width">
+    <div class="opc-wrapper">
+        <ol class="opc" id="checkoutSteps">
+            <!-- ko foreach: getRegion('steps') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </ol>
+    </div>
+    <!-- ko foreach: getRegion('sidebar') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+</div>

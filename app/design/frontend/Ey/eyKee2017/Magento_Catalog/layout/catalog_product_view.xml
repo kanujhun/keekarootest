@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="product.info.overview" destination="product.info.main" before="product.info.price"/>
+        <referenceContainer name="product.info.stock.sku" remove="true"/>
+        <referenceContainer name="product.info.extrahint" remove="true"/>
+        <referenceBlock name="product.attributes" remove="true"/>
+        <move element="product.info.description" destination="product.info.details" after="product.info.features"/>
+        <referenceContainer name="content">
+            <container name="product.usps" htmlTag="div" htmlClass="product-usps" after="product.info.media">
+                <block class="Magento\Framework\View\Element\Template" name="product.usps.content" template="Magento_Catalog::Ey/usps.phtml" />
+            </container>
+        </referenceContainer>
+        <referenceBlock name="product.info.details">
+            <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.features" template="product/view/attribute.phtml" group="detailed_info" before="product.info.description">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getFeatures</argument>
+                    <argument name="at_code" xsi:type="string">features</argument>
+                    <argument name="css_class" xsi:type="string">features</argument>
+                    <argument name="at_label" xsi:type="string">none</argument>
+                    <argument name="title" translate="true" xsi:type="string">Features</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.infoarticles" template="product/view/attribute.phtml" group="detailed_info" after="product.info.description">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getInfoArticles</argument>
+                    <argument name="at_code" xsi:type="string">info_articles</argument>
+                    <argument name="css_class" xsi:type="string">info-articles</argument>
+                    <argument name="at_label" xsi:type="string">none</argument>
+                    <argument name="title" translate="true" xsi:type="string">Info &amp; Articles</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.video" template="product/view/attribute.phtml" group="detailed_info" after="product.info.infoarticles">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getVideo</argument>
+                    <argument name="at_code" xsi:type="string">video</argument>
+                    <argument name="css_class" xsi:type="string">video</argument>
+                    <argument name="at_label" xsi:type="string">none</argument>
+                    <argument name="title" translate="true" xsi:type="string">Video</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

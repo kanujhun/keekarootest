@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="logo" destination="checkout.header.wrapper" before="-"/>
+        <referenceContainer name="checkout.header.wrapper">
+            <container name="checkout.cms.wrapper" htmlTag="div" htmlClass="checkout-cms-wrapper" after="-">
+                <container name="header-tagline" htmlTag="div" htmlClass="easy2step" before="-">
+                    <block class="Magento\Cms\Block\Block" name="header-tagline-block">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">easy2stepcheckout</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <container name="header-questions" htmlTag="div" htmlClass="header-questions" after="-">
+                    <block class="Magento\Cms\Block\Block" name="header-questions-block">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">header-questions</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

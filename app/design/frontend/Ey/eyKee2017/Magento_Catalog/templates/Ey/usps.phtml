@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+<?php
+$objectManager=\Magento\Framework\App\ObjectManager::getInstance();
+$_product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+
+?>
+<?php
+    $uspBar = $_product->getData('product_usp_bar');
+    if ($uspBar != ''):?>
+        <div class="usp-wrapper"><div class="usp-inner">
+        <?php echo $uspBar;?>
+        </div></div>
+    <?php endif; ?>

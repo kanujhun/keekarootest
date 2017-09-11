@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Bundle\Model\Source\Option\Type">
+        <arguments>
+            <argument name="options" xsi:type="array">
+                <item name="select" xsi:type="string">Drop-down</item>
+                <item name="radio" xsi:type="string">Radio Buttons</item>
+                <item name="checkbox" xsi:type="string">Checkbox</item>
+                <item name="multi" xsi:type="string">Multiple Select</item>
+                <item name="configurable" xsi:type="string">Configurable</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Bundle\Block\Adminhtml\Catalog\Product\Edit\Tab\Bundle\Option"
+                type="Ey\ConfigurableBundle\Block\Adminhtml\Catalog\Product\Edit\Tab\Bundle\Option" />
+</config>

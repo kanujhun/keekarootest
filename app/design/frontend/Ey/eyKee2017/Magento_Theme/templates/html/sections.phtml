@@ -1,0 +1,60 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+
+/**
+ *  General template for displaying group of blocks devided into sections
+ */
+
+$group = $block->getGroupName();
+$groupCss = $block->getGroupCss();
+$groupBehavior = $block->getGroupBehaviour() ? $block->getGroupBehaviour() : '{"tabs":{"openedState":"active"}}';
+?>
+<?php if ($detailedInfoGroup = $block->getGroupChildNames($group, 'getChildHtml')):?>
+    <div class="sections <?php /* @escapeNotVerified */ echo $groupCss ?>">
+
+        <?php $layout = $block->getLayout(); ?>
+        <div class="section-items <?php /* @escapeNotVerified */ echo $groupCss ?>-items" data-mage-init='<?php /* @escapeNotVerified */ echo $groupBehavior ?>'>
+            <div class="mobile-nav nav-top">
+                <div class="nav-close" data-action="toggle-nav"></div>
+                <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header-questions')->toHtml();?>
+            </div>
+            <?php foreach ($detailedInfoGroup as $name):?>
+                <?php
+                $html = $layout->renderElement($name);
+                if (!trim($html) && ($block->getUseForce() != true)) {
+                    continue;
+                }
+                $alias = $layout->getElementAlias($name);
+                $label = $block->getChildData($alias, 'title');
+                ?>
+                <div class="section-item-title <?php /* @escapeNotVerified */ echo $groupCss ?>-item-title" data-role="collapsible">
+                    <a class="<?php /* @escapeNotVerified */ echo $groupCss ?>-item-switch" data-toggle="switch" href="#<?php /* @escapeNotVerified */ echo $alias; ?>"><?php /* @escapeNotVerified */ echo $label; ?></a>
+                </div>
+                <div class="section-item-content <?php /* @escapeNotVerified */ echo $groupCss ?>-item-content" id="<?php /* @escapeNotVerified */ echo $alias; ?>" data-role="content"><?php /* @escapeNotVerified */ echo $html; ?></div>
+            <?php endforeach;?>
+            <div class="mobile-nav nav-bottom">
+                <ul>
+                    <?php
+                    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+                    if($customerSession->isLoggedIn()) { ?>
+                        <li><a href="/customer/account/">My Account</a></li>
+                        <li><a href="/customer/account/logout/">Sign Out</a></li>
+                    <?php } else { ?>
+                        <li><a href="">Sign In</a></li>
+                        <li><a href="">Create a Wholesale Account</a></li>
+                    <?php } ?>
+                </ul>
+                <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('navigation-footer')->toHtml();?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
