@@ -13,6 +13,9 @@
         <css src="css/ey-styles-l.css" media="screen and (min-width:980px)"/>
         <remove src="css/styles-m.css"/>
         <remove src="css/styles-l.css"/>
+        <link src="js/owlcarousel.js"/>
+        <css src="css/owl.carousel.css"/>
+        <css src="css/owl.carousel.min.css"/>
     </head>
     <body>
         <move element="header.links" destination="header-wrapper" after="minicart"/>

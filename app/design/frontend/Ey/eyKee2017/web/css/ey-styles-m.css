@@ -3913,7 +3913,10 @@ a.action.primary:focus {
 #shipping-method-buttons-container .button.action.continue.primary > span:before, #sidebar-buttons .button.action.continue.primary > span:before {
     content: '\e90a';
     font-family: 'icomoon';
-    font-size: 12px;
+    font-size: 10px;
+    vertical-align: top;
+    font-weight: 100;
+    margin-right: 5px;
 }
 .methods-shipping .actions-toolbar {
     padding-bottom: 40px;
@@ -6760,7 +6763,7 @@ body.catalog-product-compare-index .action.print {
     color: white;
     font-size: 20px;
     font-weight: 600;
-    width: 120px;
+    width: 130px;
     line-height: 20px;
     margin-left: 10px;
     font-family: 'quicksand';
@@ -8345,6 +8348,42 @@ fieldset[disabled] .opc-estimated-wrapper .minicart-wrapper button.action.showca
 }
 .checkout-agreement-item-content {
     overflow: auto;
+}
+.checkout-success h1 {
+    display: none;
+}
+.checkout-success > p:first-of-type {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 25px;
+    margin-bottom: 20px;
+}
+.checkout-success > p:last-of-type {
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.checkout-success > p a {
+    display: block;
+    font-family: 'quicksand', sans-serif;
+    font-size: 44px;
+    color: #679db3;
+}
+.checkout-success > p a strong {
+    font-weight: 500;
+}
+.checkout-success .actions-toolbar > .primary .action:last-child {
+    font-size: 22px;
+    font-weight: 500;
+}
+.checkout-success .actions-toolbar > .primary .action:last-child span:before {
+    content:'\e90a';
+    font-family:'icomoon';
+    font-size:14px;
+    vertical-align: baseline;
 }
 .login-container .block-new-customer .actions-toolbar {
     margin-top: 25px;
@@ -12225,6 +12264,260 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
     width: 100%;
     float: none;
 }
+.cms-home .page-main {
+    padding: 0;
+    max-width: 100%;
+}
+.cms-home .page-header {
+    margin-bottom: 0;
+}
+.cms-home .outgrow-wrapper {
+    overflow: hidden;
+    background-color: #feefdb;
+    background-size: 110%;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    /*padding-top: 10px;*/
+}
+.cms-home .outgrow-content {
+    display: block;
+    text-decoration: none;
+    font-family:'quicksand', sans-serif;
+    color: #494949;
+    font-size:19px;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    padding-top: 40%;
+}
+.cms-home .outgrow-bg {
+    max-width: 980px;
+    width: 110%;
+    display: block;
+}
+.cms-home div.outgrow-txt {
+    background-color: #feefdb;
+    /*margin-top: 40px;*/
+    display: block;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 20px;
+}
+.cms-home .squeezable-txt span {
+    margin: 10px 0;
+}
+.cms-home .squeezable-txt span,
+.cms-home div.outgrow-txt span {
+    color: #fff;
+    line-height:38px;
+    width: 136px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #f68e56;
+    font-size:17px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: 'quicksand', sans-serif;
+    text-align: center;
+}
+.cms-home .squeezable-subtxt {
+    display: none;
+    font-family: 'quicksand', sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+    line-height: 24px;
+    max-width: 380px;
+    margin: 20px auto 0;
+}
+.cms-home div.outgrow-subtxt {
+    margin-top: 20px;
+}
+.cms-home .product-line-wrapper h2 {
+    margin: 30px 0 0;
+    font-size: 16px;
+    font-family:'quicksand', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #898989;
+    text-align: center;
+}
+.cms-home .product-line-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 0;
+}
+.cms-home .product-line-items a {
+    text-decoration: none;
+}
+.cms-home .product-line-items li {
+    display: inline-block;
+    width: 50%;
+    font-size:14px;
+    font-family:'quicksand', sans-serif;
+}
+.cms-home .product-line-items h4 {
+    font-weight: 500;
+    color: #4a4a4a;
+    font-size:24px;
+    display: block;
+    margin: 0;
+}
+.cms-home .product-line-items strong {
+    display: block;
+    color: #679db3;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+.cms-home .product-line-items span {
+    color: #f68e56;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.cms-home .product-line-items span:before {
+    content:'\e608';
+    font-family:'luma-icons';
+    font-size: 12px;
+}
+.cms-home .peaceofmind-wrapper {
+    background-color: #f3fbfe;
+    /*padding: 30px 20px;*/
+}
+.cms-home .peaceofmind-content {
+    background-color: #f3fbfe;
+    padding: 30px 20px;
+}
+.cms-home .peaceofmind-txt img {
+    margin: 0 auto;
+    display: block;
+}
+.cms-home .peaceofmind-txt p {
+    font-size: 16px;
+    color: #4a4a4a;
+    line-height:22px;
+    margin: 20px 0;
+}
+.cms-home .comfortable-wrapper {
+    /*font-family:'quicksand', sans-serif;*/
+    padding: 0 10px;
+}
+.cms-home .comfortable, .cms-home .durable {
+    color: #4a4a4a;
+    text-decoration: none;
+    font-weight: 500;
+    line-height: 24px;
+}
+.cms-home .comfdiv {
+    font-size: 18px;
+    color: #4a4a4a;
+    margin-bottom: 40px;
+}
+.cms-home .comfortable-wrapper strong {
+    font-family:'quicksand', sans-serif;
+    font-size: 26px;
+    color: #679db3;
+}
+.cms-home .comfortable-img, .cms-home .durable-img {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.cms-home .comfortable-wrapper span {
+    color: #f68e56;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: 'quicksand', sans-serif;
+}
+.cms-home .comfortable-wrapper span:before {
+    content:'\e608';
+    font-family: 'luma-icons';
+    font-size: 13px;
+}
+.cms-home .bidness-wrapper {
+    background-color: #898989;
+    text-align: center;
+    padding: 30px 40px;
+}
+.cms-home .bidness-wrapper h2 {
+    margin: 0 0 20px 0;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-family: 'quicksand', sans-serif;
+}
+.cms-home .bidness-wrapper a {
+    display: inline-block;
+    margin: 10px;
+}
+.bimg01 {
+    width: 135px;
+}
+.bimg02 {
+    width: 86px;
+}
+.bimg03 {
+    width: 145px;
+}
+.bigm04 {
+    width: 50px;
+}
+.bimg05 {
+    width: 193px;
+}
+.cms-home .magazine-wrapper {
+    width: 270px;
+    display: block;
+    margin: 50px auto;
+}
+.cms-home .magazine {
+    text-decoration: none;
+}
+.cms-home .magazine-wrapper img {
+    display: block;
+    margin: 0 auto 20px;
+}
+.mag-header p {
+    margin: 0;
+    font-size: 14px;
+    font-family:'quicksand';
+    line-height: 14px;
+    font-weight: bold;
+}
+.mag-header h4 {
+    margin: 0;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: bold;
+}
+.mag-desc p {
+    color: #4a4a4a;
+    font-size: 16px;
+    line-height: 18px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+.mag-link {
+    font-family: "quicksand", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #f68e56;
+}
+.mag-link:before {
+    content: '\f054';
+    font-family:'fontawesome';
+    font-size: 12px;
+    margin-right: 5px;
+    font-weight: normal;
+}
 @media only screen and (max-width: 479px) {
     .tooltip.wrapper .tooltip.content {
         min-width: 10rem;
@@ -12951,6 +13244,36 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
     }
 }
 @media only screen and (max-width: 979px) {
+    .cms-home .peaceofmind-content {
+        background: none !important;
+    }
+    .squeezable-wrapper {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 40px;
+    }
+    .squeezable-bg.bg01 {
+        display: block;
+        width:120%;
+        max-width:120%;
+        margin-left:-10%;
+    }
+    .squeezable-content {
+        width: 100%;
+        background-color: #973161;
+        padding: 20px 10px 10px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    img.squeezable-txt {
+        display: block;
+        margin: 0 auto;
+    }
+    .squeezable-bg.bg02 {
+        display: none;
+    }
     .abs-visually-hidden-mobile-m {
         border: 0;
         clip: rect(0, 0, 0, 0);
