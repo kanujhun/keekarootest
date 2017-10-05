@@ -1966,7 +1966,7 @@
     }
     .cart-summary > .title {
         display: block;
-        margin: 12px 20px;
+        margin: 20px 20px 12px;
         font-family: 'quicksand';
         font-weight: bold;
         font-size: 18px;
@@ -3306,7 +3306,9 @@
         margin-bottom: 0;
         height: 102px;
     }
-
+    .checkout-cart-index .page-header {
+        border-bottom: 10px solid #679fb0;
+    }
     .page-header .panel.wrapper {
         border-bottom: 1px solid #e8e8e8;
         background-color: #7e807e;

@@ -2109,6 +2109,11 @@ fieldset[disabled] .form.send.friend .action.remove {
     speak: none;
     text-align: center;
 }
+.cart-summary .block > .title:after {
+    content:'\e909';
+    font-family:'icomoon';
+}
+
 .abs-discount-block .block,
 .cart-summary .block,
 .paypal-review-discount .block,
@@ -2135,6 +2140,10 @@ fieldset[disabled] .form.send.friend .action.remove {
 .paypal-review-discount .block.active > .title:after,
 .cart-discount .block.active > .title:after {
     content: '\e621';
+}
+.cart-summary .block.active > .title:after {
+    content:'\e908';
+    font-family:'icomoon';
 }
 .abs-discount-block .block.active .content,
 .cart-summary .block.active .content,
@@ -2692,10 +2701,12 @@ fieldset[disabled] .form.send.friend .action.remove {
 .opc-block-summary .table-totals tbody .amount,
 .opc-block-summary .table-totals tfoot .amount {
     border: 0;
-    font-weight: 400;
+    font-weight: 500;
     padding: 6px 0 6px 14px;
     text-align: right;
     white-space: nowrap;
+    font-size:16px;
+    font-family:'quicksand';
 }
 .cart-totals .grand th,
 .cart-totals .grand td,
@@ -6890,9 +6901,12 @@ body.catalog-product-compare-index .action.print {
     text-align: left;
 }
 .cart.table-wrapper .cart thead tr th.col {
-    border-bottom: 1px solid #cccccc;
-    padding-bottom: 15px;
+    border-bottom: 2px solid #cccccc;
+    padding-bottom: 5px;
     padding-top: 24px;
+    font-weight: 400;
+    font-size:12px;
+    text-transform: uppercase;
 }
 .cart.table-wrapper .cart tbody td {
     border: 0;
@@ -7060,7 +7074,13 @@ body.catalog-product-compare-index .action.print {
 .order-items.table-wrapper .col.subtotal,
 .cart.table-wrapper .col.msrp,
 .order-items.table-wrapper .col.msrp {
-    text-align: right;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+.cart.table-wrapper .col.subtotal {
+    /*text-align: left;*/
 }
 .cart .table.items .col.qty {
      text-align: center;
@@ -11121,6 +11141,8 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    font-family:'open sans';
+    letter-spacing: 1px;
 }
 .copyright p > span > a {
     color: inherit;
