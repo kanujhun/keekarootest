@@ -3369,6 +3369,7 @@ body > .loading-mask {
 .fieldset > * {
     letter-spacing: normal;
 }
+.single-option label.label {display:none;}
 .fieldset > .legend {
     margin: 0 0 20px;
     padding: 0 0 10px;

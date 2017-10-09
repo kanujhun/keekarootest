@@ -3806,8 +3806,15 @@
     .sp-top-content > ul:after {
         display: none;
     }
-    .catalog-category-view.page-layout-1column .sp-top {
+    .category-high-chairs.page-layout-1column .sp-top {
         background-image:url("../images/sp-desktop-bg01.jpg");
+        background-position: top right;
+        background-repeat:no-repeat;
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+    .category-kids-chairs.page-layout-1column .sp-top {
+        background-image:url("../images/sp-desktop-bg02.jpg");
         background-position: top right;
         background-repeat:no-repeat;
         margin: 0 auto;
