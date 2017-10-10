@@ -21,7 +21,7 @@
     <?php
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-    if($customerSession->isLoggedIn()) { ?>
+    if($customerSession->isLoggedIn() && $customerSession->getCustomer()->getGroupId() == 2) { ?>
         <ul class="logged" data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
             <li><a href="/high-chairs.html">High Chairs</a></li>
             <li><a href="/kids-chairs.html">Kids Chairs</a></li>
@@ -30,7 +30,7 @@
             <li><a href="/infant-sleeper.html">Infant Sleeper</a></li>
         </ul>
         <ul class="wholesale">
-            <li><a href="asdf">Training</a></li>
+            <li><a href="/training">Training</a></li>
             <li><a href="/quick-order.html">Quick Order</a></li>
             <li><a href="/downloads.html">Downloads</a></li>
         </ul>
