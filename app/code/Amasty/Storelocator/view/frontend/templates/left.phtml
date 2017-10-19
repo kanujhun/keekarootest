@@ -1,0 +1,82 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Storelocator
+ */
+?>
+<?php /** @var \Amasty\Storelocator\Block\Location $block */ ?>
+<?php
+$locations = $block->getLocations();
+
+$currentDate = $block->timezoneInterface->date();
+$currentDay = $block->timezoneInterface->convertConfigTimeToUtc($currentDate, 'N');
+$dayNames = $block->dataHelper->getDaysNames();
+$i = 1;
+?>
+<div id="amlocator_left">
+    <?php foreach ($locations as $location): ?>
+        <span name="leftLocation" data-amid="<?php echo $i ?>">
+                <div class="location_header"><?php echo $this->escapeHtml($location->getName()); ?></div>
+            <?= __('Address') ?>: <?php echo $this->escapeHtml($location->getAddress()); ?>
+            <br/>
+            <?php echo $this->escapeHtml($location->getCity()); ?>
+            , <?php echo $this->escapeHtml($location->getZip()); ?>
+
+            <?php if ($this->getShowAttributes()) { ?>
+                <?php if (trim($location->getPhone())) { ?>
+                    <br/>
+                    <?php echo __('Phone') ?>: <?php echo $this->escapeHtml($location->getPhone()); ?>
+                <?php }?>
+                <?php if (trim($location->getEmail())) { ?>
+                    <br/>
+                    <?php echo __('E-mail') ?>: <?php echo $this->escapeHtml($location->getEmail()); ?>
+                <?php }?>
+                <?php if (trim($location->getWebsite())) { ?>
+                    <br/>
+                    <?php echo __('URL') ?>: <?php echo $this->escapeHtml($location->getWebsite()); ?>
+                <?php }?>
+            <?php }?>
+
+            <?php
+            if ($location->getScheduleArray() != false):
+                $schedule = $location->getScheduleArray();
+                ?>
+
+                <div class="today_schedule">
+                        <?= __('Work Time Today:')?>
+                    <span>
+                            <?php echo $schedule[$currentDay]['from'][0] ?>:<?php echo $schedule[$currentDay]['from'][1] ?>
+                        -
+                        <?php echo $schedule[$currentDay]['to'][0] ?>:<?php echo $schedule[$currentDay]['to'][1] ?>
+                        <div class="locator_arrow"></div>
+                        </span>
+
+                    </div>
+
+                <div class="all_schedule" id="schedule<?php echo $i ?>">
+                    <?php
+                    $scheduleDay = 1;
+
+                    foreach ($schedule as $key => $item) {
+                        ?>
+                        <div>
+                            <?php echo __($dayNames[$key]); ?>:
+                            <span>
+                                <?php echo $item['from'][0] ?>:<?php echo $item['from'][1] ?>
+                                -
+                                <?php echo $item['to'][0] ?>:<?php echo $item['to'][1] ?>
+                            </span>
+                        </div>
+                        <?php
+                        $scheduleDay++;
+                    }
+                    ?>
+                </div>
+                <?php
+            endif;
+            ?>
+            </span>
+        <?php $i++ ?>
+    <?php endforeach; ?>
+</div>
