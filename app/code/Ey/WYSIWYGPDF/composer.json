@@ -1,0 +1,19 @@
+{
+  "name": "ey/module-wysiwygpdf",
+  "description": "Allows store owners to upload PDF documents to the WYSIWYG editor.",
+  "license": "GPL-3.0",
+  "authors": [{
+    "name": "EYStudios",
+    "email": "info@eystudios.com"
+  }],
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Ey\\WYSIWYGPDF\\": ""
+    },
+    "files": [
+      "registration.php"
+    ]
+  }
+}
