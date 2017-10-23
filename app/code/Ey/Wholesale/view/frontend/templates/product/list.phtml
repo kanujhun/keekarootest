@@ -30,11 +30,18 @@ $showSku = true;
     <?php echo $block->getToolbarHtml() ?>
     <?php echo $block->getAdditionalHtml() ?>
     <?php
-    if ($block->getMode() == 'grid') {
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $categoryURL = $objectManager->get('Magento\Framework\Registry')->registry('current_category')->getData('url_key');
+    if ($block->getMode() == 'grid' && $categoryURL != 'bags' && $categoryURL != 'quick-order' && $categoryURL != 'peanut-quick-order') {
         $viewMode = 'grid';
         $image = 'category_page_grid';
         $showDescription = false;
         $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else if ($categoryURL == 'quick-order' || $categoryURL == 'bags' || $categoryURL != 'peanut-quick-order') {
+        $viewMode = 'list';
+        $image = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
     } else {
         $viewMode = 'list';
         $image = 'category_page_list';
@@ -46,17 +53,17 @@ $showSku = true;
      */
     $pos = $block->getPositioned();
     ?>
-    <div class="products wrapper <?php /* @escapeNotVerified */ echo $viewMode; ?> products-<?php /* @escapeNotVerified */ echo $viewMode; ?>">
+    <div class="products wrapper <?php /* @escapeNotVerified */ echo $viewMode; echo ' newcode '; ?> products-<?php /* @escapeNotVerified */ echo $viewMode; ?>">
         <?php $iterator = 1; ?>
-        <div class="productLoader">
-            <img src="<?php echo $this->getViewFileUrl('images/rolling.gif') ?>"  />
-            <strong>Please wait...</strong>
-        </div>
         <ol class="products list items product-items">
             <?php /** @var $_product \Ey\Product\Model\Product */ ?>
             <?php foreach ($_productCollection as $_product): ?>
                 <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
-                <div class="product-item-info" data-container="product-grid">
+                <div class="product-item-info <?php echo $_product->getData('sku');?>" data-container="product-grid">
+                    <?php if ($viewMode === 'list'):?>
+                    <div class="peanut-product-item-name"><?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product,
+                            $_product->getName(), 'name'); ?></div>
+                    <?php endif; ?>
                     <?php
                     $productImage = $block->getImage($_product, $image);
                     if ($pos != null) {
@@ -65,33 +72,44 @@ $showSku = true;
                     }
                     ?>
                     <?php // Product Image ?>
+                    <?php if ($viewMode === 'list'): ?>
+                    <div href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" class="product photo product-item-photo <?php if($_product->isNewProduct()): ?>isNew<?php endif; ?>" tabindex="-1">
+                        <?php echo $productImage->toHtml(); ?>
+                    </div>
+                    <?php else:?>
                     <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" class="product photo product-item-photo <?php if($_product->isNewProduct()): ?>isNew<?php endif; ?>" tabindex="-1">
                         <?php echo $productImage->toHtml(); ?>
                     </a>
+                    <?php endif;?>
+                    <?php // End Product Image ?>
                     <div class="product details product-item-details">
-                        <?php
-                        $_productNameStripped = $block->stripTags($_product->getName(), null, true);
-                        ?>
-                        <strong class="product name product-item-name">
-                            <a class="product-item-link"
-                               href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>"
-                               title="<?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product,
-                                   $_product->getName(), 'name'); ?>">
-                                <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product,
-                                    $_product->getName(), 'name', 60); ?>
-                            </a>
-                        </strong>
-                        <?php echo $block->getReviewsSummaryHtml($_product, $templateType); ?>
+                        <div class="left-wrapper">
+                            <?php
+                            $_productNameStripped = $block->stripTags($_product->getName(), null, true);
+                            ?>
+                            <strong class="product name product-item-name">
+                                <a class="product-item-link"
+                                   href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>"
+                                   title="<?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product,
+                                       $_product->getName(), 'name'); ?>">
+                                    <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product,
+                                        $_product->getName(), 'name', 60); ?>
+                                </a>
+                            </strong>
+                            <div class="product-short-description">
+                                <?php echo $_product->getData('short_description'); ?>
+                            </div>
+                            <?php echo $block->getReviewsSummaryHtml($_product, $templateType); ?>
 
-                        <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product) ?>
+                            <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product) ?>
 
-                        <?php if ($showSku): ?>
-                            <div class="sku"><?php echo $_product->getSku(); ?></div>
-                        <?php endif; ?>
-
+                            <?php if ($showSku): ?>
+                                <div class="sku"><?php echo $_product->getSku(); ?></div>
+                            <?php endif; ?>
+                        </div>
                         <?php if (
                             $this->helper('\Ey\Wholesale\Helper\Data')->isEnabled() === true &&
-                            $block->getMode() == 'list' &&
+                            $viewMode == 'list' &&
                             $_product->getTypeId() == \Magento\Bundle\Model\Product\Type::TYPE_CODE
                         ): ?>
                             <?php $this->helper('\Ey\Wholesale\Helper\Data')
