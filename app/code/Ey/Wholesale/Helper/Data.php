@@ -5,18 +5,22 @@ namespace Ey\Wholesale\Helper;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     protected $coreRegistry;
+//    protected $productRepo;
 
     /**
      * Data constructor.
      * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Catalog\Model\ProductRepository $productRepo
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Framework\Registry $registry
+//        \Magento\Catalog\Model\ProductRepository $productRepo
     )
     {
         $this->coreRegistry = $registry;
+//        $this->productRepo = $productRepo;
         return parent::__construct($context);
     }
 
@@ -38,6 +42,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
        $xml_path = 'ey_product/bundle_product_list/enabled';
        return $this->_getConfigValue($xml_path) == '1' ? true:false;
     }
+
+//    public function getOptionAttrs($id)
+//    {
+//        return $this->productRepo->getById($id);
+//    }
 
     /**
      * @param $product

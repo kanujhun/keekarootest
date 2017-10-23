@@ -16,6 +16,7 @@
 <?php $_product = $block->getProduct(); ?>
 
 <div class="product-add-form">
+    <div class="quantity-text"><?php echo $_product->getData('choose_quantity_text');?></div>
     <form action="<?php /* @escapeNotVerified */ echo $block->getSubmitUrl($_product) ?>" method="post"
           data-product-id="<?php echo $_product->getId(); ?>"
           id="product_addtocart_form<?php echo $_product->getId(); ?>"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>

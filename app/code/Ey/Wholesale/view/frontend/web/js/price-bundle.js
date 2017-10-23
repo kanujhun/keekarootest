@@ -54,7 +54,7 @@ define([
         _create: function createPriceBundle() {
             var form = this.element,
                 options = $(form).find(this.options.productBundleSelector),
-                priceBox = $(form).find(this.options.priceBoxSelector),
+                // priceBox = $(form).find(this.options.priceBoxSelector),
                 qty = $(form).find(this.options.qtyFieldSelector);
 
             this._applyQtyFix();
@@ -65,7 +65,7 @@ define([
         },
 
         /**
-         *
+         * Apparently changes the "Subtotal" value when you change the qty boxes, I think.
          * @param optionConfig
          * @param changes
          * @private
@@ -99,21 +99,24 @@ define([
 
         /**
          * Handle change on bundle option inputs
+         * SUSPECT
          * @param {jQuery.Event} event
          * @private
          */
         _onBundleOptionChanged: function onBundleOptionChanged(event) {
             var changes,
                 bundleOption = $(event.target),
-                priceBox = $(this.element).find(this.options.priceBoxSelector),
+                // priceBox = $(this.element).find(this.options.priceBoxSelector),
                 handler = this.options.optionHandlers[bundleOption.data('role')];
 
             bundleOption.data('optionContainer', bundleOption.closest(this.options.controlContainer));
+            // Comment line below for qty 0, qty selected 4 for some reason, and subtotal 0.
             bundleOption.data('qtyField', bundleOption.data('optionContainer').find(this.options.qtyFieldSelector));
 
             if (handler && handler instanceof Function) {
                 changes = handler(bundleOption, window.optionConfig[this.element.data('product-id')], this);
             } else {
+                // Comment line below for qty 0, qty selected 4 for some reason, and subtotal 0.
                 changes = defaultGetOptionValue(bundleOption, window.optionConfig[this.element.data('product-id')]);
             }
             if (changes) {
@@ -185,8 +188,8 @@ define([
             options.filter('select').each(function (index, element) {
                 var $element = $(element),
                     optionId = utils.findOptionId($element),
-                    optionName = $element.prop('name'),
-                    optionType = $element.prop('type'),
+                    // optionName = $element.prop('name'),
+                    // optionType = $element.prop('type'),
                     optionConfig = config.optionConfig && config.optionConfig.options[optionId].selections;
 
                 $element.find('option').each(function (idx, option) {
@@ -241,6 +244,8 @@ define([
 
         /**
          * Handler to update productSummary box
+         * Seems to have something to do with the Qty Selected: number, but Subtotal and individual Qty boxes still
+         * update as normal.
          */
         updateProductSummary: function updateProductSummary() {
             this.element.trigger('updateProductSummary', {
@@ -286,7 +291,7 @@ define([
 
                 if (optionValue) {
                     optionQty = optionConfig[optionValue].qty || 0;
-                    canQtyCustomize = optionConfig[optionValue].customQty === '1';
+                    canQtyCustomize = 1;
                     toggleQtyField(qtyField, optionQty, optionId, optionValue, canQtyCustomize);
                     tempChanges = utils.deepClone(optionConfig[optionValue].prices);
                     tempChanges = applyTierPrice(tempChanges, optionQty, optionConfig[optionValue]);

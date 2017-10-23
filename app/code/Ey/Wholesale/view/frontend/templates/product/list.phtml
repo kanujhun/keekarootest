@@ -53,7 +53,7 @@ $showSku = true;
      */
     $pos = $block->getPositioned();
     ?>
-    <div class="products wrapper <?php /* @escapeNotVerified */ echo $viewMode; echo ' newcode '; ?> products-<?php /* @escapeNotVerified */ echo $viewMode; ?>">
+    <div class="products wrapper <?php /* @escapeNotVerified */ echo $viewMode; echo ' newcode-'.$categoryURL.' '; ?> products-<?php /* @escapeNotVerified */ echo $viewMode; ?>">
         <?php $iterator = 1; ?>
         <ol class="products list items product-items">
             <?php /** @var $_product \Ey\Product\Model\Product */ ?>

@@ -49,11 +49,11 @@ class addBundleListHandle implements ObserverInterface
             $viewMode = $this->_request->getParam(
                     \Magento\Catalog\Model\Product\ProductList\Toolbar::MODE_PARAM_NAME
                 );
-            if($viewMode && $viewMode == 'list'){
+//            if($viewMode && $viewMode == 'list'){
                 /** @var LayoutInterface $layout */
                 $layout = $observer->getData('layout');
                 $layout->getUpdate()->addHandle('catalog_category_bundle_list');
-            }
+//            }
         }
     }
 }

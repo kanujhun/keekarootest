@@ -33,12 +33,20 @@ $helper = $this->helper('Magento\Catalog\Helper\Output');
                 <span><?php /* @escapeNotVerified */ echo __('Customize %1', $helper->productAttribute($product, $product->getName(), 'name')) ?></span>
             </legend><br />
             <?php echo $block->getChildHtml('product_info_bundle_options_top');?>
+            <?php if (count($options) == 1):?>
+                <span class="single-option">
+            <?php endif; ?>
             <?php foreach ($options as $option): ?>
                 <?php if (!$option->getSelections()): ?>
                     <?php continue; ?>
                 <?php endif; ?>
-                <?php echo $block->getOptionHtml($option) ?>
+                <?php
+                    echo $block->getOptionHtml($option);
+                ?>
             <?php endforeach; ?>
+            <?php if (count($options) == 1):?>
+                </span>
+            <?php endif; ?>
         </fieldset>
     <?php else: ?>
         <p class="empty"><?php /* @escapeNotVerified */ echo __('No options of this product are available.') ?></p>
