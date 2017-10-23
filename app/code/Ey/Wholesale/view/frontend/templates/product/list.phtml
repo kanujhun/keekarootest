@@ -107,13 +107,14 @@ $showSku = true;
                                 <div class="sku"><?php echo $_product->getSku(); ?></div>
                             <?php endif; ?>
                         </div>
+                        <span style="display:none;"><?php echo $_product->getTypeId();?></span>
                         <?php if (
                             $this->helper('\Ey\Wholesale\Helper\Data')->isEnabled() === true &&
                             $viewMode == 'list' &&
                             $_product->getTypeId() == \Magento\Bundle\Model\Product\Type::TYPE_CODE
                         ): ?>
                             <?php $this->helper('\Ey\Wholesale\Helper\Data')
-                                ->setBundleProduct($_product); ?>
+                                ->setBundleProduct($_product);?>
                             <?php echo $this->getLayout()->createBlock('Magento\Catalog\Block\Product\View')
                                 ->setTemplate("Ey_Wholesale::product/view/form.phtml")->toHtml(); ?>
                         <?php else: ?>
