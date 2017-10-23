@@ -6164,7 +6164,7 @@ fieldset[disabled] .action-braintree-paypal-logo {
     line-height: 24px;
     font-family:"source sans pro", arial, sans-serif;
 }
-.product-info-main .product-info-price .price-box .price-container > span::before {
+.product-info-main .product-info-price .price-box .price-container > span:before {
     content: 'Price:';
     margin-right: 10px;
     color: #4a4a4a;
@@ -6172,6 +6172,11 @@ fieldset[disabled] .action-braintree-paypal-logo {
     font-weight:600;
     letter-spacing: -1px;
     font-family:"source sans pro", sans-serif;
+}
+.product-info-main .product-info-price .price-box .old-price .price-container > span:before {
+    content: '';
+    margin: 0;
+    display: none;
 }
 .product-info-main .product.alert {
     margin: 10px 0;
@@ -9488,6 +9493,16 @@ fieldset[disabled] .map-popup .popup-actions .action.close {
 .product-options-bottom .price-box .old-price .price-container > span,
 .product-info-price .price-box .old-price .price-container > span {
     display: inline;
+}
+.product-info-price .price-box .old-price .price-container > span {
+    color: #4a4a4a;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    font-family: 'source sans pro', sans-serif;
+}
+.product-info-price .price-box .old-price .price-container > span.price-label:after {
+    content:':';
 }
 .map-form-addtocart {
     display: inline-block;

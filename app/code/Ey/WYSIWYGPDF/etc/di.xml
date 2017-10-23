@@ -14,6 +14,7 @@
                     <item name="png" xsi:type="number">1</item>
                     <item name="gif" xsi:type="number">1</item>
                     <item name="pdf" xsi:type="number">1</item>
+                    <item name="zip" xsi:type="number">1</item>
                 </item>
                 <item name="image_allowed" xsi:type="array">
                     <item name="jpg" xsi:type="number">1</item>
@@ -29,6 +30,7 @@
                     <item name="rm" xsi:type="number">1</item>
                     <item name="wmv" xsi:type="number">1</item>
                     <item name="pdf" xsi:type="number">1</item>
+                    <item name="zip" xsi:type="number">1</item>
                 </item>
             </argument>
             <argument name="dirs" xsi:type="array">

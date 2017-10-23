@@ -11,20 +11,30 @@
         <referenceContainer name="product.info.stock.sku" remove="true"/>
         <referenceContainer name="product.info.extrahint" remove="true"/>
         <referenceBlock name="product.attributes" remove="true"/>
-        <move element="product.info.description" destination="product.info.details" after="product.info.features"/>
+        <referenceBlock name="product.info.description" remove="true"/>
+
         <referenceContainer name="content">
             <container name="product.usps" htmlTag="div" htmlClass="product-usps" after="product.info.media">
                 <block class="Magento\Framework\View\Element\Template" name="product.usps.content" template="Magento_Catalog::Ey/usps.phtml" />
             </container>
         </referenceContainer>
         <referenceBlock name="product.info.details">
-            <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.features" template="product/view/attribute.phtml" group="detailed_info" before="product.info.description">
+            <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.features" template="product/view/attribute.phtml" group="detailed_info" before="product.info.description2">
                 <arguments>
                     <argument name="at_call" xsi:type="string">getFeatures</argument>
                     <argument name="at_code" xsi:type="string">features</argument>
                     <argument name="css_class" xsi:type="string">features</argument>
                     <argument name="at_label" xsi:type="string">none</argument>
                     <argument name="title" translate="true" xsi:type="string">Features</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.description2" template="product/view/attribute.phtml" group="detailed_info" after="product.info.features">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getDescription</argument>
+                    <argument name="at_code" xsi:type="string">description</argument>
+                    <argument name="css_class" xsi:type="string">description</argument>
+                    <argument name="at_label" xsi:type="string">none</argument>
+                    <argument name="title" translate="true" xsi:type="string">Details</argument>
                 </arguments>
             </block>
             <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.infoarticles" template="product/view/attribute.phtml" group="detailed_info" after="product.info.description">
