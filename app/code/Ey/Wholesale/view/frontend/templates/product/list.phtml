@@ -107,9 +107,11 @@ $showSku = true;
                                 <div class="sku"><?php echo $_product->getSku(); ?></div>
                             <?php endif; ?>
                         </div>
-                        <span style="display:none;"><?php echo $_product->getTypeId();?></span>
+                        <span style="display:none;"><?php echo $_product->getTypeId();?>
+                            <?php echo $this->helper('\Ey\Wholesale\Helper\Data')->isEnabled(); echo gettype($this->helper('\Ey\Wholesale\Helper\Data')->isEnabled()); echo gettype($_product->getTypeId()); ?>
+                        </span>
                         <?php if (
-                            $this->helper('\Ey\Wholesale\Helper\Data')->isEnabled() === true &&
+                            $this->helper('\Ey\Wholesale\Helper\Data')->isEnabled() == true &&
                             $viewMode == 'list' &&
                             $_product->getTypeId() == \Magento\Bundle\Model\Product\Type::TYPE_CODE
                         ): ?>
