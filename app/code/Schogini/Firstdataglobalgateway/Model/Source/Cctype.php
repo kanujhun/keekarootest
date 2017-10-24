@@ -1,0 +1,2 @@
+<?php
+namespace Schogini\Firstdataglobalgateway\Model\Source; class Cctype extends \Magento\Payment\Model\Source\Cctype { public function toOptionArray() { $sp0e1e2a = array(array('value' => 'VI', 'label' => 'VISA'), array('value' => 'MC', 'label' => 'MasterCard'), array('value' => 'AE', 'label' => 'American Express'), array('value' => 'DI', 'label' => 'Discover'), array('value' => 'OT', 'label' => 'Others')); return $sp0e1e2a; } }

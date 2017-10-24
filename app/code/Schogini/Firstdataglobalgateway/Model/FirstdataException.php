@@ -1,0 +1,2 @@
+<?php
+namespace Schogini\Firstdataglobalgateway\Model; class FirstdataException extends \Magento\Framework\Exception\LocalizedException { const AUTHENTICATION_ERROR = 'An authentication error occurred.'; }
