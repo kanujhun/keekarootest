@@ -88,13 +88,13 @@ $showSku = true;
                             $_productNameStripped = $block->stripTags($_product->getName(), null, true);
                             ?>
                             <strong class="product name product-item-name">
-                                <a class="product-item-link"
-                                   href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>"
+                                <div class="product-item-link"
+                                   
                                    title="<?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product,
                                        $_product->getName(), 'name'); ?>">
                                     <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product,
                                         $_product->getName(), 'name', 60); ?>
-                                </a>
+                                </div>
                             </strong>
                             <div class="product-short-description">
                                 <?php echo $_product->getData('short_description'); ?>
@@ -116,7 +116,7 @@ $showSku = true;
                             ?>
                         </span>
                         <?php if (
-                            $this->helper('\Ey\Wholesale\Helper\Data')->isEnabled() == true &&
+//                            $this->helper('\Ey\Wholesale\Helper\Data')->isEnabled() == true &&
                             $viewMode == 'list' &&
 //                            $_product->getTypeId() == \Magento\Bundle\Model\Product\Type::TYPE_CODE
                             $_product->getTypeId() == 'bundle'

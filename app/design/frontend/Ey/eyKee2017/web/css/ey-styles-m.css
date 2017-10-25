@@ -1527,7 +1527,7 @@ fieldset[disabled] .form.send.friend .action.remove {
 .category-quick-order.page-products .columns {
     padding-top: 0;
 }
-.category-quick-order .product.name a {
+.category-quick-order .product.name .product-item-link {
     font-size:18px;
     font-weight: bold;
     font-family: 'quicksand', sans-serif;

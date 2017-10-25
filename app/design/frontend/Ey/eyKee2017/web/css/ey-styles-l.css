@@ -1562,6 +1562,16 @@
     .product-social-links {
         text-align: left;
     }
+    .page-product-configurable .product-info-main .product-info-price .price-box,
+    .page-product-simple .product-info-main .product-info-price .price-box {
+        display: flex;
+        width: 100%;
+        flex-direction:column;
+    }
+    .page-product-configurable .product-info-main .product-info-price .price-box .special-price,
+    .page-product-simple .product-info-main .product-info-price .price-box .special-price {
+        order:1;
+    }
     .product-options-bottom .price-box .price-container,
     .product-info-price .price-box .price-container {
         font-size: 21px;
