@@ -636,7 +636,7 @@
     .page-layout-2columns-left .sidebar-main,
     .category-quick-order .sidebar-main,
     .category-replacement-parts .sidebar-main{
-        width: 20.83333333%;
+        width: 16.83333333%;
         float: left;
         -ms-flex-order: 1;
         -webkit-order: 1;
@@ -666,7 +666,7 @@
     }
     .page-layout-2columns-left .sidebar-additional,
     .category-quick-order .sidebar-additional,
-    .category-replacement-parts .sidebar-additional{
+    .category-replacement-parts .sidebar-additional {
         width: 16.83333333%;
         float: right;
         -ms-flex-order: 2;
@@ -1697,6 +1697,7 @@
     .category-quick-order .toolbar-products,
     .category-replacement-parts .toolbar-products{
         padding: 0 20px;
+        margin-top: 0;
     }
     .category-quick-order .products-list .product-item-photo,
     .category-replacement-parts .products-list .product-item-photo{

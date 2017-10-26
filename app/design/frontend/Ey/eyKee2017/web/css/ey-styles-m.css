@@ -5823,6 +5823,7 @@ fieldset[disabled] .action-braintree-paypal-logo {
 .toolbar-products {
     background-color: #ebebeb;
     padding: 15px;
+    margin-top: 70px;
 }
 .toolbar-products .pages {
     display: none;
@@ -9217,18 +9218,23 @@ fieldset[disabled] .opc-estimated-wrapper .minicart-wrapper button.action.showca
     margin-bottom: 0;
 }
 .filter-title strong {
-    background-color: #f0f0f0;
-    box-shadow: inset 0 1px 0 0 #ffffff, inset 0 -1px 0 0 rgba(204, 204, 204, 0.3);
-    border: 1px solid #cccccc;
-    border-radius: 3px;
-    font-weight: 400;
+    background-color: #455f6a;
+    box-shadow: none;
+    border: 2px solid #455f6a;
+    border-radius: 10px;
+    font-weight: 700;
     left: 0;
     line-height: 16px;
-    padding: 7px 10px;
+    padding: 15px 10px;
     position: absolute;
     text-align: center;
     top: 0;
     z-index: 2;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: white;
 }
 .filter-title strong[data-count]:after {
     color: #ffffff;
