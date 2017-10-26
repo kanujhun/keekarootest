@@ -21,7 +21,9 @@
     <?php
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-    if($customerSession->isLoggedIn() && $customerSession->getCustomer()->getGroupId() == 2) { ?>
+    $_clearGroups = array(2, 4, 5, 6);
+    echo '<span style="display:none">'.$customerSession->getCustomer()->getGroupId().'</span>';
+    if($customerSession->isLoggedIn() && in_array($customerSession->getCustomer()->getGroupId(), $_clearGroups)) { ?>
         <ul class="logged" data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
             <li><a href="/high-chairs.html">High Chairs</a></li>
             <li><a href="/kids-chairs.html">Kids Chairs</a></li>
@@ -39,7 +41,7 @@
             <li><a href="/high-chairs.html">High Chairs</a></li>
             <li><a href="/kids-chairs.html">Kids Chairs</a></li>
             <li><a href="/booster.html">Booster</a></li>
-            <li><a href="/peanut-quick-order.html">Diaper Pad</a></li>
+            <li><a href="/peanut-changer.html">Diaper Pad</a></li>
             <li><a href="/infant-sleeper.html">Infant Sleeper</a></li>
         </ul>
     <?php } ?>
