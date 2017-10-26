@@ -32,12 +32,12 @@ $showSku = true;
     <?php
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $categoryURL = $objectManager->get('Magento\Framework\Registry')->registry('current_category')->getData('url_key');
-    if ($block->getMode() == 'grid' && $categoryURL != 'bags' && $categoryURL != 'quick-order' && $categoryURL != 'peanut-quick-order') {
+    if ($block->getMode() == 'grid' && $categoryURL != 'replacement-parts' && $categoryURL != 'quick-order' && $categoryURL != 'peanut-quick-order') {
         $viewMode = 'grid';
         $image = 'category_page_grid';
         $showDescription = false;
         $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
-    } else if ($categoryURL == 'quick-order' || $categoryURL == 'bags' || $categoryURL != 'peanut-quick-order') {
+    } else if ($categoryURL == 'quick-order' || $categoryURL == 'replacement-parts' || $categoryURL != 'peanut-quick-order') {
         $viewMode = 'list';
         $image = 'category_page_list';
         $showDescription = true;
@@ -89,7 +89,7 @@ $showSku = true;
                             ?>
                             <strong class="product name product-item-name">
                                 <div class="product-item-link"
-                                   
+
                                    title="<?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product,
                                        $_product->getName(), 'name'); ?>">
                                     <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product,

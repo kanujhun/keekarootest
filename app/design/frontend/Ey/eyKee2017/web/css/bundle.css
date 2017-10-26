@@ -1,4 +1,5 @@
-.category-quick-order .pricelabel {
+.category-quick-order .pricelabel,
+.category-replacement-parts .pricelabel{
     display: none;
 }
 .page-product-bundle .product-info-main.first {
@@ -253,7 +254,8 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
     font-weight: 400;
 }
 
-.category-quick-order .list.products-list .fieldset.fieldset-bundle-options > .field > .label {
+.category-quick-order .list.products-list .fieldset.fieldset-bundle-options > .field > .label,
+.category-replacement-parts .list.products-list .fieldset.fieldset-bundle-options > .field > .label{
     font-weight:bold;
     font-family:'quicksand', sans-serif;
     font-size: 16px;
@@ -275,7 +277,8 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
     /*max-width: 160px;*/
     padding-top: 10px;
 }
-.category-quick-order .list.products-list .fieldset.fieldset-bundle-options {
+.category-quick-order .list.products-list .fieldset.fieldset-bundle-options,
+.category-replacement-parts .list.products-list .fieldset.fieldset-bundle-options{
     -webkit-column-count: 2;
     -moz-column-count: 2;
     column-count: 2;
@@ -385,10 +388,12 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
 .list.products-list .bundle-options-container .block-bundle-summary {
     padding-left: 0;
 }
-.category-quick-order .product-item-details .sku {
+.category-quick-order .product-item-details .sku,
+.category-replacement-parts .product-item-details .sku{
     display: none;
 }
-.category-quick-order .bundle-options-container .option .control {
+.category-quick-order .bundle-options-container .option .control,
+.category-replacement-parts .bundle-options-container .option .control{
     float: right;
 }
 @media only screen and (min-width: 1201px) {
@@ -406,7 +411,8 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
         margin: 0;
         padding: 0;
     }
-    .category-quick-order .list.products-list .product-add-form {
+    .category-quick-order .list.products-list .product-add-form,
+    .category-replacement-parts .list.products-list .product-add-form{
         width: 74%;
         margin-right: 0;
         max-width: 74%;
@@ -416,7 +422,8 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
         box-sizing: border-box;
         margin-top: 0;
     }
-    .category-quick-order .left-wrapper {
+    .category-quick-order .left-wrapper,
+    .category-replacement-parts .left-wrapper{
         width: 26%;
         float: left;
     }
@@ -424,20 +431,24 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
         clear: none;
         margin-bottom: 0;
     }
-    .category-quick-order .product-item-name, .category-quick-order .product-item .price-box {
+    .category-quick-order .product-item-name, .category-quick-order .product-item .price-box,
+    .category-replacement-parts .product-item-name, .category-replacement-parts .product-item .price-box{
         width: 100%;
     }
-    .category-quick-order .list.products-list .bundle-options-container .block-bundle-summary {
+    .category-quick-order .list.products-list .bundle-options-container .block-bundle-summary,
+    .category-replacement-parts .list.products-list .bundle-options-container .block-bundle-summary{
         width: 33%;
         float: left;
         padding-left: 10px;
     }
-    .category-quick-order .list.products-list .fieldset.fieldset-bundle-options {
+    .category-quick-order .list.products-list .fieldset.fieldset-bundle-options,
+    .category-replacement-parts .list.products-list .fieldset.fieldset-bundle-options{
         width: 67%;
         float: left;
         padding: 0;
     }
-    .category-quick-order .list.products-list .bundle-options-container .fieldset > .field {
+    .category-quick-order .list.products-list .bundle-options-container .fieldset > .field,
+    .category-replacement-parts .list.products-list .bundle-options-container .fieldset > .field{
         clear: none;
         margin-bottom:5px;
         width: 50%;
@@ -447,11 +458,13 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
         -moz-box-sizing: border-box;
         box-sizing: border-box;
     }
-    .category-quick-order .list.products-list .bundle-options-container .block-bundle-summary .box-tocart .action.primary {
+    .category-quick-order .list.products-list .bundle-options-container .block-bundle-summary .box-tocart .action.primary,
+    .category-replacement-parts .list.products-list .bundle-options-container .block-bundle-summary .box-tocart .action.primary{
         font-size:18px;
         height: 40px;
     }
-    .category-quick-order .list.products-list .fieldset.fieldset-bundle-options {
+    .category-quick-order .list.products-list .fieldset.fieldset-bundle-options,
+    .category-replacement-parts .list.products-list .fieldset.fieldset-bundle-options{
         -webkit-column-count: 1;
         -moz-column-count: 1;
         column-count: 1;

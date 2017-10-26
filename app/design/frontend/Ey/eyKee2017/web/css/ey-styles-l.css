@@ -551,7 +551,8 @@
     .catalog-category-view .page-main {
         max-width: 100%;
     }
-    .catalog-category-view.category-quick-order .page-main {
+    .catalog-category-view.category-quick-order .page-main,
+    .catalog-category-view.category-replacement-parts .page-main{
         max-width: 1200px;
         margin: 0 auto;
     }
@@ -606,7 +607,9 @@
         -webkit-order: 2;
         order: 2;
     }
-    .page-layout-2columns-left .column.main, .category-quick-order .column.main {
+    .page-layout-2columns-left .column.main,
+    .category-quick-order .column.main,
+    .category-replacement-parts .column.main{
         width: 83.16666667%;
         float: right;
         -ms-flex-order: 2;
@@ -630,7 +633,9 @@
         -webkit-order: 1;
         order: 1;
     }
-    .page-layout-2columns-left .sidebar-main, .category-quick-order .sidebar-main {
+    .page-layout-2columns-left .sidebar-main,
+    .category-quick-order .sidebar-main,
+    .category-replacement-parts .sidebar-main{
         width: 20.83333333%;
         float: left;
         -ms-flex-order: 1;
@@ -659,7 +664,9 @@
         -webkit-order: 3;
         order: 3;
     }
-    .page-layout-2columns-left .sidebar-additional, .category-quick-order .sidebar-additional {
+    .page-layout-2columns-left .sidebar-additional,
+    .category-quick-order .sidebar-additional,
+    .category-replacement-parts .sidebar-additional{
         width: 16.83333333%;
         float: right;
         -ms-flex-order: 2;
@@ -673,7 +680,9 @@
         -webkit-order: 2;
         order: 2;
     }
-    .page-layout-2columns-left .sidebar-additional, .category-quick-order .sidebar-additional {
+    .page-layout-2columns-left .sidebar-additional,
+    .category-quick-order .sidebar-additional,
+    .category-replacement-parts .sidebar-additional {
         clear: left;
         float: left;
         padding-left: 0;
@@ -1434,16 +1443,19 @@
         float: left;
         margin-right: 20px;
     }
-    .category-quick-order .modes, .category-quick-order .toolbar-amount {
+    .category-quick-order .modes, .category-quick-order .toolbar-amount,
+    .category-replacement-parts .modes, .category-replacement-parts .toolbar-amount {
         display: none;
     }
     .bundle-info .price-wrapper[data-price-type="finalPrice"] .price:before {
         font-size:12px !important;
     }
-    .category-quick-order .total-qty label {
+    .category-quick-order .total-qty label,
+    .category-replacement-parts .total-qty label{
         font-size: 12px;
     }
-    .category-quick-order .pages > .label {
+    .category-quick-order .pages > .label,
+    .category-replacement-parts .pages > .label{
         display: inline-block;
         clip: unset;
         height: 30px;
@@ -1460,22 +1472,26 @@
         display: inline-block;
         margin-left: 10px;
     }
-    .category-quick-order.page-products .toolbar .limiter {
+    .category-quick-order.page-products .toolbar .limiter,
+    .category-replacement-parts.page-products .toolbar .limiter{
         float: left;
         display: block;
         margin: 10px 0;
     }
-    .category-quick-order.page-products .toolbar .limiter > span {
+    .category-quick-order.page-products .toolbar .limiter > span,
+    .category-replacement-parts.page-products .toolbar .limiter > span{
         display: none;
     }
-    .category-quick-order.page-products .sorter {
+    .category-quick-order.page-products .sorter,
+    .category-replacement-parts.page-products .sorter{
         float: left;
         margin: 10px 0;
     }
     .products.wrapper ~ .toolbar .modes {
         display: none;
     }
-    .category-quick-order .toolbar .pages {
+    .category-quick-order .toolbar .pages,
+    .category-replacement-parts .toolbar .pages{
         display: block;
         float: right;
         margin: 10px 0;
@@ -1678,10 +1694,12 @@
     .catalog-category-view.page-layout-1column .product-image-container {
         width: 240px !important;
     }
-    .category-quick-order .toolbar-products {
+    .category-quick-order .toolbar-products,
+    .category-replacement-parts .toolbar-products{
         padding: 0 20px;
     }
-    .category-quick-order .products-list .product-item-photo {
+    .category-quick-order .products-list .product-item-photo,
+    .category-replacement-parts .products-list .product-item-photo{
         width: 17%;
         padding-right: 10px;
         padding-bottom: 0;
@@ -3340,14 +3358,16 @@
         border-bottom: 0;
         font-size:30px;
     }
-    .category-quick-order .page-main > .page-title-wrapper .page-title {
+    .category-quick-order .page-main > .page-title-wrapper .page-title,
+    .category-replacement-parts .page-main > .page-title-wrapper .page-title{
         display: block;
         text-align:center;
         width: 100%;
         font-size: 48px;
         margin-bottom: 20px;
     }
-    .category-quick-order .category-description {
+    .category-quick-order .category-description,
+    .category-replacement-parts .category-description{
         text-align: center;
         margin: 0 auto 40px;
         max-width: 980px;

@@ -1513,32 +1513,38 @@ fieldset[disabled] .form.send.friend .action.remove {
 .product.name a {
     font-weight: 400;
 }
-.category-quick-order .page-title-wrapper h1 {
+.category-quick-order.category-quick-order .page-title-wrapper h1,
+.category-replacement-parts .page-title-wrapper h1{
     font-size:40px;
     font-weight: bold;
     text-align: center;
     font-family: 'quicksand', sans-serif;
 }
-.category-quick-order .category-description {
+.category-quick-order .category-description,
+.category-replacement-parts .category-description{
     font-size: 18px;
     color: #3b3b3b;
     line-height: 24px;
 }
-.category-quick-order.page-products .columns {
+.category-quick-order.page-products .columns,
+.category-replacement-parts.page-products .columns{
     padding-top: 0;
 }
-.category-quick-order .product.name .product-item-link {
+.category-quick-order .product.name .product-item-link,
+.category-replacement-parts .product.name .product-item-link{
     font-size:18px;
     font-weight: bold;
     font-family: 'quicksand', sans-serif;
     color: #679db3;
 }
-.category-quick-order .product-item .price-box .price {
+.category-quick-order .product-item .price-box .price,
+.category-replacement-parts .product-item .price-box .price{
     font-size: 18px;
     color: #5c5c5c;
     font-weight: bold;
 }
-.category-quick-order .product-item .product-item-info .left-wrapper .price:after {
+.category-quick-order .product-item .product-item-info .left-wrapper .price:after,
+.category-replacement-parts .product-item .product-item-info .left-wrapper .price:after{
     content:'/ea.';
     margin-left: 5px;
 }
@@ -5348,7 +5354,8 @@ fieldset[disabled] .action-braintree-paypal-logo {
     clear: both;
     margin-bottom: 40px;
 }
-.category-quick-order .bundle-options-container {
+.category-quick-order .bundle-options-container,
+.category-replacement-parts .bundle-options-container{
     margin-bottom: 0;
 }
 .bundle-options-container .legend.title {
@@ -5709,7 +5716,8 @@ fieldset[disabled] .action-braintree-paypal-logo {
 .column.main .product-items {
     margin-left: -20px;
 }
-.category-quick-order .column.main .product-items{
+.category-quick-order .column.main .product-items,
+.category-replacement-parts .column.main .product-items{
     margin-left: 0;
 }
 .category-fitness-equipment .column.main .product-items {
@@ -5718,13 +5726,16 @@ fieldset[disabled] .action-braintree-paypal-logo {
 .column.main .product-item {
     padding-left: 20px;
 }
-.category-quick-order .column.main .product-item:nth-child(2n+1) {
+.category-quick-order .column.main .product-item:nth-child(2n+1),
+.category-replacement-parts .column.main .product-item:nth-child(2n+1){
     background-color: #f7fcfe;
 }
-.category-quick-order .column.main .product-item:last-child {
+.category-quick-order .column.main .product-item:last-child,
+.category-replacement-parts .column.main .product-item:last-child{
     border-bottom: 1px solid #b7b7b7;
 }
-.category-quick-order .column.main .product-item {
+.category-quick-order .column.main .product-item,
+.category-replacement-parts .column.main .product-item{
     border-top: 1px solid #b7b7b7;
     padding: 20px;
 }
@@ -5759,7 +5770,8 @@ fieldset[disabled] .action-braintree-paypal-logo {
 .products-list .product-item-info {
     display: table-row;
 }
-.category-quick-order .products-list .product-item-info {
+.category-quick-order .products-list .product-item-info,
+.category-replacement-parts .products-list .product-item-info{
     position: relative;
 }
 .products-list .product-item-photo {
@@ -12953,17 +12965,20 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
         padding: 0 10px 10px 0;
         width: 30%;
     }
-    .category-quick-order .products-list .product-item-photo {
+    .category-quick-order .products-list .product-item-photo,
+    .category-replacement-parts .products-list .product-item-photo{
         padding: 0;
         width: 100px;
         position: absolute;
         left: 0;
         top: 0;
     }
-    .category-quick-order .products-list .product-item-details {
+    .category-quick-order .products-list .product-item-details,
+    .category-replacement-parts .products-list .product-item-details{
         width: 100%;
     }
-    .category-quick-order .left-wrapper {
+    .category-quick-order .left-wrapper,
+    .category-replacement-parts .left-wrapper{
         margin-left: 120px;
         min-height: 130px;
     }
