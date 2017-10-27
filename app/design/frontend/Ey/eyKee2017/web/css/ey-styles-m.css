@@ -6129,8 +6129,10 @@ fieldset[disabled] .action-braintree-paypal-logo {
     line-height: 22px;
 }
 .product-info-main .product-info-price .old-price .price-wrapper .price {
-    font-size: 2rem;
-    font-weight: 300;
+    font-size: 20px;
+    font-weight: 600;
+    color: #4a4a4a;
+    text-decoration: line-through;
 }
 .product-info-main .product-info-price .special-price .price-label:after {
     content: ': ';
