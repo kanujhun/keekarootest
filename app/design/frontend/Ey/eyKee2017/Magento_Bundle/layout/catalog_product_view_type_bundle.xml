@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="css/bundle.css" type="text/css"/>
+    </head>
+    <body>
+        <referenceContainer name="product.info.main">
+            <!--<block class="Ey\MageCore\Block\Page\Html" name="product.bundle.minimum" before="customize_button">-->
+                <!--<arguments>-->
+                    <!--<argument name="css_class" xsi:type="string">bundle_min_order</argument>-->
+                    <!--<argument name="xml_path" xsi:type="string">ey_product/bundle/minimum_order</argument>-->
+                <!--</arguments>-->
+            <!--</block>-->
+        </referenceContainer>
+        <referenceBlock name="product.info.upsell">
+            <arguments>
+                <argument name="title" xsi:type="string">Related Items</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

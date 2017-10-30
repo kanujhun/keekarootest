@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright 2017 EY Studios. All rights reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="https://fonts.googleapis.com/css?family=Quicksand:400,500,700" rel="stylesheet" src_type="url" type="text/css"/>
+        <link src="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" src_type="url" type="text/css"/>
+        <link src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" src_type="url" type="text/css"/>
+        <css src="css/ey-styles-m.css"/>
+        <css src="css/ey-styles-l.css" media="screen and (min-width:980px)"/>
+        <remove src="css/styles-m.css"/>
+        <remove src="css/styles-l.css"/>
+        <link src="js/owlcarousel.js"/>
+        <css src="css/owl.carousel.css"/>
+        <css src="css/owl.carousel.min.css"/>
+    </head>
+    <body>
+        <move element="header.links" destination="header-wrapper" after="minicart"/>
+        <referenceContainer name="header.panel" remove="true"/>
+        <referenceContainer name="footer_links" remove="true"/>
+        <referenceContainer name="header-wrapper">
+            <container name="header-tagline" htmlTag="div" htmlClass="header-tagline" after="logo">
+                <block class="Magento\Cms\Block\Block" name="header-tagline-block">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">header-tagline</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="header-questions" htmlTag="div" htmlClass="header-questions">
+                <block class="Magento\Cms\Block\Block" name="header-questions-block">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">header-questions</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="footer">
+            <container name="footer-contact-wrapper" htmlTag="div" htmlClass="footer-contact-wrapper">
+                <block class="Magento\Cms\Block\Block" name="footer-contact">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-contact</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer-retailers-wrapper" htmlTag="div" htmlClass="footer-retailers-wrapper collapse">
+                <block class="Magento\Cms\Block\Block" name="footer-retailers">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-retailers</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer-company-wrapper" htmlTag="div" htmlClass="footer-company-wrapper collapse">
+                <block class="Magento\Cms\Block\Block" name="footer-company">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-company</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer-supporter-wrapper" htmlTag="div" htmlClass="footer-supporter-wrapper collapse">
+                <block class="Magento\Cms\Block\Block" name="footer-support">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-support</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer-customer-wrapper" htmlTag="div" htmlClass="footer-customer-wrapper">
+                <block class="Magento\Cms\Block\Block" name="footer-customer">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-customer</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

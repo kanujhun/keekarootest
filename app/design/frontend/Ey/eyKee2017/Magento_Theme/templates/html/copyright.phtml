@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<small class="copyright">
+    <img src="<?php echo $this->getViewFileUrl('images/footer-bbb.png');?>" alt="BBB Accredited Business"/>
+    <p><span>Copyright &copy; 2017 Bergeron By Design.</span>
+        <span>Site design by <a href="https://www.eystudios.com" target="_blank">EYStudios</a>.</span>
+        <span>All Rights Reserved.</span></p>
+</small>
+<script type="text/javascript">
+    require(["jquery","jquery/ui"],function($){
+        $('.block-search .block-title').click(function(){
+            $('.block-search .block-content').toggle();
+            $(this).toggleClass('soHotRightNow');
+        });
+        $('.header-login-container .icon').click(function(){
+            $('.header-login-container .header.links').slideToggle();
+            $(this).toggleClass('soHotRightNow');
+        });
+        $('.footer.content .collapse h4').click(function(){
+            if($(window).width() <= 980) {
+                $(this).next('ul').slideToggle();
+                $(this).toggleClass('soHotRightNow');
+            }
+        });
+    });
+</script>
