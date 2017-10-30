@@ -120,4 +120,5 @@ php.ini
 ## Documentation
 For more details, see our [Magento Enterprise Cloud Guide](http://devdocs.magento.com/guides/v2.1/cloud/bk-cloud.html). 
 
-Get started [here](http://devdocs.magento.com/guides/v2.1/cloud/before/before.html).
+Get started [here](http://devdocs.magento.com/guides/v2.1/cloud/before/before.html)
+.
