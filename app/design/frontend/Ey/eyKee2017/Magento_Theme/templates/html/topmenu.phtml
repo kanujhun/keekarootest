@@ -21,9 +21,9 @@
     <?php
     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
     $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-    $_clearGroups = array(2, 4, 5, 6, 7, 8);
-    echo '<span style="display:none">'.$customerSession->getCustomerGroupId().'</span>';
-    if ($customerSession->isLoggedIn() && in_array($customerSession->getCustomerGroupId(), $_clearGroups)){ ?>
+    $_clearGroups = array(4, 5, 6, 7, 8);
+    echo '<span style="display:none">'.$customerSession->getCustomer()->getData('group_id').'</span>';
+    if ($customerSession->isLoggedIn() && in_array($customerSession->getCustomer()->getData('group_id'), $_clearGroups)){ ?>
         <ul class="logged" data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
             <li><a href="/high-chairs.html">High Chairs</a></li>
             <li><a href="/kids-chairs.html">Kids Chairs</a></li>
