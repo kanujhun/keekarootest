@@ -17,8 +17,8 @@
 <?php
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-$_clearGroups = array(4, 5, 6, 7, 8);
-if ($customerSession->isLoggedIn() && in_array($customerSession->getCustomer()->getData('group_id'), $_clearGroups)): ?>
+$_clearGroups = array(2, 4, 5, 6, 7, 8);
+if ($customerSession->isLoggedIn() && in_array($customerSession->getCustomerGroupId(), $_clearGroups)): ?>
 <div class="product-add-form">
     <form action="<?php /* @escapeNotVerified */ echo $block->getSubmitUrl($_product) ?>" method="post"
           id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>

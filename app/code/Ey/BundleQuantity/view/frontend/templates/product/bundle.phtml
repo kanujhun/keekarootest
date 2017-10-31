@@ -1,0 +1,67 @@
+<?php /** @var $block \Ey\BundleQuantity\Block\Product\Bundle */ ?>
+
+<?php $_item = $block->getQuoteItem(); ?>
+
+<div id="bundle-edit-qty-wrapper">
+    <?php if($_item && $_item->getItemId()): ?>
+        <form action="<?php echo $this->helper('\Ey\BundleQuantity\Helper\Data')->getSubmitUrl(); ?>"
+              id="bundle-edit-qty-form"
+              method="post">
+            <input type="hidden" name="product" value="<?php echo $_item->getProduct()->getId(); ?>">
+            <input type="hidden" name="item_id" value="<?php echo $_item->getId(); ?>">
+            <div id="bundle-edit-qty">
+                <div class="bundle-edit-qty-title">
+                    <?php echo $_item->getName(); ?>
+                </div>
+                <div class="bundle-edit-qty-qty">
+                    <span class="label">Bundle Quantity: </span>
+                    <span class="value"><?php echo $_item->getQty(); ?></span>
+                    <input type="hidden" name="qty" value="<?php echo $_item->getQty(); ?>">
+                </div>
+                <div class="bundle-qty-options">
+                    <?php $options = $block->getBundleOptions(); ?>
+                    <?php foreach ($options as $option): ?>
+                        <div class="bundle-qty-option">
+                            <div class="bundle-qty-option-details">
+                                <span class="bundle-qty-option-title">
+                                    <?php echo $option['label']; ?>:
+                                </span>
+                                <?php foreach ($option['products'] as $product): ?>
+                                    <span class="bundle-qty-option-product">
+                                        <span class="bundle-qty-option-name"><?php echo $product['name']; ?></span>
+                                        <span class="bundle-qty-option-price">$<?php echo $product['price']; ?></span>
+                                    </span>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php foreach ($option['products'] as $product): ?>
+                                <div class="bundle-qty-option-qty"
+                                     data-product-id="<?php echo $product['id']; ?>">
+                                    <input type="text" name="bundle_option_qty[<?php echo $option['option_id']; ?>]"
+                                           class="input-text qty"
+                                           data-validate="{'required-number':true,digits:true,'validate-greater-than-zero':true}"
+                                           value="<?php echo $product['qty']; ?>">
+                                    <input type="hidden" name="bundle_option[<?php echo $option['option_id']; ?>]"
+                                           value="<?php echo $product['selection_id']; ?>">
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="bundle-qty-actions">
+                    <button class="action primary">
+                        <span>Update</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <script type="text/x-magento-init">
+            {
+               "#bundle-edit-qty-form": {
+                    "Ey_BundleQuantity/js/bundle_quantity_popup": {
+                        "config": {}
+                    }
+               }
+            }
+</script>
+    <?php endif; ?>
+</div>
