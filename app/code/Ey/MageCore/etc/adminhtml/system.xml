@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/system_file.xsd">
+    <system>
+        <!-- for add new tab in Magento2 system configuration section -->
+        <tab id="ey_settings" translate="label" sortOrder="1">
+            <label>EY Settings</label>
+        </tab>
+        <!-- for create section -->
+        <section id="ey_general" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>General</label>
+            <tab>ey_settings</tab>
+            <resource>Ey_MageCore::configuration</resource>
+            <group id="global" translate="label" type="text" sortOrder="5" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Global</label>
+                <field id="facebook" translate="label" sortOrder="1" type="text" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Facebook</label>
+                </field>
+                <field id="twitter" translate="label" sortOrder="2" type="text" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Twitter</label>
+                </field>
+                <field id="pinterest" translate="label" sortOrder="3" type="text" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Pinterest</label>
+                </field>
+                <field id="google" translate="label" sortOrder="4" type="text" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Google Plus</label>
+                </field>
+                <field id="instagram" translate="label" sortOrder="5" type="text" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Instagram</label>
+                </field>
+            </group>
+        </section>
+        <section id="ey_siteframe" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Siteframe</label>
+            <tab>ey_settings</tab>
+            <resource>Ey_MageCore::configuration</resource>
+            <group id="header" translate="label" type="text" sortOrder="1" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Header</label>
+                <field id="top_menu" translate="label" sortOrder="1" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Top Menu Block</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+                <field id="header_utility_links" translate="label" sortOrder="2" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Header Utility Links Block</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+                <field id="mobile_links" translate="label" sortOrder="3" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Mobile Links Block</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+            </group>
+            <group id="footer" translate="label" type="text" sortOrder="2" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Footer</label>
+                <field id="block" translate="label" sortOrder="1" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Footer Block</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+                <field id="absolute_footer" translate="label" sortOrder="2" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Absolute Footer Block</label>
+                    <comment>This will be displayed just before body closing tag.</comment>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="ey_checkout" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Cart / Checkout</label>
+            <tab>ey_settings</tab>
+            <resource>Ey_MageCore::configuration</resource>
+            <group id="siteframe" translate="label" type="text" sortOrder="1" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Siteframe</label>
+                <field id="header" translate="label" sortOrder="1" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Header Block</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+                <field id="footer" translate="label" sortOrder="2" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Footer Block</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+            </group>
+            <group id="cart" translate="label" type="text" sortOrder="10" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Cart</label>
+                <field id="trust" translate="label" sortOrder="10" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Trust Block</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+                <field id="bbb" translate="label" sortOrder="30" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>BBB Block</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="ey_contact" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Contact</label>
+            <tab>ey_settings</tab>
+            <resource>Ey_MageCore::configuration</resource>
+            <group id="index" translate="label" type="text" sortOrder="1" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Contact</label>
+                <field id="faq" translate="label" sortOrder="10" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>FAQ Block</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="ey_product" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Product Page</label>
+            <tab>ey_settings</tab>
+            <resource>Ey_MageCore::configuration</resource>
+            <group id="bundle" translate="label" type="text" sortOrder="20" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Bundle Product Type</label>
+                <field id="minimum_order" translate="label" sortOrder="10" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Minimum Order Requirement</label>
+                    <source_model>Ey\MageCore\Model\Config\Source\Block</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="general" >
+            <group id="store_information">
+                <label>Bundle Product Type</label>
+                <field id="fax" translate="label" sortOrder="120" type="text" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Fax</label>
+                </field>
+                <field id="local_phone" translate="label" sortOrder="100" type="text" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Local Phone</label>
+                </field>
+                <field id="outlet_hours" translate="label" sortOrder="150" type="textarea" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Outlet Hours</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

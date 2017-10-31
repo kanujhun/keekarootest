@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Observer\MenuCategoryData">
+        <plugin name="top_menu_html" type="Ey\MageCore\Observer\beforeTopmenuHtml" sortOrder="1"
+                disabled="false" />
+    </type>
+    <preference for="Magento\Catalog\Model\ResourceModel\Category\Tree"
+                type="Ey\MageCore\Model\Catalog\Resource\Category\Tree" />
+    <preference for="Magento\Contact\Controller\Index\Post"
+                type="Ey\MageCore\Controller\Contact\Post" />
+    <preference for="Magento\Catalog\Helper\Output"
+                type="Ey\MageCore\Helper\Catalog\Output" />
+</config>
