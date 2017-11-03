@@ -18,25 +18,18 @@
 <?php $_menu = $block->getHtml('level-top', 'submenu', $columnsLimit) ?>
 
 <nav class="navigation" data-action="navigation">
-    <?php
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-    $_clearGroups = array(2, 4, 5, 6, 7, 8);
-    echo '<span style="display:none">'.$customerSession->getCustomerGroupId().'</span>';
-    if ($customerSession->isLoggedIn() && in_array($customerSession->getCustomerGroupId(), $_clearGroups)){ ?>
-        <ul class="logged" data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+        <ul style="display:none;" class="logged" data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
             <li><a href="/high-chairs.html">High Chairs</a></li>
             <li><a href="/kids-chairs.html">Kids Chairs</a></li>
             <li><a href="/booster.html">Booster</a></li>
             <li><a href="/peanut-quick-order.html">Diaper Pad</a></li>
             <li><a href="/infant-sleeper.html">Infant Sleeper</a></li>
         </ul>
-        <ul class="wholesale">
+        <ul style="display:none;" class="wholesale">
             <li><a href="/training">Training</a></li>
             <li><a href="/quick-order.html">Quick Order</a></li>
             <li><a href="/downloads.html">Downloads</a></li>
         </ul>
-    <?php } else { ?>
         <ul class="unlogged" data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
             <li><a href="/high-chairs.html">High Chairs</a></li>
             <li><a href="/kids-chairs.html">Kids Chairs</a></li>
@@ -44,5 +37,30 @@
             <li><a href="/peanut-changer.html">Diaper Pad</a></li>
             <li><a href="/infant-sleeper.html">Infant Sleeper</a></li>
         </ul>
-    <?php } ?>
 </nav>
+<script type="text/javascript">
+    require(["jquery"], function($){
+        isLogin();
+        function isLogin() {
+            var get_url = '<?php echo $block->getBaseUrl().'/customer/ajax/islogin'?>';
+            var groupArray = new Array("2", "4", "5", "6", "7", "8");
+            $.ajax({
+                type: 'GET',
+                url: get_url,
+                dataType: 'json',
+                success: function(data) {
+                    if (data['login'] && groupArray.indexOf(data['group']) != -1) {
+                        $('.logged').show();
+                        $('.wholesale').show();
+                        $('.unlogged').hide();
+                    } else {
+                        console.log('NOPE');
+                    }
+                }, error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.responseText);
+                    console.log(thrownError);
+                }
+            });
+        }
+    });
+</script>
