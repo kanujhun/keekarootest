@@ -12238,7 +12238,6 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
 }
 .spmbc-img {
     display: block;
-    background-image: url('../images/growswithyou-top.jpg');
     max-width: 340px;
     height:148px;
     width:100%;
@@ -12247,6 +12246,12 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
     -webkit-background-size: contain;
     background-size: contain;
     margin: 0 auto;
+}
+.category-high-chairs .spmbc-img {
+    background-image: url('../images/growswithyou-chairs.jpg');
+}
+.category-kids-chairs .spmbc-img {
+    background-image: url('../images/growswithyou-kids.jpg');
 }
 .sp-middle-paragraph h4 {
     color: #679db3;
