@@ -8148,6 +8148,7 @@ fieldset[disabled] .opc-estimated-wrapper .minicart-wrapper button.action.showca
     position: relative;
     z-index: 1;
 }
+#checkout .authentication-wrapper {display:none;}
 ._has-auth-shown .authentication-wrapper {
     z-index: 900;
 }
@@ -13982,6 +13983,7 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
     .cart-totals .totals tbody > tr:not(:last-child) > td:last-child {
         border: 0;
     }
+
     .checkout-index-index .modal-popup .modal-footer .action-save-address {
         width: 100%;
     }
