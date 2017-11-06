@@ -61,19 +61,22 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
 <script type="text/javascript">
     require(["jquery"], function($){
         var target=document.querySelector('.sly-old-price');
-        var observer = new MutationObserver(function(mutations){
+        if (target) {
+            console.log('asdf');
+            var observer = new MutationObserver(function(mutations){
 //            console.log(mutations);
 //            $('.product-info-main .product-info-price .price-box .price-container > span').addClass('wholesale-loaded');
-            if ($(target).is(":visible")) {
+                if ($(target).is(":visible")) {
 //                console.log('visible');
-                $('.product-info-main .product-info-price .price-box .price-container > span').addClass('wholesale-loaded');
-            } else {
+                    $('.product-info-main .product-info-price .price-box .price-container > span').addClass('wholesale-loaded');
+                } else {
 //                console.log('hidden');
-                $('.product-info-main .product-info-price .price-box .price-container > span').removeClass('wholesale-loaded');
-            }
-        });
-        observer.observe(target, {
-            attributes: true
-        });
+                    $('.product-info-main .product-info-price .price-box .price-container > span').removeClass('wholesale-loaded');
+                }
+            });
+            observer.observe(target, {
+                attributes: true
+            });
+        }
     });
 </script>
