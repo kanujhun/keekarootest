@@ -45,6 +45,16 @@ define([
             var form = this.element,
                 options = $(form).find(this.options.productBundleSelector);
 
+            $.each(window.optionConfig, function(index, productOptions){
+                if(productOptions && productOptions.hasOwnProperty('options')){
+                    $.each(productOptions.options, function(optId, opts){
+                        $.each(opts.selections, function(selId, sels){
+                            window.optionConfig[index].options[optId].selections[selId].qty = 0;
+                        });
+                    });
+                }
+            });
+
             options.trigger('change');
         },
 
