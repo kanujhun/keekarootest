@@ -5488,6 +5488,9 @@ fieldset[disabled] .action-braintree-paypal-logo {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.category-peanut-quick-order .left-wrapper > .price-box {
+    display: none;
+}
 .category-peanut-quick-order .toolbar.toolbar-products {
     display: none;
 }
@@ -6187,6 +6190,9 @@ fieldset[disabled] .action-braintree-paypal-logo {
     font-weight:600;
     letter-spacing: -1px;
     font-family:"source sans pro", sans-serif;
+}
+.product-info-main .product-info-price .price-box .price-container > span.wholesale-loaded:before {
+    content: 'Wholesale Price:';
 }
 .product-info-main .product-info-price .price-box .old-price .price-container > span:before {
     content: '';
