@@ -1,0 +1,123 @@
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<style>
+	.prRegFormContent{text-align: center; font-family: Verdana,Arial;}
+	.prRegFormContent .input-row {margin:auto; margin-bottom: 2px;white-space:nowrap; max-width: 592px;}
+	.prRegFormContent .error{display: none;}
+	.prRegFormContent form{text-align: left;}
+	.prRegFormContent select{display: inline; width: auto;border: none; background-image: none; background-color: transparent; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; border: none; background-image: none; background-color: transparent; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; -webkit-appearance: menulist; box-sizing: border-box; align-items: center; white-space: pre; -webkit-rtl-ordering: logical; color: black; background-color: white; cursor: default; border-width: 1px; border-style: solid; border-color: initial; border-image: initial; background-color: rgb(248, 248, 248); border-width: 1px; border-style: solid; border-color: rgb(166, 166, 166); border-image: initial; font-size: 11px; padding: 0; height: initial;}
+	.prRegFormContent label {text-align: right;display: inline-block; width: 100%;font-size: 11px; color: #000;}
+	.prRegFormContent em {color: #CD046E;}
+	.prRegFormContent .heading h2 {font-size: 22px; font-weight: bold; text-align: center; color: #CD046E; margin-top: 0;}
+	.prRegFormContent .subheading p {font-size: 11px; text-align: center; color: #000;}
+	.prRegFormContent .labelWrap{width: calc(100% - 330px); display: inline-block; vertical-align: middle; box-sizing: border-box; font-size: 11px; text-align: right;}
+	.prRegFormContent .inputWrap{width: 330px; padding-left: 2px; display: inline-block; vertical-align: middle; box-sizing: border-box; font-size: 11px;}
+	.prRegFormContent input[type="text"],input[type="email"]{width: 100%; height: 21px; padding: 2px; display: inline-block; vertical-align: middle; box-sizing: border-box; font-size: 11px;}
+	.prRegFormContent .name input {width: 95px;}
+	.prRegFormContent .name label {width: initial; }
+	.prRegFormContent .name .inputWrap label {padding-left: 10px;}
+	.prRegFormContent .submit-row {padding-top: 10px;}
+	.prRegOverlay {z-index: 100; width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: rgba(0,0,0,.75); display: none;}
+	.prRegPopup {z-index: 110; display: none; position: fixed; top: 10%; left: calc(50% - 350px); width: 700px; z-index: 110; background: #ffffff;padding: 40px; box-sizing: border-box;}
+	.register-index-index .prRegPopup {display: initial;}	
+</style>
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+$dateInt = $objectManager->get('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
+$date = $dateInt->date();
+$formKey = $objectManager->get('Magento\Framework\Data\Form\FormKey'); 
+?>
+
+<div class="prRegOverlay"></div>
+
+<div class="prRegFormContent <?php echo $this->getRequest()->getModuleName() != 'register' ? 'prRegPopup' : '' ?>">
+	<form id="prRegisterForm" method="POST" action="<?php echo $block->getUrl('register/index/save'); ?>" enctype="multipart/form-data">
+		<div class="heading">
+			<h2>PRODUCT REGISTRATION FOR SAFETY ALERT OR RECALL ONLY</h2>
+		</div>
+		<div class="subheading">
+			<p>We will use the information provided on this page only to contact you if there is a safety alert or recall for this product. We will not sell, rent, or share your personal information</p>
+			<p>If you register on this Web site you do not need to fill out the card that came with your product</p>
+		</div>
+		<div class="no-display">
+			<input type="hidden" name="registration_date" value="<?php echo $date->format('M d Y\, H:i a') ?>">
+			<input type="hidden" name="form_key" value="<?php echo $formKey->getFormKey() ?>">
+		</div>
+		<div class="input-row name">
+			<div class="labelWrap"><label class="prim">Name:<em>*</em></label></div>
+			<div class="inputWrap">
+			<select name="name_prefix" id="name_prefix">
+				<option value="Mr.">Mr.</option>
+				<option value="Mrs.">Mrs.</option>
+			</select>
+			<label>First:</label><input type="text" name="name_first" id="name_first" required>
+			<label>Last:</label><input type="text" name="name_last" id="name_last" required>
+			</div>
+		</div>
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">Address:<em>*</em></label></div>
+			<div class="inputWrap"><input type="text" name="address_1" id="address_1" required></div>
+		</div>
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">Address:</label></div>
+			<div class="inputWrap"><input type="text" name="address_2" id="address_2" required></div>
+		</div>
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">City:<em>*</em></label></div>
+			<div class="inputWrap"><input type="text" name="city" id="city" required></div>
+		</div>
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">State:<em>*</em></label></div>
+			<div class="inputWrap"><input type="text" name="state" id="state" required></div>
+		</div>
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">Zip Code:<em>*</em></label></div>
+			<div class="inputWrap"><input type="text" name="zip" id="zip" required></div>
+		</div>		
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">Phone Number:<em>*</em></label></div>
+			<div class="inputWrap"><input type="text" name="phone_number" id="phone_number" required></div>
+		</div>		
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">Email Address:<em>*</em></label></div>
+			<div class="inputWrap"><input type="email" name="email_address" id="email_address" required></div>
+		</div>		
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">Name of Product Purchased:<em>*</em></label></div>
+			<div class="inputWrap"><input type="text" name="product_purchased" id="product_purchased" required></div>
+		</div>		
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">Model # of Product Purchased:<em>*</em></label></div>
+			<div class="inputWrap"><input type="text" name="model_number" id="model_number" required></div>
+		</div>		
+		<div class="input-row">
+			<div class="labelWrap"><label class="prim">Date of Manufacture (located on product):<em>*</em></label></div>
+			<div class="inputWrap"><input type="text" name="date_of_manufacture" id="date_of_manufacture" required></div>
+		</div>	
+		<div class="submit-row" style="text-align: center">
+			<div style="display:inline-block;" class="g-recaptcha" data-sitekey="6LdXqTUUAAAAAPHg3wxC2jxzN-ZTlNZcqQtdg359"></div>
+			<p class="error"></p>
+			<div style="display:block;text-align: center;"><input style="display:inline-block;" type="submit" id="prRegisterFormSubmit" value="Send Form"></div>
+		</div>
+	</form>
+</div>
+
+
+<script>
+require(['jquery'],function($){
+	var form = $('#prRegisterForm'), submitBtn = $('#prRegisterFormSubmit');
+	submitBtn.click(function(e){
+		form.find('.error').hide();
+		if(grecaptcha.getResponse() == null || grecaptcha.getResponse() == '') {
+			form.find('.error').show();
+			e.preventDefault();
+		}
+	});
+	var link = $('.page-footer a:contains("Product Registration")');
+	link.click(function(e){
+		e.preventDefault();
+		$('.prRegOverlay').show();
+		$('.prRegPopup').show();
+	});
+});
+</script>

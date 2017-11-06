@@ -1,0 +1,10 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd" layout="1column">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="register" template="Ey_ProductRegister::register.phtml" />
+        </referenceContainer>
+        <referenceContainer name="before-body-end">
+			<referenceBlock name="product-registry-form" remove="true" />
+        </referenceContainer>
+    </body>
+</page>
