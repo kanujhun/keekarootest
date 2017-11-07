@@ -353,6 +353,10 @@ table > tbody > tr > td,
 table > tfoot > tr > td {
     padding: 11px 10px;
 }
+.product.info.detailed .data.item.content table > tbody > tr > td {
+    vertical-align: middle;
+    text-align: center;
+}
 button {
     background-image: none;
     background: #eeeeee;
