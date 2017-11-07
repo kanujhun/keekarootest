@@ -37,6 +37,7 @@ namespace ShipperHQ\Shipper\Observer;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
 
+
 /**
  * ShipperHQ Shipper module observer
  */
@@ -45,12 +46,11 @@ class RecordOrder extends AbstractRecordOrder implements ObserverInterface
     /**
      * @var \Magento\Sales\Model\OrderFactory
      */
-    private $orderFactory;
-
+    protected $orderFactory;
     /**
      * @var \Magento\Checkout\Model\Session
      */
-    private $checkoutSession;
+    protected $checkoutSession;
 
     /**
      * @param \ShipperHQ\Shipper\Helper\Data $shipperDataHelper
@@ -69,9 +69,8 @@ class RecordOrder extends AbstractRecordOrder implements ObserverInterface
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Magento\Checkout\Model\Session $checkoutSession,
         \ShipperHQ\Shipper\Helper\Package $packageHelper,
-        \ShipperHQ\Shipper\Helper\CarrierGroup $carrierGroupHelper
-    ) {
-    
+        \ShipperHQ\Shipper\Helper\CarrierGroup $carrierGroupHelper)
+    {
         $this->orderFactory = $orderFactory;
         $this->checkoutSession = $checkoutSession;
         parent::__construct($shipperDataHelper, $quoteRepository, $shipperLogger, $packageHelper, $carrierGroupHelper);
@@ -89,11 +88,12 @@ class RecordOrder extends AbstractRecordOrder implements ObserverInterface
             $order = $this->orderFactory->create()->loadByIncrementId(
                 $this->checkoutSession->getLastRealOrderId()
             );
-            if ($order->getIncrementId()) {
+            if($order->getIncrementId()) {
                 $this->recordOrder($order);
-                //SHQ16-1967 reset all checkout data
-                $this->checkoutSession->setShipperhqData([]);
             }
+
         }
     }
+
 }
+

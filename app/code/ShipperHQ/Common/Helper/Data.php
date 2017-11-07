@@ -34,13 +34,18 @@
 
 namespace ShipperHQ\Common\Helper;
 
+
 /**
  * Common data helper
  */
-class Data extends \Magento\Framework\App\Helper\AbstractHelper
+class Data extends  \Magento\Framework\App\Helper\AbstractHelper
 {
-    public function isEnterpriseEdition()
-    {
+
+    function __construct(\Magento\Framework\App\Helper\Context $context) {
+        parent::__construct($context);
+    }
+
+    public function isEnterpriseEdition() {
 
         if (!$this->_moduleManager->isEnabled('Enterprise_Cms')) {
             return false;
@@ -56,9 +61,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getConfigValue($configField)
     {
-        return $this->scopeConfig->getValue(
-            $configField,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        return $this->scopeConfig->getValue($configField,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+
     }
+
 }

@@ -41,8 +41,18 @@
                    showInStore="1">
                 <label>ShipperHQ</label>
                 <frontend_model>ShipperHQ\Shipper\Block\Backend\Config\Carrier\About</frontend_model>
+                <comment>
+                    <![CDATA[
+                    				<div style="padding:10px;background-color:#fff;border:1px solid #ddd;margin-bottom:7px;">
+                    This extension connects Magento to ShipperHQ, a powerful, easy-to-use eCommerce shipping management platform. <br />
+                    For documentation and examples, please see the <a href="http://docs.shipperhq.com" target="_blank">ShipperHQ knowledge base</a>.<br /><br />
+                    If you have questions about ShipperHQ or need support, visit <a href="http://www.ShipperHQ.com" target="_blank">http://www.ShipperHQ.com</a>.<br />
+                    ShipperHQ is a product of <a href="http://www.webshopapps.com" target="_blank">WebShopApps</a>, developers of powerful shipping solutions for Magento. <br />
+ 				</div>
+               ]]>
+                </comment>
                 <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
-                       showInStore="1">
+                       showInStore="0">
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
@@ -64,13 +74,13 @@
                     <source_model>ShipperHQ\Shipper\Model\Backend\Config\Source\EnvironmentScope</source_model>
                 </field>
                 <field id="api_key" translate="label" type="obscure" sortOrder="120" showInDefault="1" showInWebsite="1"
-                       showInStore="1">
+                       showInStore="0">
                     <label>API Key</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <comment>Obtain from under Websites in the ShipperHQ Dashboard</comment>
                 </field>
                 <field id="password" translate="label" type="obscure" sortOrder="130" showInDefault="1"
-                       showInWebsite="1" showInStore="1">
+                       showInWebsite="1" showInStore="0">
                     <label>Authentication Code</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <comment>Obtain from under Websites in the ShipperHQ Dashboard</comment>
@@ -89,14 +99,6 @@
                     <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
                     <attribute type="shared">1</attribute>
                 </field>
-                <field id="custom_admin" translate="label" type="select" sortOrder="305" showInDefault="1"
-                       showInWebsite="1" showInStore="0">
-                    <label>Custom Shipping Rates in Admin</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <tooltip>
-                        Add fields to specify a custom shipping rate for orders placed in admin
-                    </tooltip>
-                </field>
                 <field id="hide_notify" translate="label" type="select" sortOrder="310" showInDefault="1"
                        showInWebsite="1" showInStore="0">
                     <label>Hide Carrier Notifications at Checkout</label>
@@ -113,14 +115,6 @@
                         Set to no unless advised by ShipperHQ team, used for debugging purposes
                     </comment>
                 </field>
-                <field id="ignore_empty_zip" translate="label" type="select" sortOrder="325" showInDefault="1"
-                       showInWebsite="1" showInStore="0">
-                    <label>Require Zipcode To Request Rates</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <tooltip>
-                        Only request ShipperHQ rates when the zipcode field has been entered
-                    </tooltip>
-                </field>
                 <field id="use_cache" translate="label" type="select" sortOrder="330" showInDefault="1"
                        showInWebsite="1" showInStore="0">
                     <label>Enable Caching of ShipperHQ Rates</label>
@@ -128,11 +122,6 @@
                     <tooltip>
                         Enable to reduce number of requests to ShipperHQ for duplicate rate requests.
                     </tooltip>
-                </field>
-                <field id="ws_timeout" translate="label" type="text" sortOrder="335" showInDefault="1" showInWebsite="1"
-                       showInStore="1">
-                    <label>Timeout (seconds)</label>
-                    <tooltip>Time allowed for ShipperHQ to respond before using backup carrier rates.</tooltip>
                 </field>
                 <field id="url" translate="label" type="text" sortOrder="340" showInDefault="1" showInWebsite="1"
                        showInStore="1">

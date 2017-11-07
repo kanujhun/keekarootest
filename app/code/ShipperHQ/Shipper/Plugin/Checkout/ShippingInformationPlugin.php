@@ -38,25 +38,21 @@ class ShippingInformationPlugin
     /**
      * @var \ShipperHQ\Shipper\Helper\Data
      */
-    private $shipperDataHelper;
-
+    protected $shipperDataHelper;
     /**
      * @var \ShipperHQ\Shipper\Helper\CarrierGroup
      */
-    private $carrierGroupHelper;
-
+    protected $carrierGroupHelper;
     /**
      * Quote repository.
      *
      * @var \Magento\Quote\Api\CartRepositoryInterface
      */
-    private $quoteRepository;
-
+    protected $quoteRepository;
     /**
      * @var \Magento\Checkout\Model\Session
      */
     private $checkoutSession;
-
     /**
      * @var \Magento\Customer\Api\AddressRepositoryInterface
      */
@@ -66,18 +62,16 @@ class ShippingInformationPlugin
      * @var \ShipperHQ\Shipper\Model\Quote\AddressDetailFactory
      */
     private $addressDetailFactory;
-
     /**
      * @var \ShipperHQ\Shipper\Helper\LogAssist
      */
     private $shipperLogger;
-
     /**
      * Application Event Dispatcher
      *
      * @var \Magento\Framework\Event\ManagerInterface
      */
-    private $eventManager;
+    protected $eventManager;
 
     public function __construct(
         \ShipperHQ\Shipper\Helper\Data $shipperDataHelper,
@@ -97,10 +91,11 @@ class ShippingInformationPlugin
         $this->addressDetailFactory = $addressDetailFactory;
         $this->shipperLogger = $shipperLogger;
         $this->eventManager = $eventManager;
+
     }
 
     /**
-     * Set additional information for shipping address
+     *Set additional information for shipping address
      *
      * @param \Magento\Checkout\Model\ShippingInformationManagement $subject
      * @param callable $proceed
@@ -108,81 +103,67 @@ class ShippingInformationPlugin
      * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface $paymentDetails
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
-    public function aroundSaveAddressInformation(
-        \Magento\Checkout\Model\ShippingInformationManagement $subject,
-        $proceed,
-        $cartId,
-        \Magento\Checkout\Api\Data\ShippingInformationInterface $addressInformation
-    ) {
-    
-        $carrierCode = $addressInformation->getShippingCarrierCode();
-        $methodCode = $addressInformation->getShippingMethodCode();
-        $shippingMethod = $carrierCode . '_' . $methodCode;
-        $quote = $this->quoteRepository->getActive($cartId);
-        $address = $quote->getShippingAddress();
-        $validation = false;
+    public function aroundSaveAddressInformation(\Magento\Checkout\Model\ShippingInformationManagement $subject, $proceed,
+                                                 $cartId,
+                                                 \Magento\Checkout\Api\Data\ShippingInformationInterface $addressInformation)
+    {
         try {
-            if ($this->checkoutSession) {
-                $validation = $this->checkoutSession->getShipAddressValidation();
-                if (is_array($validation) && isset($validation['key'])) {
-                    if (isset($validation['validation_status'])) {
-                        $additionalDetail['address_valid'] = $validation['validation_status'];
-                        $address->setValidationStatus($validation['validation_status']);
-                    }
-                    if (isset($validation['destination_type'])) {
-                        $additionalDetail['destination_type'] = $validation['destination_type'];
-                        $address->setDestinationType($validation['destination_type']);
-                    }
-                    $this->checkoutSession->setShipAddressValidation(null);
+            $carrierCode = $addressInformation->getShippingCarrierCode();
+            $methodCode = $addressInformation->getShippingMethodCode();
+            $shippingMethod = $carrierCode . '_' . $methodCode;
+            $quote = $this->quoteRepository->getActive($cartId);
+            $address = $quote->getShippingAddress();
+            $validation = $this->checkoutSession->getShipAddressValidation();
+            if (is_array($validation) && isset($validation['key'])) {
+                if (isset($validation['validation_status'])) {
+                    $additionalDetail['address_valid'] = $validation['validation_status'];
+                    $address->setValidationStatus($validation['validation_status']);
                 }
+                if (isset($validation['destination_type'])) {
+                    $additionalDetail['destination_type'] = $validation['destination_type'];
+                    $address->setDestinationType($validation['destination_type']);
+                }
+                $this->checkoutSession->setShipAddressValidation(null);
             }
             $address->save();
+            $additionalDetail = new \Magento\Framework\DataObject;
+            $extAttributes = $addressInformation->getExtensionAttributes();
+            //push out event so other modules can save their data TODO add carrier_group_id
+            $this->eventManager->dispatch('shipperhq_additional_detail_checkout',
+                ['address_extn_attributes' => $extAttributes, 'additional_detail'=> $additionalDetail,
+                'carrier_code' => $carrierCode]);
+            $additionalDetailArray = $additionalDetail->convertToArray();
+            $this->carrierGroupHelper->saveCarrierGroupInformation($address,
+                $shippingMethod, $additionalDetailArray);
+
         } catch (\Exception $e) {
-            $this->shipperLogger->postCritical(
-                'Shipperhq_Shipper',
+            $this->shipperLogger->postCritical('Shipperhq_Shipper',
                 'Shipping Information Plugin',
-                'Exception raised ' .$e->getMessage()
-            );
+                'Exception raised ' .$e->getMessage());
         }
 
-        $additionalDetail = new \Magento\Framework\DataObject;
-        $extAttributes = $addressInformation->getShippingAddress()->getExtensionAttributes();
-
-        //push out event so other modules can save their data - in future add carrier_group_id
-        //Observers add to additionalDetail object
-        $this->eventManager->dispatch(
-            'shipperhq_additional_detail_checkout',
-            ['address_extn_attributes' => $extAttributes, 'additional_detail'=> $additionalDetail,
-            'carrier_code' => $carrierCode, 'address' => $address]
-        );
-        $additionalDetailArray = $additionalDetail->convertToArray();
-        $this->shipperLogger->postDebug(
-            'ShipperHQ Shipper',
-            'Processed the following extra fields from checkout ',
-            $additionalDetail
-        );
         $result = $proceed($cartId, $addressInformation);
 
-        $this->carrierGroupHelper->saveCarrierGroupInformation(
-            $address,
-            $shippingMethod,
-            $additionalDetailArray
-        );
-
-        if ($address->getCustomerId()) {
+        if($address->getCustomerId()) {
             $customerAddresses = $quote->getCustomer()->getAddresses();
-            foreach ($customerAddresses as $oneAddress) {
-                if ($oneAddress->getId() == $address->getCustomerAddressId() && is_array($validation) && isset($validation['key'])) {
-                    if (isset($validation['validation_status'])) {
-                        $oneAddress->setCustomAttribute('validation_status', $validation['validation_status']);
+            foreach($customerAddresses as $oneAddress) {
+
+                if ($oneAddress->getId() == $address->getCustomerAddressId()) {
+
+                    if($address->getValidationStatus()) {
+                        $oneAddress->setCustomAttribute('validation_status', $address->getValidationStatus());
                     }
-                    if (isset($validation['destination_type'])) {
-                        $oneAddress->setCustomAttribute('destination_type', $validation['destination_type']);
+
+                    if($address->getDestinationType()) {
+                        $oneAddress->setCustomAttribute('destination_type',$address->getDestinationType());
                     }
                     $this->addressRepository->save($oneAddress);
+
                 }
             }
         }
         return $result;
+
     }
+
 }

@@ -34,12 +34,11 @@ namespace ShipperHQ\WS\Rate\Request\Shipping;
  *
  * @package ShipperHQ\Shipping
  */
-class SelectedOptions
-{
+class SelectedOptions {
 
     public $options;
 
-    public function __construct($options = null)
+    function __construct($options = null)
     {
         $this->options = $options;
     }

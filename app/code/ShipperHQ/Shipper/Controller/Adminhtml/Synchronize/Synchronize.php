@@ -28,7 +28,6 @@
  * @author ShipperHQ Team sales@shipperhq.com
  */
 namespace ShipperHQ\Shipper\Controller\Adminhtml\Synchronize;
-
 class Synchronize extends \ShipperHQ\Shipper\Controller\Adminhtml\Synchronize
 {
     /**
@@ -42,10 +41,12 @@ class Synchronize extends \ShipperHQ\Shipper\Controller\Adminhtml\Synchronize
         if (empty($result)) {
             $message = __('ShipperHQ was unable to verify a connection, please contact support.');
             $this->messageManager->addError($message);
-        } elseif (array_key_exists('error', $result)) {
+        }
+        else if (array_key_exists('error',$result)) {
             $message = $result['error'];
             $this->messageManager->addError($message);
-        } elseif ($result != 0) {
+        }
+        else if ($result != 0) {
             $message = __('Updated %1 attribute values from ShipperHQ.', $result['result']);
             $this->messageManager->addSuccess($message);
         }
@@ -53,3 +54,4 @@ class Synchronize extends \ShipperHQ\Shipper\Controller\Adminhtml\Synchronize
         $this->_redirect('*/*/index');
     }
 }
+?>

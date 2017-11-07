@@ -43,46 +43,44 @@ use Magento\Store\Model\StoreManagerInterface;
 /**
  * Shipping data helper
  */
-class Data extends \Magento\Framework\App\Helper\AbstractHelper
+class Data extends  \Magento\Framework\App\Helper\AbstractHelper
 {
-    private static $showTransId;
-    private $prodAttributes;
-    private $baseCurrencyRate;
+    protected static $showTransId;
+    protected $prodAttributes;
+    protected $baseCurrencyRate;
 
     /**
      * @var Mage_Sales_Model_Quote
      */
-    private $quote;
+    protected $quote;
 
     public $magentoCarrierCodes =
-        [
-            'ups'        => 'ups',
-            'fedEx'      => 'fedex',
-            'usps'       => 'usps',
-            'dhl'        => 'dhl',
-            'dhlint'     => 'dhlint',
-            'upsFreight' => 'upsfreight'
+        ['ups' => 'ups',
+            'fedEx' => 'fedex',
+            'usps' => 'usps',
+            'dhl' => 'dhl',
+            'dhlint' => 'dhlint'
         ];
 
-    const SHIPPERHQ_SHIPPER_CARRIERGROUP_DESC_PATH = 'carriers/shipper/carriergroup_describer';
-    const SHIPPERHQ_LAST_SYNC = 'carriers/shipper/last_sync';
-    const SHIPPERHQ_SHIPPER_ALLOWED_METHODS_PATH = 'carriers/shipper/allowed_methods';
+    CONST SHIPPERHQ_SHIPPER_CARRIERGROUP_DESC_PATH = 'carriers/shipper/carriergroup_describer';
+    CONST SHIPPERHQ_LAST_SYNC = 'carriers/shipper/last_sync';
+    CONST SHIPPERHQ_SHIPPER_ALLOWED_METHODS_PATH = 'carriers/shipper/allowed_methods';
     /**
      * @var \Magento\Eav\Model\Config
      */
-    private $eavConfig;
+    protected $eavConfig;
     /**
      * @var \Magento\Framework\Registry
      */
-    private $registry;
+    protected $registry;
     /**
      * @var
      */
-    private $storeManager;
+    protected $storeManager;
     /**
      * @var \Magento\Catalog\Model\ProductFactory
      */
-    private $productFactory;
+    protected $productFactory;
     /**
      * @var \Magento\Checkout\Model\Session
      */
@@ -105,18 +103,17 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     private $checkoutHelper;
 
-    public function __construct(
-        Config $shipperConfig,
-        \Magento\Eav\Model\Config $eavConfig,
-        \Magento\Framework\Registry $registry,
-        \Magento\Framework\App\Helper\Context $context,
-        JsonHelper $jsonHelper,
-        \Magento\Directory\Model\CurrencyFactory $dirCurrencyFactory,
-        \Magento\Shipping\Model\CarrierFactoryInterface $carrierFactory,
-        \Magento\Catalog\Model\ProductFactory $productFactory,
-        \Magento\Checkout\Model\Session $checkoutSession,
-        StoreManagerInterface $storeManager,
-        \Magento\Checkout\Helper\Data $checkoutHelper
+    public function __construct(Config $shipperConfig,
+                                \Magento\Eav\Model\Config $eavConfig,
+                                \Magento\Framework\Registry $registry,
+                                \Magento\Framework\App\Helper\Context $context,
+                                JsonHelper $jsonHelper,
+                                \Magento\Directory\Model\CurrencyFactory $dirCurrencyFactory,
+                                \Magento\Shipping\Model\CarrierFactoryInterface $carrierFactory,
+                                \Magento\Catalog\Model\ProductFactory $productFactory,
+                                \Magento\Checkout\Model\Session $checkoutSession,
+                                StoreManagerInterface $storeManager,
+                                \Magento\Checkout\Helper\Data $checkoutHelper
     ) {
          parent::__construct($context);
         $this->shipperConfig = $shipperConfig;
@@ -130,24 +127,20 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->carrierFactory = $carrierFactory;
         $this->checkoutHelper = $checkoutHelper;
     }
-
-    public function isModuleActive()
-    {
+    
+    public function isModuleActive() {
         return self::isModuleEnabled("ShipperHQ_Shipper");
     }
 
-    public function getCarrierGroupDescPath()
-    {
+    public function getCarrierGroupDescPath() {
         return self::SHIPPERHQ_SHIPPER_CARRIERGROUP_DESC_PATH;
     }
 
-    public function getLastSyncPath()
-    {
+    public function getLastSyncPath() {
         return self::SHIPPERHQ_LAST_SYNC;
     }
 
-    public function getAllowedMethodsPath()
-    {
+    public function getAllowedMethodsPath() {
         return self::SHIPPERHQ_SHIPPER_ALLOWED_METHODS_PATH;
     }
 
@@ -157,24 +150,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * @param $configField
      * @return mixed
      */
-    public function getConfigValue($configField, $store = null)
+    public function getConfigValue($configField)
     {
-        return $this->scopeConfig->getValue(
-            $configField,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
-            $store
-        );
-    }
+        return $this->scopeConfig->getValue($configField,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
-    /**
-     * Get Default Scope Config Value
-     *
-     * @param $configField
-     * @return mixed
-     */
-    public function getDefaultConfigValue($configField)
-    {
-        return $this->scopeConfig->getValue($configField);
     }
 
     /**
@@ -185,7 +165,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getConfigFlag($configField)
     {
-        return $this->scopeConfig->isSetFlag($configField, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->isSetFlag($configField,\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -194,10 +174,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isTransactionIdEnabled()
     {
-        if (self::$showTransId == null) {
+        if (self::$showTransId == NULL) {
             self::$showTransId = $this->getConfigValue('carriers/shipper/display_transaction');
         }
         return self::$showTransId;
+
     }
 
     public function getTransactionId()
@@ -206,8 +187,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $id;
     }
 
-    public function getBaseCurrencyCode()
-    {
+    public function getBaseCurrencyCode() {
         return $this->storeManager->getStore()->getBaseCurrency()->getCode();
     }
 
@@ -226,34 +206,39 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $this->baseCurrencyRate > 0 ? $this->baseCurrencyRate : false;
+
     }
 
     public function useDefaultCarrierCodes()
     {
         $result = false;
-        if ($this->getDefaultConfigValue('carriers/shipper/CARRIER_STRIP_CODE')) {
+        if($this->getConfigValue('carriers/shipper/CARRIER_STRIP_CODE')) {
             $result = true;
         }
         return $result;
     }
 
-    public function getStoreDimComments()
+    public function setStandardShipperResponseType()
     {
-        $result = false;
-        if ($this->getDefaultConfigValue('carriers/shipper/STORE_DIM_COMMENTS')) {
-            $result = true;
+        $shipping = $this->getQuote()->getShippingAddress();
+        if($shipping->getSplitRates()) {
+            $shipping->setSplitRates(0);
         }
-        return $result;
     }
 
-    public function isCheckout($quote)
+    public function isCheckout()
     {
-
-        $isCheckout =  $this->checkoutSession->getIsCheckout();
-        if ($quote->getIsMultiShipping()) {
+        $shipping = $this->getQuote()->getShippingAddress();
+        $isCheckout =  $shipping->getIsCheckout();
+        if($this->getQuote()->getIsMultiShipping()) {
             return true;
         }
         return $isCheckout;
+    }
+
+    public function isMultiAddressCheckout()
+    {
+        return $this->getQuote()->getIsMultiShipping();
     }
 
     /**
@@ -263,7 +248,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getMultiAddressTemplate()
     {
-        if ($this->isModuleActive()) {
+        if($this->isModuleActive()) {
             return 'shipperhq/checkout/multishipping/shipping.phtml';
         }
         return 'checkout/multishipping/shipping.phtml';
@@ -276,14 +261,15 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function decode($data)
     {
-        $decoded = [];
-        if ($data !== null && $data != '') {
+        $decoded = array();
+        if(!is_null($data) && $data != '') {
             try {
                 $result = json_decode($data);
-                if ($result !== null) {
+                if(!is_null($result)) {
                     $decoded = $result;
                 }
-            } catch (Exception $e) {
+            }
+            catch(Exception $e) {
                 return $decoded;
             }
         }
@@ -292,8 +278,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function decodeShippingDetails($shippingDetailsEnc)
     {
-        $decoded = [];
-        if ($shippingDetailsEnc !== null && $shippingDetailsEnc != '') {
+        $decoded = array();
+        if(!is_null($shippingDetailsEnc) && $shippingDetailsEnc != '') {
             $decoded = $this->jsonHelper->jsonDecode($shippingDetailsEnc);
         }
         return $decoded;
@@ -313,6 +299,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->quote = $this->checkoutSession->getQuote();
 
         return $this->quote;
+
     }
 
     /**
@@ -327,10 +314,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $this;
     }
 
+
     public function getGlobalSetting($code)
     {
         $globals = self::getGlobalSettings();
-        if ($globals !== null && array_key_exists($code, $globals)
+        if(!is_null($globals) && array_key_exists($code, $globals)
             && $globals[$code] != '') {
             return $globals[$code];
         }
@@ -344,27 +332,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getGlobalSettings()
     {
-        return $this->checkoutSession->getShipperGlobal();
+        return $this->getQuote()->getShipperGlobal();
     }
 
-    /*
-     * Retrieve global settings saved to session
-     *
-     * @return array
-     */
-    public function setGlobalSettings($globals)
-    {
-        $this->checkoutSession->setShipperGlobal($globals);
-    }
-
-    public function getCheckout()
-    {
-        return $this->checkoutSession;
-    }
 
     public function mapToMagentoCarrierCode($carrierType, $carrierCode)
     {
-        if (array_key_exists($carrierType, $this->magentoCarrierCodes)) {
+        if(array_key_exists($carrierType, $this->magentoCarrierCodes)) {
             return $this->magentoCarrierCodes[$carrierType];
         }
         return $carrierCode;
@@ -376,7 +350,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getProductAttributes()
     {
-        if ($this->prodAttributes == null) {
+        if(is_null($this->prodAttributes)) {
             $this->prodAttributes = $this->eavConfig->getEntityAttributeCodes(\Magento\Catalog\Model\Product::ENTITY);
         }
 
@@ -385,10 +359,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function extractAddressIdAndCarriergroupId(&$addressId, &$carrierGroupId)
     {
-        if (strstr($carrierGroupId, 'ma')) {
+        if(strstr($carrierGroupId, 'ma')) {
             $addressId = str_replace('ma', '', $carrierGroupId);
             $carrierGroupId = '';
-            if (strstr($addressId, 'ZZ')) {
+            if(strstr($addressId, 'ZZ')) {
                 $idArray = explode('ZZ', $addressId);
                 $addressId = $idArray[0];
                 $carrierGroupId = $idArray[1];
@@ -396,29 +370,31 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
     }
 
+
     public function getCarriergroupShippingHtml($encodedDetails)
     {
         $decodedDetails = self::decode($encodedDetails);
         $htmlText='';
         foreach ($decodedDetails as $shipLine) {
-            if (!is_array($shipLine) || !array_key_exists('name', $shipLine)) {
+            if(!is_array($shipLine) || !array_key_exists('name', $shipLine)) {
                 continue;
             }
             $htmlText .= $shipLine['name'].
                 ' : '.$shipLine['carrierTitle'].' - '. $shipLine['methodTitle'].' ';
             $htmlText .= " ". $this->checkoutHelper->formatPrice($shipLine['price']).'<br/>';
+
         }
         return $htmlText;
     }
 
-    public function getPackageBreakdownText($packages, $carrierGroupName = false)
-    {
+    public function getPackageBreakdownText($packages, $carrierGroupName = false) {
         $boxText = '';
         $count = 1;
-        if ($carrierGroupName) {
+        if($carrierGroupName) {
             $boxText .= $carrierGroupName .': ';
         }
-        foreach ($packages as $key => $box) {
+        foreach ($packages as $key=>$box)
+        {
             $boxText .= __('Package').' #'.($count++);
 
             if ($box!=null) {
@@ -430,26 +406,24 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 $boxText .= ' Value='.$box['declaredValue']. ':';
                 $boxText .= $this->getProductBreakdownText($box);
             }
-            $boxText .= '<br/>';
+            $boxText .= '</br>';
         }
+        //registry issue
+     //   $boxText .= 'Transaction ID: ' .$this->getTransactionId();
+
         return $boxText;
     }
 
-    public function getProductBreakdownText($box)
-    {
+    public function getProductBreakdownText($box) {
         $productText = '';
         $weightUnit = $this->getGlobalSetting('weightUnit');
-        if (!$weightUnit) {
+        if(!$weightUnit) {
             $weightUnit = '';
         }
-        if (array_key_exists('items', $box) || (is_object($box) && $box->getItems() !== null)) {
+        if (array_key_exists('items',$box)  || (is_object($box) && !is_null($box->getItems()))) {
             if (is_array($box['items'])) {
                 foreach ($box['items'] as $item) {
-                    $productText .= ' SKU='
-                        .$item['qty_packed']
-                        .' * '.$item['sku']
-                        .' ' .$item['weight_packed']
-                        .$weightUnit .';  ';
+                    $productText .= ' SKU=' .$item['qty_packed'] .' * '.$item['sku'] .' ' .$item['weight_packed'] .$weightUnit .';  ';
                 }
             } else {
                 $productText = $box['items'];
@@ -461,17 +435,21 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function setShippingOnItems($shippingDetails, $shippingAddress)
     {
         $itemsGrouped = $this->getItemsGroupedByCarrierGroup($shippingAddress->getAllItems());
-        foreach ($shippingDetails as $carrierGroupDetail) {
-            if (is_array($carrierGroupDetail) && array_key_exists('carrierTitle', $carrierGroupDetail)) {
+        foreach($shippingDetails as $carrierGroupDetail)
+        {
+            if(is_array($carrierGroupDetail) && array_key_exists('carrierTitle', $carrierGroupDetail)) {
                 $carrierGroupId = $carrierGroupDetail['carrierGroupId'];
                 $shippingText = $carrierGroupDetail['carrierTitle'] .' - ' .$carrierGroupDetail['methodTitle'];
-                if (array_key_exists($carrierGroupId, $itemsGrouped)) {
-                    foreach ($itemsGrouped[$carrierGroupId] as $item) {
+                if(array_key_exists($carrierGroupId, $itemsGrouped)) {
+                    foreach($itemsGrouped[$carrierGroupId] as $item) {
                         $item->setCarriergroupShipping($shippingText);
                         $item->save();
                     }
                 }
+
+
             }
+
         }
     }
 
@@ -483,10 +461,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getItemsGroupedByCarrierGroup($cartItems)
     {
         $groupedItems = [];
-        foreach ($cartItems as $item) {
-            if (array_key_exists($item->getCarriergroupId(), $groupedItems)) {
+        foreach($cartItems as $item)
+        {
+            if(array_key_exists($item->getCarriergroupId(), $groupedItems)) {
                 $groupedItems[$item->getCarriergroupId()][] = $item;
-            } else {
+            }
+            else {
                 $groupedItems[$item->getCarriergroupId()]= [$item];
             }
         }
@@ -494,12 +474,20 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $groupedItems;
     }
 
-    public function getAttribute($attribute_code, $store = null)
+    protected function _getOptionId($attribute, $value)
     {
+        //get the source
+        $source = $attribute->getSource();
+        //get the id
+        $id = $source->getOptionId($value);
+        return $id;
+    }
+
+    public function getAttribute($attribute_code, $store = null) {
 
         $product =  $this->productFactory->create();
         $attribute = $product->getResource()->getAttribute($attribute_code);
-        if ($store === null || $store == '') {
+        if(is_null($store) || $store == '') {
             $store = Store::DEFAULT_STORE_ID;
         }
         $attribute->setStoreId($store);
@@ -516,10 +504,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCarrierByCode($carrierCode, $storeId = null)
     {
-        if(!$this->getConfigValue('carriers/'.$carrierCode.'/active', $storeId)) {
+        if (!$this->scopeConfig->getValue('carriers/'.$carrierCode.'/active', 'store', $storeId)) {
             return false;
         }
-        $className =  $this->getConfigValue('carriers/'.$carrierCode.'/model', $storeId);
+        $className = $this->scopeConfig->getValue('carriers/'.$carrierCode.'/model', 'store', $storeId);
         if (!$className) {
             return false;
         }
@@ -538,7 +526,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
 
         $addressArray = [
-            implode(',', $shippingAddress->getStreet()),
+            implode(',',$shippingAddress->getStreet()),
             $shippingAddress->getCity(),
             $shippingAddress->getPostcode(),
             $shippingAddress->getRegionId(),
@@ -549,8 +537,4 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return crc32($key);
     }
 
-    public function adminShippingEnabled()
-    {
-        return $this->getConfigValue('carriers/shipper/custom_admin');
-    }
 }

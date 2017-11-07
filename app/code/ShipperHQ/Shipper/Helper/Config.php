@@ -42,6 +42,8 @@ use ShipperHQ\Common\Helper\AbstractConfig;
  */
 class Config extends AbstractConfig implements ConfigInterface
 {
+
+
     /**
      * Get configuration data of carrier
      *
@@ -52,13 +54,13 @@ class Config extends AbstractConfig implements ConfigInterface
     {
         return [
             'date_format'   => [
-                'dd-mm-yyyy'            => 'd-m-Y',
-                'mm/dd/yyyy'            => 'm/d/Y',
+                'dd-mm-yyyy'    	    => 'd-m-Y',
+                'mm/dd/yyyy'    	    => 'm/d/Y',
                 'EEE dd-MM-yyyy'        => 'D d-m-Y'
             ],
             'short_date_format'   => [
-                'dd-mm-yyyy'        => 'd-m-Y',
-                'mm/dd/yyyy'            => 'm/d/Y',
+                'dd-mm-yyyy'   	    => 'd-m-Y',
+                'mm/dd/yyyy'    	    => 'm/d/Y',
                 'EEE dd-MM-yyyy'        => 'D d-m-Y'
             ],
             'datepicker_format' => [

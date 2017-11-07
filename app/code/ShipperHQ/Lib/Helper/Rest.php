@@ -43,7 +43,7 @@ class Rest
      * @param false $transactionIdEnabled
      * @param null $locale
      */
-    public function __construct($baseUrl = '')
+    function __construct($baseUrl = '')
     {
         $this->baseUrl = $baseUrl;
     }
@@ -80,6 +80,7 @@ class Rest
     public function getRateGatewayUrl()
     {
         return  $this->getBaseUrl().'rates';
+
     }
 
     /*
@@ -97,4 +98,5 @@ class Rest
     {
         return $this->getBaseUrl().'attributes/check';
     }
+
 }

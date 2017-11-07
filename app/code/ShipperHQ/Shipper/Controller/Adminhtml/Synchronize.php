@@ -46,14 +46,14 @@ abstract class Synchronize extends Action
      *
      * @var \Magento\Framework\Registry
      */
-    protected $coreRegistry;
+    protected $_coreRegistry;
 
     /**
      * Result page factory
      *
      * @var \Magento\Framework\View\Result\PageFactory
      */
-    protected $resultPageFactory;
+    protected $_resultPageFactory;
 
     /**
      * Synchronizer factory
@@ -74,8 +74,8 @@ abstract class Synchronize extends Action
         \ShipperHQ\Shipper\Model\SynchronizerFactory $synchronizerFactory
     ) {
         parent::__construct($context);
-        $this->coreRegistry = $coreRegistry;
-        $this->resultPageFactory = $resultPageFactory;
+        $this->_coreRegistry = $coreRegistry;
+        $this->_resultPageFactory = $resultPageFactory;
         $this->sychronizerFactory = $synchronizerFactory;
     }
 
@@ -88,4 +88,5 @@ abstract class Synchronize extends Action
     {
         return $this->_authorization->isAllowed('ShipperHQ_Shipper::synchronize');
     }
+
 }

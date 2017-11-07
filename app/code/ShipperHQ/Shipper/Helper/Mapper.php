@@ -37,11 +37,12 @@ namespace ShipperHQ\Shipper\Helper;
 /**
  * Mapper for a data arrays tranformation
  */
-class Mapper extends \Magento\Framework\App\Helper\AbstractHelper
+class Mapper
+    extends  \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
      * Maps data by specified rules
-     *
+     * 
      * @param array $mapping
      * @param array $source
      * @return array

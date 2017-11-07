@@ -36,7 +36,6 @@ namespace ShipperHQ\WS\Registration;
 use \ShipperHQ\WS\Shared\Address;
 use \ShipperHQ\WS\AbstractWebServiceRequest;
 use \ShipperHQ\WS\WebServiceRequestInterface;
-
 /**
  * Class UPSRegistrationRequest
  *
@@ -65,18 +64,10 @@ class UPSRegistrationRequest extends AbstractWebServiceRequest implements WebSer
      * @param null $proposedUserName
      * @param null $title
      */
-    public function __construct(
-        Address $address = null,
-        $companyName = null,
-        $customerName = null,
-        $email = null,
-        $phoneExt = null,
-        $phoneNumber = null,
-        $proposedPassWord = null,
-        $proposedUserName = null,
-        $title = null
-    ) {
-    
+    function __construct(Address $address = null, $companyName = null, $customerName = null, $email = null,
+                         $phoneExt = null, $phoneNumber = null, $proposedPassWord = null, $proposedUserName = null,
+                         $title = null)
+    {
         $this->address = $address;
         $this->companyName = $companyName;
         $this->customerName = $customerName;

@@ -45,4 +45,5 @@ class Detail extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     {
         $this->_init('shipperhq_order_detail', 'id');
     }
+
 }

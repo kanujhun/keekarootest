@@ -45,13 +45,11 @@ class SaveShippingMulti implements ObserverInterface
     /**
      * @var \ShipperHQ\Shipper\Helper\Data
      */
-    private $shipperDataHelper;
-
+    protected $shipperDataHelper;
     /**
      * @var \ShipperHQ\Shipper\Helper\CarrierGroup
      */
-    private $carrierGroupHelper;
-
+    protected $carrierGroupHelper;
     /**
      * @var \ShipperHQ\Shipper\Helper\LogAssist
      */
@@ -61,13 +59,14 @@ class SaveShippingMulti implements ObserverInterface
      * @param \ShipperHQ\Shipper\Helper\Data $shipperDataHelper
      * @param  \ShipperHQ\Shipper\Helper\CarrierGroup $carrierGroupHelper
      * @param  \ShipperHQ\Shipper\Helper\LogAssist $shipperLogger
+
      */
     public function __construct(
         \ShipperHQ\Shipper\Helper\Data $shipperDataHelper,
         \ShipperHQ\Shipper\Helper\CarrierGroup $carrierGroupHelper,
         \ShipperHQ\Shipper\Helper\LogAssist $shipperLogger
-    ) {
-    
+    )
+    {
         $this->shipperDataHelper = $shipperDataHelper;
         $this->carrierGroupHelper = $carrierGroupHelper;
         $this->shipperLogger = $shipperLogger;
@@ -83,24 +82,29 @@ class SaveShippingMulti implements ObserverInterface
         if ($this->shipperDataHelper->getConfigValue('carriers/shipper/active')) {
             $request = $observer->getEvent()->getRequest();
             $shippingMethods = $request->getPost('shipping_method', '');
-            if (!is_array($shippingMethods)) {
+            if(!is_array($shippingMethods)) {
                 return;
             }
-            foreach ($shippingMethods as $addressId => $shippingMethod) {
+            foreach($shippingMethods as $addressId => $shippingMethod) {
                 if (empty($shippingMethod)) {
                     return;
                 }
                 $quote = $observer->getEvent()->getQuote();
                 $addresses = $quote->getAllShippingAddresses();
                 $shippingAddress = false;
-                foreach ($addresses as $address) {
-                    if ($address->getId() == $addressId) {
+                foreach($addresses as $address) {
+                    if($address->getId() == $addressId) {
                         $shippingAddress = $address;
                         break;
                     }
+
                 }
                 $this->carrierGroupHelper->saveCarrierGroupInformation($shippingAddress, $shippingMethod);
             }
+
         }
     }
+
 }
+
+

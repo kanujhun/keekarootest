@@ -38,6 +38,7 @@ use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Message\ManagerInterface;
 
+
 /**
  * ShipperHQ Shipper module observer
  */
@@ -46,17 +47,17 @@ class RefreshCarriers implements ObserverInterface
     /**
      * @var \ShipperHQ\Shipper\Helper\Data
      */
-    private $shipperDataHelper;
+    protected $shipperDataHelper;
 
     /**
      * @var \ShipperHQ\Shipper\Model\Carrier\Shipper
      */
-    private $shipperCarrier;
+    protected $shipperCarrier;
 
     /**
      * @var ManagerInterface
      */
-    private $messageManager;
+    protected $messageManager;
 
     /**
      * @param \ShipperHQ\Shipper\Helper\Data $shipperDataHelper
@@ -67,8 +68,8 @@ class RefreshCarriers implements ObserverInterface
         \ShipperHQ\Shipper\Helper\Data $shipperDataHelper,
         \ShipperHQ\Shipper\Model\Carrier\Shipper $carrier,
         ManagerInterface $messageManager
-    ) {
-    
+        )
+    {
         $this->shipperDataHelper = $shipperDataHelper;
         $this->shipperCarrier = $carrier;
         $this->messageManager = $messageManager;

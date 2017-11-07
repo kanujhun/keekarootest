@@ -32,7 +32,6 @@
  * See COPYING.txt for license details.
  */
 namespace ShipperHQ\WS\Rate\Response;
-
 /**
  * Class ResponseSummary
  *
@@ -51,7 +50,7 @@ class ErrorMessages
 
     public function getErrors()
     {
-        return [
+       return [
             self::SHIPPERHQ_NO_RATES_RETURNED =>
                 'ShipperHQ did not return any shipping rates for your carriers',
             self::SHIPPERHQ_NO_MERGEDRATES_RETURNED =>
@@ -65,6 +64,6 @@ class ErrorMessages
             self::SHIPPERHQ_UNRESPONSIVE =>
                 'ShipperHQ is not responding, please check your settings to ensure they are correct',
             self::SHIPPERHQ_NO_PICKUP_LOCATIONS => 'ShipperHQ could not find any in store pickup locations in your area'
-        ];
+       ];
     }
 }

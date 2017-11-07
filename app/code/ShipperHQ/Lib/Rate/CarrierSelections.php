@@ -56,6 +56,7 @@ class CarrierSelections
         $this->carrierId = $carrierId;
     }
 
+
     /**
      * @return boolean
      */
@@ -151,4 +152,6 @@ class CarrierSelections
     {
         $this->selectedOptions = $selectedOptions;
     }
+
+
 }

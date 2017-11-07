@@ -52,14 +52,8 @@ class ConfigSettings
      * @param $shipperHQCode
      * @param $shipperHQTitle
      */
-    public function __construct(
-        $hideNotifications,
-        $transactionIdEnabled,
-        $locale,
-        $shipperHQCode,
-        $shipperHQTitle,
-        $timezone
-    ) {
+    public function __construct($hideNotifications, $transactionIdEnabled, $locale, $shipperHQCode, $shipperHQTitle, $timezone)
+    {
         $this->hideNotifications = $hideNotifications;
         $this->transactionIdEnabled = $transactionIdEnabled;
         $this->locale = $locale;
@@ -163,4 +157,5 @@ class ConfigSettings
     {
         $this->timezone = $timezone;
     }
+
 }

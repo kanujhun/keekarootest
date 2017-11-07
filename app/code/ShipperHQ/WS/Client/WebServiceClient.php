@@ -35,6 +35,7 @@ namespace ShipperHQ\WS\Client;
 
 use \ShipperHQ\WS\WebServiceRequestInterface;
 
+
 /**
  * Class WebServiceClient
  *
@@ -53,9 +54,7 @@ class WebServiceClient
 
         $jsonRequest = json_encode($requestObj);
         $debugRequest = $requestObj;
-        if ($debugRequest && $debugRequest->getCredentials() != null) {
-            $debugRequest->credentials->password = null;
-        }
+        $debugRequest->credentials->password = null;
         $jsonDebugRequest = json_encode($debugRequest, JSON_PRETTY_PRINT);
         $debugData['json_request'] = $jsonDebugRequest;
         $debugData['url'] = $webServiceURL;
@@ -67,12 +66,13 @@ class WebServiceClient
             $client->setConfig(['maxredirects' => 0, 'timeout' => $timeout]);
             $client->setRawData($jsonRequest, 'application/json');
             $response = $client->request(\Zend_Http_Client::POST);
-            if ($response !== null) {
+            if (!is_null($response)) {
                 $responseBody = $response->getBody();
             }
 
             $debugData['response'] = $responseBody;
             $responseBody = json_decode($responseBody, false);
+
         } catch (\Exception $e) {
             $debugData['error'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
             $debugData['response'] = '';
@@ -99,27 +99,30 @@ class WebServiceClient
         $debugData['url'] = $webServiceURL;
         $responseBody = '';
 
-        $headers = [
+        $headers = array(
             'Content-Type'  => 'application/json',
-        ];
+        );
 
         try {
-            $args = [
+
+            $args = array(
                 'timeout' => $timeout,
                 'headers' => $headers,
                 'body'    => $jsonRequest
-            ];
+            );
 
-            $response = wp_remote_post($webServiceURL, $args);
+            //$client->setConfig(['maxredirects' => 0, 'timeout' => $timeout]);  // TODO maxredirects
+            $response = wp_remote_post( $webServiceURL, $args );
 
-            if ($response !== null) {
-                $body = wp_remote_retrieve_body($response);
+            if (!is_null($response)) {
+                $body = wp_remote_retrieve_body( $response );
 
                 // Decode if it's json
-                $responseBody = json_decode($body, false);
+                $responseBody = json_decode( $body, false );
             }
 
             $debugData['response'] = $responseBody;
+
         } catch (\Exception $e) {
             $debugData['error'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
             $debugData['response'] = '';

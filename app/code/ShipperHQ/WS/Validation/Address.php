@@ -52,15 +52,9 @@ class Address
      * @param null $street2
      * @param null $zipcode
      */
-    public function __construct(
-        $city = null,
-        $country = null,
-        $region = null,
-        $street = null,
-        $street2 = null,
-        $zipcode = null
-    ) {
-    
+    function __construct($city = null, $country = null, $region = null,
+                         $street = null, $street2 = null, $zipcode = null)
+    {
         $this->city = $city;
         $this->country = $country;
         $this->region = $region;
@@ -86,8 +80,8 @@ class Address
     }
 
    /**
-    * @param mixed $city
-    */
+     * @param mixed $city
+     */
     public function setCity($city)
     {
         $this->city = $city;
@@ -164,4 +158,5 @@ class Address
     {
         return $this->street2;
     }
-}
+
+} 

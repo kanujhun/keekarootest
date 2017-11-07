@@ -40,15 +40,15 @@ class Info extends AbstractOrder
     /**
      * @var \ShipperHQ\Shipper\Helper\Data
      */
-    private $shipperDataHelper;
+    protected $shipperDataHelper;
     /**
      * @var \ShipperHQ\Shipper\Helper\CarrierGroup
      */
-    private $carrierGroupHelper;
+    protected $carrierGroupHelper;
 
-    private $cgInfo = null;
+    protected $cgInfo = null;
 
-    private $defaultDateFormat = 'm/d/y';
+    protected $defaultDateFormat = 'm/d/y';
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
@@ -74,32 +74,32 @@ class Info extends AbstractOrder
     public function getCarriergroupInfo()
     {
         $order = $this->getOrder();
-        if ($this->cgInfo === null) {
+        if(is_null($this->cgInfo)) {
             $this->cgInfo = $this->carrierGroupHelper->getOrderCarrierGroupInfo($order->getId());
 
-            if (empty($this->cgInfo)) {
+            if(empty($this->cgInfo)) {
                 //retrieve using quote shipping address ID from carrier group helper
                 //legacy
-                $this->cgInfo = $this->shipperDataHelper->decodeShippingDetails(
-                    $order->getCarriergroupShippingDetails()
-                );
+                $this->cgInfo = $this->shipperDataHelper->decodeShippingDetails($order->getCarriergroupShippingDetails());
             }
         }
 
         return $this->cgInfo;
+
     }
 
     public function getAddressValidStatus()
     {
         $info = $this->getCarriergroupInfo();
         $result = null;
-        foreach ($info as $carrierGroupDetail) {
-            if (isset($carrierGroupDetail['address_valid'])) {
+        foreach($info as $carrierGroupDetail)
+        {
+            if(isset($carrierGroupDetail['address_valid'])) {
                 $result = $carrierGroupDetail['address_valid'];
             }
         }
 
-        if ($result === null && $this->getOrder()->getValidationStatus()) {
+        if(is_null($result) && $this->getOrder()->getValidationStatus()) {
             $result = $this->getOrder()->getValidationStatus();
         }
         return $result;
@@ -109,13 +109,14 @@ class Info extends AbstractOrder
     {
         $info = $this->getCarriergroupInfo();
         $result = null;
-        foreach ($info as $carrierGroupDetail) {
-            if (isset($carrierGroupDetail[$fieldName])) {
+        foreach($info as $carrierGroupDetail)
+        {
+            if(isset($carrierGroupDetail[$fieldName])) {
                 $result = $carrierGroupDetail[$fieldName];
             }
         }
 
-        if ($result === null && $this->getOrder()->getData($fieldName)) {
+        if(is_null($result) && $this->getOrder()->getData($fieldName)) {
             $result = $this->getOrder()->getData($fieldName);
         }
         return $result;

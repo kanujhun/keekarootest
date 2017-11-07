@@ -34,7 +34,7 @@ class BackupCarrier
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */
-    private $storeManager;
+    protected $storeManager;
 
     /**
      * @var \ShipperHQ\Shipper\Helper\Data
@@ -45,27 +45,25 @@ class BackupCarrier
      */
     private $shipperLogger;
     /**
-     * @var CarrierConfigHandler
+     * @var \Magento\Framework\App\Config\MutableScopeConfigInterface
      */
-    private $carrierConfigHandler;
+    private $mutableConfig;
 
     /**
-     * BackupCarrier constructor.
-     * @param \ShipperHQ\Shipper\Helper\LogAssist $shipperLogger
-     * @param \Magento\Backend\Block\Template\Context $context
-     * @param \ShipperHQ\Shipper\Helper\Data $shipperDataHelper
-     * @param CarrierConfigHandler
+     * @param Config $configHelper
+     *
      */
     public function __construct(
         \ShipperHQ\Shipper\Helper\LogAssist $shipperLogger,
         \Magento\Backend\Block\Template\Context $context,
-        \ShipperHQ\Shipper\Helper\Data $shipperDataHelper,
-        CarrierConfigHandler $carrierConfigHandler
-    ) {
+        \Magento\Framework\App\Config\MutableScopeConfigInterface $mutableConfig,
+        \ShipperHQ\Shipper\Helper\Data $shipperDataHelper)
+    {
+
         $this->shipperDataHelper = $shipperDataHelper;
         $this->storeManager = $context->getStoreManager();
         $this->shipperLogger = $shipperLogger;
-        $this->carrierConfigHandler = $carrierConfigHandler;
+        $this->mutableConfig = $mutableConfig;
     }
 
     public function getBackupCarrierRates($rawRequest, $backupCarrierDetails)
@@ -78,7 +76,7 @@ class BackupCarrier
         $storeId = $rawRequest->getStoreId();
         $tempEnabledCarrier = $this->tempSetCarrierEnabled($carrierCode, true, $storeId);
 
-        $carrier = $this->shipperDataHelper->getCarrierByCode($carrierCode, $storeId);
+        $carrier = $this->shipperDataHelper->getCarrierByCode($carrierCode, $storeId );
 
         if (!$carrier) {
             $this->tempSetCarrierEnabled($carrierCode, false, $storeId);
@@ -87,11 +85,9 @@ class BackupCarrier
         }
 
         $result = $carrier->collectRates($rawRequest);
-        $this->shipperLogger->postInfo(
-            'Shipperhq_Shipper',
-            'Backup carrier result: ',
-            'returned ' .count($result) .' results'
-        );
+        $this->shipperLogger->postInfo('Shipperhq_Shipper', 'Backup carrier result: ',
+            'returned ' .count($result) .' results');
+
 
         if ($tempEnabledCarrier) {
             $this->tempSetCarrierEnabled($carrierCode, false, $storeId);
@@ -103,38 +99,35 @@ class BackupCarrier
      * Enable or disable carrier
      * @return boolean
      */
-    private function tempSetCarrierEnabled($carrierCode, $enabled, $storeId)
+    protected function tempSetCarrierEnabled($carrierCode, $enabled, $storeId)
     {
         $carrierPath = 'carriers/' . $carrierCode . '/active';
         $tempEnabledCarrier = false;
-        // if $enabled set to false was previously enabled!
-        if (!$this->shipperDataHelper->getConfigFlag($carrierPath) || !$enabled) {
-            $this->carrierConfigHandler->saveConfig($carrierPath, $enabled);
-            $this->carrierConfigHandler->refreshConfig();
+
+        if (!$this->shipperDataHelper->getConfigFlag($carrierPath) || !$enabled) { // if $enabled set to false was previously enabled!
+            $this->mutableConfig->setValue($carrierPath, $enabled, 'store', $storeId);
             $tempEnabledCarrier = true;
         }
+
         return $tempEnabledCarrier;
+
     }
 
     /**
      * Get backup carrier if configured
      * @return mixed
      */
-    private function retrieveBackupCarrier($backupCarrierDetails)
+    protected function retrieveBackupCarrier($backupCarrierDetails)
     {
-        $this->shipperLogger->postInfo(
-            'Shipperhq_Shipper',
-            'Unable to establish connection with ShipperHQ',
-            'Attempting to use backup carrier: ' . $backupCarrierDetails
-        );
+        $this->shipperLogger->postInfo('Shipperhq_Shipper', 'Unable to establish connection with ShipperHQ',
+            'Attempting to use backup carrier: ' . $backupCarrierDetails);
         if (!$backupCarrierDetails) {
-            $this->shipperLogger->postDebug(
-                'Shipperhq_Shipper',
-                'Backup carrier: ',
-                'No backup carrier is configured'
-            );
+            $this->shipperLogger->postDebug('Shipperhq_Shipper','Backup carrier: ',
+                'No backup carrier is configured');
             return false;
         }
         return $backupCarrierDetails;
     }
+
+
 }

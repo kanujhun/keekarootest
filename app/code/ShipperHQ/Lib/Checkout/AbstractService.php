@@ -29,6 +29,7 @@
  */
 namespace ShipperHQ\Lib\Checkout;
 
+
 /**
  * Abstract class service
  *
@@ -39,25 +40,26 @@ abstract class AbstractService
     /*
      * Cache data selected at checkout for use in rate request
      */
-    abstract public function saveSelectedData($data);
+    abstract function saveSelectedData($data);
 
     /*
      * Remove carrier shipping rates before re-requesting
      */
-    abstract public function cleanDownRates($cartId, $carrierCode, $carriergroupId, $addressId = false);
+    abstract function cleanDownRates($carrierCode, $carriergroupId, $addressId = false);
 
     /*
      * Request shipping rates for specified carrier
      */
-    abstract public function reqeustShippingRates($cartId, $carrierCode, $carriergroupId, $addressData, $addressId = false);
+    abstract function reqeustShippingRates($carrierCode, $carriergroupId, $addressId = false);
     /*
      * Removed cached data selected at checkout
      */
-    abstract public function cleanDownSelectedData();
+    abstract function cleanDownSelectedData();
 
     public function getKey(\ShipperHQ\Lib\Rate\CarrierSelections $data)
     {
         $key = $data->getCarrierGroupId() .'_' .$data->getCarrierId();
         return $key;
     }
+
 }

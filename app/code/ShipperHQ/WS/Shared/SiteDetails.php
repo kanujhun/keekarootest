@@ -42,6 +42,7 @@ class SiteDetails
     public $environmentScope;
     public $appVersion;
 
+
     const LIVE = 'LIVE';
     const DEV = 'DEVELOPMENT';
     const TEST = 'TEST';
@@ -52,69 +53,64 @@ class SiteDetails
     * @param null $ecommerceVersion
     * @param null $websiteUrl
     */
-    public function __construct(
-        $ecommerceCart = null,
-        $ecommerceVersion = null,
-        $websiteUrl = null,
-        $environmentScope = null,
-        $appVersion = null
-    ) {
-        $this->ecommerceCart = $ecommerceCart;
-        $this->ecommerceVersion = $ecommerceVersion;
-        $this->websiteUrl = $websiteUrl;
-        $this->environmentScope = $environmentScope;
-        $this->appVersion = $appVersion;
-    }
+   function __construct($ecommerceCart = null, $ecommerceVersion = null, $websiteUrl = null, $environmentScope = null, $appVersion = null)
+   {
+      $this->ecommerceCart = $ecommerceCart;
+      $this->ecommerceVersion = $ecommerceVersion;
+      $this->websiteUrl = $websiteUrl;
+      $this->environmentScope = $environmentScope;
+      $this->appVersion = $appVersion;
+   }
 
    /**
     * @param mixed $ecommerceCart
     */
-    public function setEcommerceCart($ecommerceCart)
-    {
-        $this->ecommerceCart = $ecommerceCart;
-    }
+   public function setEcommerceCart($ecommerceCart)
+   {
+      $this->ecommerceCart = $ecommerceCart;
+   }
 
    /**
     * @return mixed
     */
-    public function getEcommerceCart()
-    {
-        return $this->ecommerceCart;
-    }
+   public function getEcommerceCart()
+   {
+      return $this->ecommerceCart;
+   }
 
    /**
     * @param mixed $ecommerceVersion
     */
-    public function setEcommerceVersion($ecommerceVersion)
-    {
-        $this->ecommerceVersion = $ecommerceVersion;
-    }
+   public function setEcommerceVersion($ecommerceVersion)
+   {
+      $this->ecommerceVersion = $ecommerceVersion;
+   }
 
    /**
     * @return mixed
     */
-    public function getEcommerceVersion()
-    {
-        return $this->ecommerceVersion;
-    }
+   public function getEcommerceVersion()
+   {
+      return $this->ecommerceVersion;
+   }
 
    /**
     * @param mixed $websiteUrl
     */
-    public function setWebsiteUrl($websiteUrl)
-    {
-        $this->websiteUrl = $websiteUrl;
-    }
+   public function setWebsiteUrl($websiteUrl)
+   {
+      $this->websiteUrl = $websiteUrl;
+   }
 
    /**
     * @return mixed
     */
-    public function getWebsiteUrl()
-    {
-        return $this->websiteUrl;
-    }
+   public function getWebsiteUrl()
+   {
+      return $this->websiteUrl;
+   }
 
-    public function setEnvironmentScope($environmentScope)
+   public function setEnvironmentScope($environmentScope)
     {
         $this->environmentScope = $environmentScope;
     }
@@ -133,4 +129,5 @@ class SiteDetails
     {
         return $this->appVersion;
     }
+
 }

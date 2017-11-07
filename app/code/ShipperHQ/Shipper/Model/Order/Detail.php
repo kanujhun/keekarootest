@@ -68,7 +68,7 @@ class Detail extends \Magento\Framework\Model\AbstractExtensibleModel
     /**
      * @var /ShipperHQ\Shipper\Model\ResourceModel\Order\Detail\Collection
      */
-    private $orderDetailCollection;
+    protected $orderDetailCollection;
 
     /**
      * @param \ShipperHQ\Shipper\Model\ResourceModel\Order\Detail\CollectionFactory $orderDetailCollectionFactory
@@ -100,6 +100,7 @@ class Detail extends \Magento\Framework\Model\AbstractExtensibleModel
             $data
         );
         $this->orderDetailCollection = $orderDetailCollectionFactory->create();
+
     }
 
     /**
@@ -124,23 +125,33 @@ class Detail extends \Magento\Framework\Model\AbstractExtensibleModel
             ->addOrderIdToFilter($orderId)
             ->addCarrierGroupToFilter($carrierGroupId);
 
-        foreach ($collection as $object) {
+        foreach($collection as $object)
+        {
             return $object;
         }
         return false;
+
     }
 
     /**
-     * Return collection of order details
+     * Return model from carrier group id and address id
      *
-     * @param string $orderId
+     * @param string $carrierGroupId
+     * @param string $addressId
      * @return mixed
      */
     public function loadByOrder($orderId)
     {
+
         $collection = $this->orderDetailCollection
             ->addOrderIdToFilter($orderId);
+
+        foreach($collection as $object)
+        {
+            //TODO do we need to load to afterLoad is called?
+        }
         return $collection;
+
     }
 
     //@codeCoverageIgnoreStart
@@ -559,4 +570,7 @@ class Detail extends \Magento\Framework\Model\AbstractExtensibleModel
     {
         return $this->setData(self::ADDRESS_VALID, $addressValid);
     }
+
+
+
 }

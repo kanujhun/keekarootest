@@ -50,7 +50,7 @@ class WebServiceError
      * @param $errorCode
      * @param $errorMessage
      */
-    public function __construct($description = "", $errorCode = -1, $errorMessage = "")
+    function __construct($description = "", $errorCode = -1, $errorMessage = "")
     {
         $this->description = $description;
         $this->errorCode = $errorCode;
@@ -104,4 +104,5 @@ class WebServiceError
     {
         return $this->errorMessage;
     }
+
 }

@@ -45,4 +45,5 @@ class ItemDetail extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     {
         $this->_init('shipperhq_quote_item_detail', 'id');
     }
+
 }

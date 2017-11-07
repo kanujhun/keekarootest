@@ -33,6 +33,7 @@
  */
 namespace ShipperHQ\Common\Helper;
 
+
 use ShipperHQ\Common\Model\ConfigInterface;
 
 /**
@@ -62,4 +63,5 @@ abstract class AbstractConfig implements ConfigInterface
             return $codes[$type][$code];
         }
     }
+
 }

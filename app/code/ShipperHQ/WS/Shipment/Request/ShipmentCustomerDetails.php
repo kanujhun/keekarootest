@@ -46,15 +46,9 @@ class ShipmentCustomerDetails
     /**
      * @param null $customerGroup
      */
-    public function __construct(
-        $customerGroup = null,
-        $companyName = null,
-        $emailAddress = null,
-        $firstName = null,
-        $lastname = null,
-        $telephone = null
-    ) {
-    
+    function __construct($customerGroup = null, $companyName = null, $emailAddress = null, $firstName = null, $lastname = null,
+                        $telephone = null)
+    {
         $this->customerGroup = $customerGroup;
         $this->companyName = $companyName;
         $this->email = $emailAddress;
@@ -62,4 +56,5 @@ class ShipmentCustomerDetails
         $this->lastName = $lastname;
         $this->phone = $telephone;
     }
+
 }

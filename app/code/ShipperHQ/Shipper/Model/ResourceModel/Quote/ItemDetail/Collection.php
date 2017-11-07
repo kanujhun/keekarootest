@@ -43,10 +43,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function _construct()
     {
-        $this->_init(
-            'ShipperHQ\Shipper\Model\Quote\ItemDetail',
-            'ShipperHQ\Shipper\Model\ResourceModel\Quote\ItemDetail'
-        );
+        $this->_init('ShipperHQ\Shipper\Model\Quote\ItemDetail', 'ShipperHQ\Shipper\Model\ResourceModel\Quote\ItemDetail');
     }
 
     public function addItemToFilter($itemId)

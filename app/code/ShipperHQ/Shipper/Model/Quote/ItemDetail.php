@@ -45,11 +45,10 @@ class ItemDetail extends \Magento\Framework\Model\AbstractExtensibleModel
     /**
      * @var \ShipperHQ\Shipper\Model\ResourceModel\Quote\ItemDetail\Collection
      */
-    private $quoteItemDetailCollection;
+    protected $quoteItemDetailCollection;
 
     /**
-     * @param \ShipperHQ\Shipper\Model\ResourceModel\Quote\AddressDetail\CollectionFactory
-     * $quoteAddressDetailCollectionFactory
+     * @param \ShipperHQ\Shipper\Model\ResourceModel\Quote\AddressDetail\CollectionFactory $quoteAddressDetailCollectionFactory
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param ExtensionAttributesFactory $extensionFactory
@@ -78,6 +77,7 @@ class ItemDetail extends \Magento\Framework\Model\AbstractExtensibleModel
             $data
         );
         $this->quoteItemDetailCollection = $quoteItemDetailCollectionFactory->create();
+
     }
 
     /**
@@ -101,10 +101,12 @@ class ItemDetail extends \Magento\Framework\Model\AbstractExtensibleModel
         $collection = $this->quoteItemDetailCollection
             ->addItemToFilter($itemId);
 
-        foreach ($collection as $object) {
+        foreach($collection as $object)
+        {
             return $object;
         }
         return false;
+
     }
 
     //@codeCoverageIgnoreStart
@@ -123,6 +125,7 @@ class ItemDetail extends \Magento\Framework\Model\AbstractExtensibleModel
     {
         return $this->getData(self::CARRIER_GROUP_ID);
     }
+
 
     /**
      * {@inheritdoc}
@@ -155,4 +158,5 @@ class ItemDetail extends \Magento\Framework\Model\AbstractExtensibleModel
     {
         return $this->setData(self::CARRIER_GROUP_SHIPPING, $carrierGroupShipping);
     }
+
 }

@@ -36,16 +36,16 @@ namespace ShipperHQ\Lib\Rate;
  */
 class Helper
 {
-    const CALENDAR_DATE_OPTION = 'calendar';
-    const DELIVERY_DATE_OPTION = 'delivery_date';
-    const TIME_IN_TRANSIT = 'time_in_transit';
+    CONST CALENDAR_DATE_OPTION = 'calendar';
+    CONST DELIVERY_DATE_OPTION = 'delivery_date';
+    CONST TIME_IN_TRANSIT = 'time_in_transit';
 
-    const DEFAULT_DELIVERY_MESSAGE = 'Delivers: ';
-    const DEFAULT_TRANSIT_MESSAGE = 'business days';
-    const DEFAULT_DATE_FORMAT = 'yMd';
+    CONST DEFAULT_DELIVERY_MESSAGE = 'Delivers: ';
+    CONST DEFAULT_TRANSIT_MESSAGE = 'business days';
+    CONST DEFAULT_DATE_FORMAT = 'yMd';
 
-    const AV_DISABLED = 'VALIDATION_NOT_ENABLED';
-    const ADDRESS_TYPE_UNKNOWN = 'UNKNOWN';
+    CONST AV_DISABLED = 'VALIDATION_NOT_ENABLED';
+    CONST ADDRESS_TYPE_UNKNOWN = 'UNKNOWN';
 
     /**
      * @var \ShipperHQ\Lib\Helper\Date
@@ -58,17 +58,17 @@ class Helper
      */
     public function __construct(
         \ShipperHQ\Lib\Helper\Date $dateHelper
-    ) {
-    
+    )
+    {
         $this->dateHelper = $dateHelper;
     }
 
     public function shouldValidateAddress($addressValidationStatus, $destinationType)
     {
         $validate = true;
-        if ($destinationType !== null && $destinationType != '') {
+        if (!is_null($destinationType) && $destinationType != '') {
             $validate = false;
-        } elseif ($addressValidationStatus !== null && $addressValidationStatus != ''
+        } elseif (!is_null($addressValidationStatus) && $addressValidationStatus != ''
             && $addressValidationStatus != 'EXACT_MATCH') {
             $validate = false;
         }
@@ -90,12 +90,12 @@ class Helper
     public function extractDestinationType($rateResponse)
     {
         $addressType = false;
-        if (isset($rateResponse->addressValidationResponse)) {
+        if(isset($rateResponse->addressValidationResponse)) {
             $avResponse = $rateResponse->addressValidationResponse;
-            if (!isset($avResponse->validationStatus) || $avResponse->validationStatus == self::AV_DISABLED) {
+            if(!isset($avResponse->validationStatus) || $avResponse->validationStatus == self::AV_DISABLED) {
                 return $addressType;
             }
-            if (isset($avResponse->destinationType) && $avResponse->destinationType != self::ADDRESS_TYPE_UNKNOWN) {
+            if(isset($avResponse->destinationType) && $avResponse->destinationType != self::ADDRESS_TYPE_UNKNOWN) {
                 $addressType = $avResponse->destinationType;
             }
         }
@@ -105,9 +105,9 @@ class Helper
     public function extractAddressValidationStatus($rateResponse)
     {
         $validStatus = false;
-        if (isset($rateResponse->addressValidationResponse)) {
+        if(isset($rateResponse->addressValidationResponse)) {
             $avResponse = $rateResponse->addressValidationResponse;
-            if (!isset($avResponse->validationStatus) || $avResponse->validationStatus == self::AV_DISABLED) {
+            if(!isset($avResponse->validationStatus) || $avResponse->validationStatus == self::AV_DISABLED) {
                 return $validStatus;
             }
             $validStatus = $avResponse->validationStatus;
@@ -118,7 +118,7 @@ class Helper
     public function extractCarrierGroupDetail($carrierGroup, $transactionId, $configSettings)
     {
         $carrierGroupDetail = (array)$carrierGroup->carrierGroupDetail;
-        if (!array_key_exists('carrierGroupId', $carrierGroupDetail) || $carrierGroupDetail['carrierGroupId'] =='') {
+        if(!array_key_exists('carrierGroupId', $carrierGroupDetail) || $carrierGroupDetail['carrierGroupId'] =='') {
             $carrierGroupDetail['carrierGroupId'] = 0;
         }
         $carrierGroupDetail['transaction'] = $transactionId;
@@ -134,12 +134,8 @@ class Helper
      * @param ConfigSettings $config
      * @return array
      */
-    public function extractShipperHQRates(
-        $carrierRate,
-        $carrierGroupDetail,
-        ConfigSettings $config,
-        &$splitCarrierGroupDetail
-    ) {
+    public function extractShipperHQRates($carrierRate, $carrierGroupDetail, ConfigSettings $config, &$splitCarrierGroupDetail)
+    {
         $carrierGroupId = $carrierGroupDetail['carrierGroupId'];
         $carrierResultWithRates = [
             'code' => $carrierRate->carrierCode,
@@ -151,12 +147,7 @@ class Helper
         }
 
         if (isset($carrierRate->rates) && !array_key_exists('error', $carrierResultWithRates)) {
-            $thisCarriersRates = $this->populateRates(
-                $carrierRate,
-                $carrierGroupDetail,
-                $config,
-                $splitCarrierGroupDetail
-            );
+            $thisCarriersRates = $this->populateRates($carrierRate, $carrierGroupDetail, $config, $splitCarrierGroupDetail);
             $carrierResultWithRates['rates'] = $thisCarriersRates;
             $thisCarriersShipments = $this->populateShipments($carrierRate, $carrierGroupDetail);
             $carrierResultWithRates['shipments'] = $thisCarriersShipments;
@@ -165,74 +156,60 @@ class Helper
         return $carrierResultWithRates;
     }
 
-    public function extractShipperHQMergedRates(
-        $carrierRate,
-        $splitCarrierGroupDetail,
-        ConfigSettings $config,
-        $transactionId
-    ) {
+    public function extractShipperHQMergedRates($carrierRate, $splitCarrierGroupDetail, ConfigSettings $config, $transactionId)
+    {
         $mergedCarrierResultWithRates = [
             'code' => $carrierRate->carrierCode,
             'title' => $carrierRate->carrierTitle];
 
-        if (isset($carrierRate->error)) {
+        if(isset($carrierRate->error)) {
             $mergedCarrierResultWithRates['error'] = (array)$carrierRate->error;
             $mergedCarrierResultWithRates['code'] = $config->getShipperHQCode();
             $mergedCarrierResultWithRates['title'] = $config->getShipperHQTitle();
         }
 
-        if (isset($carrierRate->rates) && !isset($mergedCarrierResultWithRates['error'])) {
+        if(isset($carrierRate->rates) && !isset($mergedCarrierResultWithRates['error'])) {
             $carrierGroupDetail = ['transaction' => $transactionId];
             $emptySplitCarrierGroupArray = false;
-            $mergedRates = $this->populateRates(
-                $carrierRate,
-                $carrierGroupDetail,
-                $config,
-                $emptySplitCarrierGroupArray
-            );
-            foreach ($carrierRate->rates as $oneRate) {
-                if (isset($oneRate->rateBreakdownList)) {
-                    $carrierGroupShippingDetail = [];
+            $mergedRates = $this->populateRates($carrierRate, $carrierGroupDetail, $config, $emptySplitCarrierGroupArray);
+            foreach($carrierRate->rates as $oneRate) {
+                if(isset($oneRate->rateBreakdownList)){
+                    $carrierGroupShippingDetail = array();
                     $rateBreakdown = $oneRate->rateBreakdownList;
-                    foreach ($rateBreakdown as $rateInMergedRate) {
-                        if (isset($splitCarrierGroupDetail[$rateInMergedRate->carrierGroupId])) {
-                            if (isset($splitCarrierGroupDetail[$rateInMergedRate->carrierGroupId][$rateInMergedRate->carrierCode])
+                    foreach($rateBreakdown as $rateInMergedRate) {
+                        if(isset($splitCarrierGroupDetail[$rateInMergedRate->carrierGroupId])) {
+                            if(isset($splitCarrierGroupDetail[$rateInMergedRate->carrierGroupId][$rateInMergedRate->carrierCode])
                                 && isset($splitCarrierGroupDetail[$rateInMergedRate->carrierGroupId][$rateInMergedRate->carrierCode][$rateInMergedRate->methodCode])) {
                                 $carrierGroupShippingDetail[]= $splitCarrierGroupDetail[$rateInMergedRate->carrierGroupId][$rateInMergedRate->carrierCode][$rateInMergedRate->methodCode];
                             }
                         }
+
                     }
-                    foreach ($mergedRates as $key => $rateToAdd) {
-                        if ($rateToAdd['methodcode'] != $oneRate->code) {
+                    foreach($mergedRates as $key => $rateToAdd) {
+                        if($rateToAdd['methodcode'] != $oneRate->code) {
                             continue;
                         }
                         $rateToAdd['carriergroup_detail'] = $carrierGroupShippingDetail;
                         $mergedRates[$key] = $rateToAdd;
                     }
                 }
+
             }
             $mergedCarrierResultWithRates['rates'] = $mergedRates;
         }
         return $mergedCarrierResultWithRates;
     }
 
-    protected function populateRates(
-        $carrierRate,
-        &$carrierGroupDetail,
-        ConfigSettings $config,
-        &$splitCarrierGroupDetail
-    ) {
+    protected function populateRates($carrierRate, &$carrierGroupDetail, ConfigSettings $config, &$splitCarrierGroupDetail)
+    {
         $thisCarriersRates = [];
         $baseRate = 1;
-        $shipments = $this->populateCarrierLevelDetails(
-            $carrierRate,
-            $carrierGroupDetail,
-            $config->getHideNotifications()
-        );
+        $shipments = $this->populateCarrierLevelDetails($carrierRate, $carrierGroupDetail, $config->getHideNotifications());
 
         $dateFormat = $this->extractDateFormat($carrierRate, $config->getLocale());
 
         $dateOption = $carrierRate->dateOption;
+        $deliveryMessage = $this->getDeliveryMessage($carrierRate, $dateOption);
 
         foreach ($carrierRate->rates as $oneRate) {
             $methodDescription = false;
@@ -242,25 +219,20 @@ class Helper
 
             $this->populateRateLevelDetails((array)$oneRate, $carrierGroupDetail, $baseRate);
 
-            $this->populateRateDeliveryDetails(
-                (array)$oneRate,
-                $carrierGroupDetail,
-                $methodDescription,
-                $dateFormat,
-                $dateOption,
-                $config->getTimezone()
-            );
+            $this->populateRateDeliveryDetails((array)$oneRate, $carrierGroupDetail, $methodDescription, $dateFormat,
+                $dateOption, $deliveryMessage, $config->getTimezone());
 
             if ($methodDescription) {
                 $title .= ' ' . __($methodDescription);
             }
             $carrierType = $oneRate->carrierType;
-            if ($carrierRate->carrierType == 'shqshared') {
+            if($carrierRate->carrierType == 'shqshared') {
                 $carrierType = $carrierRate->carrierType .'_' .$oneRate->carrierType;
                 $carrierGroupDetail['carrierType'] = $carrierType;
-                if (isset($oneRate->carrierTitle)) {
+                if(isset($oneRate->carrierTitle)) {
                     $carrierGroupDetail['carrierTitle'] = $oneRate->carrierTitle;
                 }
+
             }
             //create rateToAdd array - freight_rate, custom_duties,
             $rateToAdd = [
@@ -272,10 +244,10 @@ class Helper
                 'carrier_type' => $carrierType,
                 'carrier_id' => $carrierRate->carrierId,
             ];
-            if (isset($carrierGroupDetail['dispatch_date'])) {
+            if(isset($carrierGroupDetail['dispatch_date'])) {
                 $rateToAdd['dispatch_date'] = $carrierGroupDetail['dispatch_date'];
             }
-            if (isset($carrierGroupDetail['delivery_date'])) {
+            if(isset($carrierGroupDetail['delivery_date'])) {
                 $rateToAdd['delivery_date'] = $carrierGroupDetail['delivery_date'];
             }
             $rateToAdd['tooltip'] = $oneRate->description;
@@ -284,7 +256,7 @@ class Helper
                 $rateToAdd['method_description'] = $methodDescription;
             }
             $rateToAdd['carriergroup_detail'] = $carrierGroupDetail;
-            if (is_array($splitCarrierGroupDetail)) {
+            if(is_array($splitCarrierGroupDetail)) {
                 $splitCarrierGroupDetail[$carrierGroupDetail['carrierGroupId']][$carrierRate->carrierCode][$oneRate->code] =
                     $carrierGroupDetail;
             }
@@ -301,15 +273,16 @@ class Helper
         $carrierGroupDetail['carrierName'] = $carrierRate->carrierName;
 
         $notice = $customDescription = false;
-        if (!$hideNotifyConfigFlag && isset($carrierRate->notices)) {
+        if(!$hideNotifyConfigFlag && isset($carrierRate->notices)) {
             $notice = '';
-            foreach ($carrierRate->notices as $oneNotice) {
+            foreach($carrierRate->notices as $oneNotice) {
                 $notice .= $oneNotice ;
             }
+
         }
         $carrierGroupDetail['notice'] = $notice;
-        if (isset($carrierRate->customDescription)) {
-            $customDescription =  __($carrierRate->customDescription);
+        if(isset($carrierRate->customDescription)) {
+            $customDescription =  __($carrierRate->customDescription) ;
         }
         $carrierGroupDetail['custom_description'] = $customDescription;
     }
@@ -320,12 +293,12 @@ class Helper
         $carrierGroupDetail['price'] = (float)$rate['totalCharges']*$currencyConversionRate;
         $carrierGroupDetail['cost'] = (float)$rate['shippingPrice']*$currencyConversionRate;
         $carrierGroupDetail['code'] = $rate['code'];
-        if (isset($rate['selectedOptions'])) {
+        if(isset($rate['selectedOptions'])) {
             $selectedOptions =  (array)$rate['selectedOptions'];
-            if (isset($selectedOptions['options'])) {
-                foreach ($selectedOptions['options'] as $option) {
+            if(isset($selectedOptions['options'])) {
+                foreach($selectedOptions['options'] as $option) {
                     $thisOption =(array)$option;
-                    if (isset($thisOption['name'])) {
+                    if(isset($thisOption['name'])) {
                         $carrierGroupDetail[$thisOption['name']] = $thisOption['value'];
                     }
                 }
@@ -333,36 +306,47 @@ class Helper
         }
     }
 
-    public function populateRateDeliveryDetails(
-        $rate,
-        &$carrierGroupDetail,
-        &$methodDescription,
-        $dateFormat,
-        $dateOption,
-        $timezone
-    ) {
+    public function populateRateDeliveryDetails($rate, &$carrierGroupDetail, &$methodDescription, $dateFormat, $dateOption, $deliveryMessage, $timezone)
+    {
         $carrierGroupDetail['delivery_date'] = '';
         $carrierGroupDetail['dispatch_date'] = '';
         $carrierGroupDetail['display_date_format'] = $dateFormat;
-        if (isset($rate['deliveryDate']) && is_numeric($rate['deliveryDate'])) {
+        if(isset($rate['deliveryDate']) && is_numeric($rate['deliveryDate'])) {
             $date = new \DateTime();
 
             $date->setTimezone(new \DateTimeZone($timezone));
             $date->setTimestamp($rate['deliveryDate']/1000);
             $deliveryDate = $date->format($dateFormat);
+
+            if($dateOption == self::DELIVERY_DATE_OPTION) {
+                $methodDescription = " $deliveryMessage $deliveryDate";
+                if($rate['latestDeliveryDate'] && is_numeric($rate['latestDeliveryDate'])) {
+                    $latestdate = new \DateTime();
+                    $latestdate->setTimestamp($rate['latestDeliveryDate']/1000);
+                    $latestDeliveryDate = $latestdate->format($dateFormat);
+                    $methodDescription.= ' - ' .$latestDeliveryDate;
+                }
+            }
+            else if($dateOption == self::TIME_IN_TRANSIT
+                && isset($rate['dispatchDate'])) {
+                $numDays = floor(abs($rate['deliveryDate']/1000 - $rate['dispatchDate']/1000)/60/60/24);
+
+                if($rate['latestDeliveryDate'] && is_numeric($rate['latestDeliveryDate'])) {
+                    $maxNumDays = floor(abs($rate['latestDeliveryDate']/1000 - $rate->dispatchDate/1000)/60/60/24);
+                    $methodDescription = " ($numDays - $maxNumDays $deliveryMessage)";
+                }
+                else {
+                    $methodDescription = " ($numDays $deliveryMessage)";
+                }
+            }
             $carrierGroupDetail['delivery_date'] = $deliveryDate;
         }
-        if (isset($rate['dispatchDate']) && is_numeric($rate['dispatchDate'])) {
+        if(isset($rate['dispatchDate']) && is_numeric($rate['dispatchDate'])) {
             $dispatch = new \DateTime();
             $dispatch->setTimezone(new \DateTimeZone($timezone));
             $dispatch->setTimestamp($rate['dispatchDate']/1000);
             $dispatchDate = $dispatch->format($dateFormat);
             $carrierGroupDetail['dispatch_date'] = $dispatchDate;
-        }
-
-        if (isset($rate['deliveryMessage']) && $rate['deliveryMessage'] !== null && $rate['deliveryMessage'] != '') {
-            $methodDescription = $dateOption == self::TIME_IN_TRANSIT ?
-                '(' .$rate['deliveryMessage'] .')' : $rate['deliveryMessage'];
         }
     }
 
@@ -373,27 +357,39 @@ class Helper
         $mapping = $this->getPackagesMapping();
 
         //populate packages
-        if (isset($carrierRate->shipments) && $carrierRate->shipments != null) {
+        if(isset($carrierRate->shipments) && $carrierRate->shipments != null) {
             $standardData = ['carrier_group_id' => $cgId,
                 'carrier_code' =>  $carrierRate->carrierCode];
-            foreach ($carrierRate->shipments as $shipment) {
-                $data = array_merge($standardData, $this->map($mapping, (array)$shipment));
+            foreach($carrierRate->shipments as $shipment) {
+                $data = array_merge($standardData, $this->map($mapping,(array)$shipment));
                 $shipments[] = $data;
             }
         }
-        if (isset($carrierRate->rates)) {
+        if(isset($carrierRate->rates)) {
             foreach ($carrierRate->rates as $oneRate) {
-                if (isset($oneRate->shipments)) {
+                if(isset($oneRate->shipments)) {
                     $standardData = ['carrier_group_id' => $cgId,
                         'carrier_code' =>  $carrierRate->carrierCode.'_'.$oneRate->code];
-                    foreach ($oneRate->shipments as $shipment) {
-                        $data = array_merge($standardData, $this->map($mapping, (array)$shipment));
+                    foreach($oneRate->shipments as $shipment) {
+                        $data = array_merge($standardData, $this->map($mapping,(array)$shipment));
                         $shipments[] = $data;
                     }
                 }
             }
         }
         return $shipments;
+    }
+
+    public function getDeliveryMessage($carrierRate, $dateOption)
+    {
+        $message = self::DEFAULT_DELIVERY_MESSAGE;
+        if($dateOption == self::TIME_IN_TRANSIT) {
+            $message = self::DEFAULT_TRANSIT_MESSAGE;
+        }
+        else if($dateOption == self::DELIVERY_DATE_OPTION && isset($carrierRate->deliveryDateMessage)) {
+            $message = $carrierRate->deliveryDateMessage;
+        }
+        return $message;
     }
 
     public function extractDateFormat($carrierRate, $locale)
@@ -413,30 +409,30 @@ class Helper
      */
     public function getCode($type, $code = '')
     {
-        $codes = [
-            'date_format'   =>[
-                'dd-mm-yyyy'            => 'd-m-Y',
-                'mm/dd/yyyy'            => 'm/d/Y',
+        $codes = array(
+            'date_format'   =>array(
+                'dd-mm-yyyy'    	    => 'd-m-Y',
+                'mm/dd/yyyy'    	    => 'm/d/Y',
                 'EEE dd-MM-yyyy'        => 'D d-m-Y'
-            ],
-            'short_date_format'   =>[
-                'dd-mm-yyyy'        => 'd-m-Y',
-                'mm/dd/yyyy'            => 'm/d/Y',
+            ),
+            'short_date_format'   =>array(
+                'dd-mm-yyyy'   	    => 'd-m-Y',
+                'mm/dd/yyyy'    	    => 'm/d/Y',
                 'EEE dd-MM-yyyy'        => 'D d-m-Y'
-            ],
-            'datepicker_format' => [
+            ),
+            'datepicker_format' => array(
                 'dd-mm-yyyy'         => 'dd-mm-yy',
                 'mm/dd/yyyy'         => 'mm/dd/yy',
                 'EEE dd-MM-yyyy'        => 'DD d-MM-yy'
 
-            ],
-            'zend_date_format'     => [
+            ),
+            'zend_date_format'     => array(
                 'dd-mm-yyyy'         => 'dd-MM-y',
                 'mm/dd/yyyy'         => 'MM/dd/y',
                 'EEE dd-MM-yyyy'        => 'E d-M-y'
-            ],
-            'cldr_date_format'      => [
-                'en-US'            => [
+            ),
+            'cldr_date_format'      => array(
+                'en-US'            => array(
                     'yMd'           => 'n/d/Y',
                     'yMMMd'         => 'M d, Y',
                     'yMMMEd'        => 'D, M d, Y',
@@ -450,8 +446,8 @@ class Helper
                     'MMM'          => 'M',
                     'E'             => 'D',
                     'Ed'            => 'd D',
-                ],
-                'en-GB'            => [
+                ),
+                'en-GB'            => array(
                     'yMd'           => 'd/m/Y',
                     'yMMMd'         => 'd M Y',
                     'yMMMEd'        => 'D, d M Y',
@@ -465,9 +461,9 @@ class Helper
                     'MMM'          =>  'M',
                     'E'             => 'D',
                     'Ed'            => 'd D',
-                ]
-            ]
-        ];
+                )
+            )
+        );
 
         if (!isset($codes[$type])) {
             return false;

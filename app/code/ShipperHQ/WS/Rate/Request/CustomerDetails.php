@@ -45,7 +45,7 @@ class CustomerDetails
     /**
      * @param null|string $customerGroup
      */
-    public function __construct($customerGroup = null)
+    function __construct($customerGroup = null)
     {
         $this->customerGroup = $customerGroup;
     }

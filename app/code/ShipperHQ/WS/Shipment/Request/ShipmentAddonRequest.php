@@ -54,14 +54,9 @@ class ShipmentAddonRequest extends AbstractWebServiceRequest implements WebServi
      * @param null $carrierId
      * @param null $orderId
      */
-    public function __construct(
-        $shipmentList = null,
-        $carrierCode = null,
-        $orderId = null,
-        $reserveOrderNo = null,
-        $trackinNo = null
-    ) {
-    
+    function __construct($shipmentList = null, $carrierCode = null, $orderId = null, $reserveOrderNo = null,
+                            $trackinNo = null)
+    {
         $this->shipment = $shipmentList;
         $this->carrierCode = $carrierCode;
         $this->orderNo = $orderId;
@@ -148,4 +143,5 @@ class ShipmentAddonRequest extends AbstractWebServiceRequest implements WebServi
     {
         return $this->trackingNo;
     }
+
 }

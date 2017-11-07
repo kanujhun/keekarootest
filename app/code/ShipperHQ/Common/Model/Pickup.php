@@ -63,4 +63,5 @@ class Pickup extends BasePickup
         //transform for current locale
         return $pickupDetails;
     }
+
 }

@@ -34,12 +34,11 @@ namespace ShipperHQ\WS\Rate\Request\Checkout;
  *
  * @package ShipperHQ\Checkout
  */
-class Cart
-{
+class Cart {
 
-    public $declaredValue;
-    public $freeShipping;
-    public $items;
+   public $declaredValue;
+   public $freeShipping;
+   public $items;
 
    /**
     * @param float $declaredValue
@@ -49,65 +48,60 @@ class Cart
     * @param int $qty
     * @param float $weight
     */
-    public function __construct(
-        $declaredValue = 0.0,
-        $freeShipping = false,
-        $items = [],
-        $price = 0.0,
-        $qty = 0,
-        $weight = 0.0
-    ) {
-    
-        $this->declaredValue = $declaredValue;
-        $this->freeShipping = $freeShipping;
-        $this->items = $items;
-    }
+   function __construct($declaredValue = 0.0, $freeShipping = false, $items = [],
+                        $price = 0.0, $qty = 0, $weight = 0.0)
+   {
+      $this->declaredValue = $declaredValue;
+      $this->freeShipping = $freeShipping;
+      $this->items = $items;
+   }
 
    /**
     * @param float $declaredValue
     */
-    public function setDeclaredValue($declaredValue)
-    {
-        $this->declaredValue = $declaredValue;
-    }
+   public function setDeclaredValue($declaredValue)
+   {
+      $this->declaredValue = $declaredValue;
+   }
 
    /**
     * @return float
     */
-    public function getDeclaredValue()
-    {
-        return $this->declaredValue;
-    }
+   public function getDeclaredValue()
+   {
+      return $this->declaredValue;
+   }
 
    /**
     * @param boolean $freeShipping
     */
-    public function setFreeShipping($freeShipping)
-    {
-        $this->freeShipping = $freeShipping;
-    }
+   public function setFreeShipping($freeShipping)
+   {
+      $this->freeShipping = $freeShipping;
+   }
 
    /**
     * @return boolean
     */
-    public function getFreeShipping()
-    {
-        return $this->freeShipping;
-    }
+   public function getFreeShipping()
+   {
+      return $this->freeShipping;
+   }
 
    /**
     * @param array $items
     */
-    public function setItems(array $items)
-    {
-        $this->items = $items;
-    }
+   public function setItems(array $items)
+   {
+      $this->items = $items;
+   }
 
    /**
     * @return array
     */
-    public function getItems()
-    {
-        return $this->items;
-    }
+   public function getItems()
+   {
+      return $this->items;
+   }
+
 }
