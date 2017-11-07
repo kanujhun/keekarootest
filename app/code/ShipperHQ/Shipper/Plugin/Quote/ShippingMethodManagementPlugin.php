@@ -33,6 +33,8 @@
  */
 namespace ShipperHQ\Shipper\Plugin\Quote;
 
+use \Magento\Quote\Api\Data\AddressInterface;
+
 class ShippingMethodManagementPlugin
 {
     /**
@@ -42,88 +44,100 @@ class ShippingMethodManagementPlugin
      */
     protected $quoteRepository;
     /**
-     * @var \ShipperHQ\Shipper\Helper\Data
-     */
-    protected $shipperDataHelper;
-    /**
-     * @var \Magento\Checkout\Model\Session
-     */
-    private $checkoutSession;
-    /**
      * @var \ShipperHQ\Shipper\Helper\LogAssist
      */
     private $shipperLogger;
+    /**
+     * Customer Address repository
+     *
+     * @var \Magento\Customer\Api\AddressRepositoryInterface
+     */
+    private $addressRepository;
+    /**
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $customerSession;
+    /**
+     * @var \Magento\Customer\Api\CustomerRepositoryInterface
+     */
+    protected $customerRepository;
 
     public function __construct(
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
-        \ShipperHQ\Shipper\Helper\Data $shipperDataHelper,
-        \Magento\Checkout\Model\Session $checkoutSession,
-         \ShipperHQ\Shipper\Helper\LogAssist $shipperLogger
+        \ShipperHQ\Shipper\Helper\LogAssist $shipperLogger,
+        \Magento\Customer\Api\AddressRepositoryInterface $addressRepository,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
     ) {
         $this->quoteRepository = $quoteRepository;
-        $this->shipperDataHelper = $shipperDataHelper;
-        $this->checkoutSession = $checkoutSession;
         $this->shipperLogger = $shipperLogger;
+        $this->addressRepository = $addressRepository;
+        $this->customerSession = $customerSession;
+        $this->customerRepository = $customerRepository;
     }
 
     /**
-     *Persist shipping address details so they are available when rates re-requested
+     *Add customers address type to shipping address on quote
      *
      * @param \Magento\Quote\Model\ShippingMethodManagement $subject
      * @param callable $proceed
      * @param $cartId
-     * @param \Magento\Quote\Api\Data\AddressInterface $address
+     * @param int $addressId
      * @return \Magento\Quote\Api\Data\ShippingMethodInterface[]
      *
      */
-    public function aroundEstimateByExtendedAddress(\Magento\Quote\Model\ShippingMethodManagement $subject, $proceed,
-                                                    $cartId, \Magento\Quote\Api\Data\AddressInterface $address)
+    public function aroundEstimateByAddressId(\Magento\Quote\Model\ShippingMethodManagement $subject, $proceed, $cartId, $addressId)
     {
-        $result = $proceed($cartId, $address);
-        $this->saveShippingAddress($cartId);
-        return $result;
-    }
-
-    /**
-     *Persist shipping address details so they are available when rates re-requested
-     *
-     * @param \Magento\Quote\Model\ShippingMethodManagement $subject
-     * @param callable $proceed
-     * @param $cartId
-     * @param \Magento\Quote\Api\Data\EstimateAddressInterface $address
-     * @return \Magento\Quote\Api\Data\ShippingMethodInterface[]
-     *
-     */
-    public function aroundEstimateByAddress(\Magento\Quote\Model\ShippingMethodManagement $subject, $proceed,
-                                                    $cartId, \Magento\Quote\Api\Data\EstimateAddressInterface $address)
-    {
-        $result = $proceed($cartId, $address);
-        $this->saveShippingAddress($cartId);
-        return $result;
-    }
-
-    /**
-     *Persist shipping address details so they are available when rates re-requested
-     *
-     * @param \Magento\Quote\Model\ShippingMethodManagement $subject
-     * @param callable $proceed
-     * @param $cartId
-     * @param $addressId
-     * @return \Magento\Quote\Api\Data\ShippingMethodInterface[]
-     *
-     */
-    public function aroundEstimateByAddressId(\Magento\Quote\Model\ShippingMethodManagement $subject, $proceed,
-                                            $cartId, $addressId)
-    {
-        $result = $proceed($cartId, $addressId);
-        $this->saveShippingAddress($cartId);
-        return $result;
-    }
-
-    protected function saveShippingAddress($cartId)
-    {
+        /** @var \Magento\Quote\Model\Quote $quote */
         $quote = $this->quoteRepository->getActive($cartId);
-        $address = $quote->getShippingAddress();
-        $address->save();
+
+        // no methods applicable for empty carts or carts with virtual products
+        if ($quote->isVirtual() || 0 == $quote->getItemsCount()) {
+            return $proceed($cartId, $addressId);
+        }
+        $address = $this->addressRepository->getById($addressId);
+
+        if($custom = $address->getCustomAttributes()) {
+            foreach ($custom as $custom_attribute) {
+                if($custom_attribute->getAttributeCode() == 'destination_type') {
+                    $quote->getShippingAddress()->setData('destination_type', $custom_attribute->getValue());
+                } elseif ($custom_attribute->getAttributeCode() == 'validation_status') {
+                    $quote->getShippingAddress()->setData('validation_status', $custom_attribute->getValue());
+                }
+            }
+        }
+
+        return $proceed($cartId, $addressId);
+    }
+
+    public function aroundEstimateByExtendedAddress(
+        \Magento\Quote\Model\ShippingMethodManagement $subject,
+        $proceed,
+        $cartId,
+        \Magento\Quote\Api\Data\AddressInterface $address)
+    {
+        /** @var \Magento\Quote\Model\Quote $quote */
+        $quote = $this->quoteRepository->getActive($cartId);
+
+        // no methods applicable for empty carts or carts with virtual products
+        if ($quote->isVirtual() || 0 == $quote->getItemsCount()) {
+            return $proceed($cartId, $address);
+        }
+        //if logged in, get the default address and apply address type to address
+        if ($this->customerSession->isLoggedIn()) {
+            $customer = $this->customerRepository->getById($this->customerSession->getCustomerId());
+            if ($defaultShipping = $customer->getDefaultShipping()) {
+                $defaultAddress = $this->addressRepository->getById($defaultShipping);
+                if($custom = $defaultAddress->getCustomAttributes()) {
+                    foreach ($custom as $custom_attribute) {
+                        if($custom_attribute->getAttributeCode() == 'destination_type') {
+                            $quote->getShippingAddress()->setData('destination_type', $custom_attribute->getValue());
+                        }
+                    }
+                }
+            }
+        }
+
+        return $proceed($cartId, $address);
     }
 }

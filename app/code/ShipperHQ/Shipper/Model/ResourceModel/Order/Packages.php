@@ -51,55 +51,49 @@ class Packages extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         $this->_init('shipperhq_order_packages', 'package_id');
     }
 
-    public function loadByOrderId($object, $orderId)
+    protected function _afterLoad(\Magento\Framework\Model\AbstractModel $object)
     {
-        $connection = $this->getConnection();
-        $select = $connection->select()->from(
-            $this->getMainTable()
-        )->where(
-            'order_id = :order_id'
-        );
-        $data = $connection->fetchRow($select, [':order_id' => $orderId]);
-        if ($data) {
-            $object->addData($data);
-        }
-        return $this;
-    }
-
-
-    protected function _afterLoad(\Magento\Framework\Model\AbstractModel $object) {
         parent::_afterLoad($object);
         $connection = $this->getConnection();
         $select = $connection->select()->from($this->getTable('shipperhq_order_package_items'));
         $select->where('package_id=?', $object->getId());
         $items = $connection->fetchAll($select);
-        if($items) {
+        if ($items) {
             $object->setData('items', $items);
         }
         return $this;
     }
 
-    protected function _afterSave(\Magento\Framework\Model\AbstractModel $object) {
+    protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
+    {
         parent::_afterSave($object);
 
-        // now save the package items
-        $this->getConnection()->delete(
-            $this->getTable('shipperhq_order_package_items'),
-            ['package_id = ?' => $object->getId()]
-        );
-        foreach ((array)$object->getData('items') as $item) {
-            if(is_object($item)) {
-                $item = (array)$item;
-            }
-            $itemArray = [
-                'package_id' => $object->getId(),
-                'sku' => $item['sku'],
-                'weight_packed' => $item['weight_packed'],
-                'qty_packed' => $item['qty_packed']
-            ];
-            $this->getConnection()->insert($this->getTable('shipperhq_order_package_items'), $itemArray);
+        $connection = $this->getConnection();
+        $itemsTable = $this->getTable('shipperhq_order_package_items');
+        $packageId = $object->getId();
+
+        // Delete existing package items, if any
+        $select = $connection->select()
+            ->from($itemsTable, 'COUNT(*)')
+            ->where('package_id = ?', $packageId);
+        $itemCount = (int)$connection->fetchOne($select);
+        if ($itemCount) {
+            $connection->delete($itemsTable, ['package_id = ?' => $packageId]);
         }
 
+        // Add new package items
+        $items = [];
+        foreach ((array)$object->getData('items') as $item) {
+            $items[] = [
+                'package_id'    => $packageId,
+                'sku'           => $item['sku'],
+                'weight_packed' => $item['weight_packed'],
+                'qty_packed'    => $item['qty_packed']
+            ];
+        }
+        if(count($items) > 0) {
+            $connection->insertMultiple($itemsTable, $items);
+        }
         return $this;
     }
 }
