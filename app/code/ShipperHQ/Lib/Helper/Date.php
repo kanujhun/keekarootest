@@ -36,9 +36,9 @@ namespace ShipperHQ\Lib\Helper;
  */
 class Date
 {
-    CONST DEFAULT_DATEPICKER = 'mm/dd/y';
-    CONST DEFAULT_CLDR_FORMAT =  'MM/dd/Y';
-    CONST DEFAULT_DATE = 'm/d/y';
+    const DEFAULT_DATEPICKER = 'mm/dd/y';
+    const DEFAULT_CLDR_FORMAT =  'MM/dd/Y';
+    const DEFAULT_DATE = 'm/d/y';
 
     public static function getDateFormat($locale)
     {
@@ -75,12 +75,12 @@ class Date
     {
         $codes = [
             'date_format'   => [
-                'en-GB'         => 'd-m-y',
-                'en-US'         => 'm/d/y'
+                'en-GB'         => 'd-m-Y',
+                'en-US'         => 'm/d/Y'
             ],
             'datepicker_format' => [
-                'en-GB'         => 'dd-mm-y',
-                'en-US'         => 'mm/dd/y'
+                'en-GB'         => 'dd-mm-yy',
+                'en-US'         => 'mm/dd/yy'
             ],
             'cldr_date_format'      => [
                 'en-US'            => [
@@ -99,8 +99,8 @@ class Date
                     'Ed'            => 'd D',
                 ],
                 'en-GB'            => [
-                    'yMd'           => 'd/m/Y',
-                    'yMMMd'         => 'd M Y',
+                    'yMd'           => 'd-m-Y',  //important that this is not changed to d/m/Y
+                    'yMMMd'         => 'd M Y',  //the slashes will cause exceptions
                     'yMMMEd'        => 'D, d M Y',
                     'yMEd'          => 'D, d/m/Y',
                     'MMMd'          => 'd M',

@@ -40,7 +40,7 @@ class CarrierCache extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var \Magento\Framework\App\CacheInterface
      */
-    protected $cache;
+    private $cache;
 
     const CACHE_TAG = 'ShipperHQ';
 
@@ -49,14 +49,22 @@ class CarrierCache extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @var array
      */
-    protected static $quotesCache = [];
+    private static $quotesCache = [];
+
+    private $useCache = false;
 
     /**
      * @param Context $context
      */
-    public function __construct(\Magento\Framework\App\CacheInterface $cache, \Magento\Framework\App\Helper\Context $context)
-    {
+    public function __construct(
+        \Magento\Framework\App\CacheInterface $cache,
+        \Shipperhq\Shipper\Helper\Data $shipperDataHelper,
+        \Magento\Framework\App\Helper\Context $context
+    ) {
+    
         $this->cache = $cache;
+        $this->shipperDataHelper = $shipperDataHelper;
+        $this->useCache = $this->shipperDataHelper->getConfigValue('carriers/shipper/use_cache');
         parent::__construct($context);
     }
 
@@ -66,7 +74,7 @@ class CarrierCache extends \Magento\Framework\App\Helper\AbstractHelper
      * @param string|array $requestParams
      * @return string
      */
-    protected function getQuotesCacheKey($requestParams, $carrierCode)
+    private function getQuotesCacheKey($requestParams, $carrierCode)
     {
         if (is_array($requestParams)) {
             $requestParams = implode(
@@ -76,7 +84,6 @@ class CarrierCache extends \Magento\Framework\App\Helper\AbstractHelper
         }
         return crc32($requestParams);
     }
-
 
     /**
      * Checks whether some request to rates have already been done, so we have cache for it
@@ -90,9 +97,11 @@ class CarrierCache extends \Magento\Framework\App\Helper\AbstractHelper
     public function getCachedQuotes($requestParams, $carrierCode)
     {
         $key = $this->getQuotesCacheKey($requestParams, $carrierCode);
-        return isset(self::$quotesCache[$key]) ? self::$quotesCache[$key] : null;
-   //     $cachedResult = $this->cache->load($key);
-    //    return $cachedResult ? unserialize($cachedResult) : $cachedResult;
+        $cachedResult = false;
+        if ($this->useCache) {
+            $cachedResult = $this->cache->load($key);
+        }
+        return $cachedResult ? unserialize($cachedResult) : $cachedResult;
     }
 
     /**
@@ -104,15 +113,15 @@ class CarrierCache extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function setCachedQuotes($requestParams, $response, $carrierCode)
     {
-        $key = $this->getQuotesCacheKey($requestParams, $carrierCode);
-      //  $this->cache->save(serialize($response), $key, [self::CACHE_TAG]);
-        self::$quotesCache[$key] = $response;
+        if ($this->useCache) {
+            $key = $this->getQuotesCacheKey($requestParams, $carrierCode);
+            $this->cache->save(serialize($response), $key, [self::CACHE_TAG]);
+        }
         return $this;
     }
 
     public function cleanDownCachedRates()
     {
         $this->cache->clean(\Zend_Cache::CLEANING_MODE_MATCHING_TAG, [self::CACHE_TAG]);
-
     }
 }
