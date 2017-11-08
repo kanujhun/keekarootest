@@ -1,24 +1,48 @@
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <style>
-	.prRegFormContent{text-align: center; font-family: Verdana,Arial;}
+	.prRegFormContent{text-align: center; font-family: 'source sans pro', sans-serif;}
 	.prRegFormContent .input-row {margin:auto; margin-bottom: 2px;white-space:nowrap; max-width: 592px;}
 	.prRegFormContent .error{display: none;}
-	.prRegFormContent form{text-align: left;}
-	.prRegFormContent select{display: inline; width: auto;border: none; background-image: none;background-color: transparent; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; border: none; background-image: none; background-color: transparent; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; -webkit-appearance: menulist; box-sizing: border-box; align-items: center; white-space: pre; -webkit-rtl-ordering: logical; color: black; background-color: white; cursor: default; border-width: 1px; border-style: solid; border-color: initial; border-image: initial; background-color: rgb(248, 248, 248); border-width: 1px; border-style: solid; border-color: rgb(166, 166, 166); border-image: initial; font-size: 11px; padding: 0; height: initial;}
-	.prRegFormContent label {text-align: right;display: inline-block; width: 100%;font-size: 11px; color: #000;}
+	.prRegFormContent form{text-align: left;display:inline-block;height:auto;width:100%;}
+    .prRegFormClose{position: absolute;top: 5px;right: 10px;font-size: 30px;line-height: 20px;cursor:pointer;}
+	.prRegFormContent select{display: inline; width: auto;background-image: none;
+        -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;
+        -webkit-appearance: menulist; box-sizing: border-box; align-items: center; white-space: pre;
+        -webkit-rtl-ordering: logical; color: black; cursor: default; border-width: 1px;
+        border-style: solid; border-image: initial; background-color: rgb(248, 248, 248);
+        border-color: rgb(166, 166, 166);
+        font-size: 11px; padding: 0; height: initial;}
+	.prRegFormContent label {text-align: left;display: inline-block; width: 100%;font-size: 11px; color: #000;}
 	.prRegFormContent em {color: #CD046E;}
-	.prRegFormContent .heading h2 {font-size: 22px; font-weight: bold; text-align: center; color: #CD046E; margin-top: 0;}
+	.prRegFormContent .heading h2 {font-family:'quicksand', sans-serif; font-size: 22px; font-weight: bold;
+        text-align: center; color: #CD046E; margin-top: 0;}
 	.prRegFormContent .subheading p {font-size: 11px; text-align: center; color: #000;}
-	.prRegFormContent .labelWrap{width: calc(100% - 330px); display: inline-block; vertical-align: middle; box-sizing: border-box; font-size: 11px; text-align: right;}
-	.prRegFormContent .inputWrap{width: 330px; padding-left: 2px; display: inline-block; vertical-align: middle; box-sizing: border-box; font-size: 11px;}
-	.prRegFormContent input[type="text"], .prRegFormContent input[type="email"]{width: 100%; height: 21px; padding: 2px; display: inline-block; vertical-align: middle; box-sizing: border-box; font-size: 11px;}
-	.prRegFormContent .name input {width: 95px;}
+	.prRegFormContent .labelWrap{width:100%; display: block; vertical-align: middle;
+        box-sizing: border-box; font-size: 11px; text-align: left;}
+	.prRegFormContent .inputWrap{width: 100%; padding-left: 2px; display: inline-block; vertical-align: middle;
+        box-sizing: border-box; font-size: 11px;}
+	.prRegFormContent input[type="text"], .prRegFormContent input[type="email"]{width: 100%; height: 21px; padding: 2px;
+        display: inline-block; vertical-align: middle; box-sizing: border-box; font-size: 11px;}
+	.prRegFormContent .name input {width: 90px;}
 	.prRegFormContent .name label {width: initial; }
 	.prRegFormContent .name .inputWrap label {padding-left: 10px;}
 	.prRegFormContent .submit-row {padding-top: 10px;}
-	.prRegOverlay {z-index: 100; width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: rgba(0,0,0,.75); display: none;}
-	.prRegPopup {z-index: 110; display: none; position: fixed; top: 10%; left: calc(50% - 350px); width: 700px; z-index: 110; background: #ffffff;padding: 40px; box-sizing: border-box;}
-	.register-index-index .prRegPopup {display: initial;}	
+	.prRegOverlay {z-index: 100; width: 100%; height: 100%; position: fixed; top: 0; left: 0;
+        background: rgba(0,0,0,.75); display: none;}
+	.prRegPopup {display: none; position: fixed; top:0; left: 0; width: 100%;
+        z-index: 110; background: #ffffff;padding: 40px; box-sizing: border-box;overflow-y:scroll;height:100%;}
+	.register-index-index .prRegPopup {display: initial;}
+    @media all and (min-width:768px){
+        .prRegPopup {display: none; position: fixed; top:10%; left: calc(50% - 350px); width: 700px;
+            z-index: 110; background: #ffffff;padding: 40px; box-sizing: border-box;height:auto;overflow-y:hidden;}
+        .prRegFormContent .inputWrap{width: 330px; padding-left: 2px; display: inline-block; vertical-align: middle;
+            box-sizing: border-box; font-size: 11px;}
+        .prRegFormContent label {text-align: right;display: inline-block; width: 100%;font-size: 11px; color: #000;}
+        .prRegFormContent .labelWrap{width: calc(100% - 330px); display: inline-block; vertical-align: middle;
+            box-sizing: border-box; font-size: 11px; text-align: right;}
+        .prRegFormContent .name input {width: 110px;}
+        .prRegFormContent .name .inputWrap label {padding-left: 10px;padding-right: 5px;}
+    }
 </style>
 
 <?php
@@ -31,6 +55,7 @@ $formKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
 <div class="prRegOverlay"></div>
 
 <div class="prRegFormContent <?php echo $this->getRequest()->getModuleName() != 'register' ? 'prRegPopup' : '' ?>">
+    <div class="prRegFormClose"><i class="fa fa-times" aria-hidden="true"></i></div>
 	<form id="prRegisterForm" method="POST" action="<?php echo $block->getUrl('register/index/save'); ?>" enctype="multipart/form-data">
 		<div class="heading">
 			<h2>PRODUCT REGISTRATION FOR SAFETY ALERT OR RECALL ONLY</h2>
@@ -119,5 +144,10 @@ require(['jquery'],function($){
 		$('.prRegOverlay').show();
 		$('.prRegPopup').show();
 	});
+	var close = $('.prRegFormClose');
+	close.click(function(){
+        $('.prRegOverlay').hide();
+        $('.prRegPopup').hide();
+    });
 });
 </script>

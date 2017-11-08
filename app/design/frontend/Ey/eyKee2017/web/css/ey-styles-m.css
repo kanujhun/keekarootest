@@ -355,7 +355,10 @@ table > tfoot > tr > td {
 }
 .product.info.detailed .data.item.content table > tbody > tr > td {
     vertical-align: middle;
-    text-align: center;
+}
+.product.info.detailed .data.item.content table > tbody > tr > td > img {
+    margin: 0 auto;
+    display: block;
 }
 button {
     background-image: none;
@@ -12593,6 +12596,9 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
     font-size: 12px;
     margin-right: 5px;
     font-weight: normal;
+}
+span[name="leftLocation"] .today_schedule {
+    display: none;
 }
 @media only screen and (max-width: 479px) {
     .tooltip.wrapper .tooltip.content {
