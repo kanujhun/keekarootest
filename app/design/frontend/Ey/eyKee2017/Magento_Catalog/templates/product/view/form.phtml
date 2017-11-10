@@ -20,8 +20,8 @@ $customerSession = $objectManager->get('Magento\Customer\Model\Session');
 echo '<span style="display: none;">GroupID: '.$customerSession->getCustomerGroupId().'</span>';
 echo '<span style="display: none;">Logged In: '.$customerSession->isLoggedIn().'</span>';
 $_clearGroups = array(2, 4, 5, 6, 7, 8, 11, 14, 17);
-if (in_array($customerSession->getCustomerGroupId(), $_clearGroups)): ?>
-<div class="product-add-form">
+?>
+<div class="product-add-form logged" style="display: none;">
     <form action="<?php /* @escapeNotVerified */ echo $block->getSubmitUrl($_product) ?>" method="post"
           id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
         <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $_product->getId() ?>" />
@@ -44,6 +44,10 @@ if (in_array($customerSession->getCustomerGroupId(), $_clearGroups)): ?>
         <div class="atc-quick"><p>Need to place a large order? Go to <a href="/quick-order.html">Quick Order</a>.</p></div>
     </form>
 </div>
+<div class="product-unlogged-form unlogged">
+    <a href="/customer/account/login/" class="action primary"><span>Wholesale Login</span></a>
+    <a href="/amlocator" class="action secondary"><span>Find a Retailer</span></a>
+</div>
 <script>
     require([
         'jquery',
@@ -60,10 +64,28 @@ if (in_array($customerSession->getCustomerGroupId(), $_clearGroups)): ?>
         priceBoxes.priceBox({'priceConfig': <?php /* @escapeNotVerified */ echo $block->getJsonConfig() ?>});
     });
 </script>
-
-<?php else: ?>
-    <div class="product-unlogged-form">
-        <a href="/customer/account/login/" class="action primary"><span>Wholesale Login</span></a>
-        <a href="/amlocator" class="action secondary"><span>Find a Retailer</span></a>
-    </div>
-<?php endif; ?>
+<script type="text/javascript">
+    require(["jquery"], function($){
+        isLogin();
+        function isLogin() {
+            var get_url = '<?php echo $block->getBaseUrl().'/customer/ajax/islogin'?>';
+            var groupArray = new Array("2", "4", "5", "6", "7", "8", "11", "14", "17");
+            $.ajax({
+                type: 'GET',
+                url: get_url,
+                dataType: 'json',
+                success: function(data) {
+                    if (data['login'] && groupArray.indexOf(data['group']) != -1) {
+                        $('.logged').show();
+                        $('.unlogged').hide();
+                    } else {
+                        console.log(data['login']+' : '+data['group']);
+                    }
+                }, error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.responseText);
+                    console.log(thrownError);
+                }
+            });
+        }
+    });
+</script>

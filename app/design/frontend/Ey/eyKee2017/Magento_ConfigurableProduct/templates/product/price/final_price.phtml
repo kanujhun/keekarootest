@@ -62,7 +62,6 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
     require(["jquery"], function($){
         var target=document.querySelector('.sly-old-price');
         if (target) {
-            console.log('asdf');
             var observer = new MutationObserver(function(mutations){
 //            console.log(mutations);
 //            $('.product-info-main .product-info-price .price-box .price-container > span').addClass('wholesale-loaded');
