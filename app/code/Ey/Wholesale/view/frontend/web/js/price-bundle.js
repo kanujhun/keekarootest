@@ -50,7 +50,7 @@ define([
                     $.each(productOptions.options, function(optId, opts){
                         $.each(opts.selections, function(selId, sels){
                             window.optionConfig[index].options[optId].selections[selId].qty = 0;
-                            window.optionConfig[index].options[optId].selections[selId].customQty = 0;
+                            // window.optionConfig[index].options[optId].selections[selId].customQty = 0;
                         });
                     });
                 }
