@@ -38,7 +38,8 @@
                                      data-product-id="<?php echo $product['id']; ?>">
                                     <input type="text" name="bundle_option_qty[<?php echo $option['option_id']; ?>]"
                                            class="input-text qty"
-                                           data-validate="{'required-number':true,digits:true,'validate-greater-than-zero':true}"
+                               data-validate="{'required-number':true,digits:true,'validate-greater-than-zero':true}"
+                                           data-optionId="<?php echo $option['option_id']; ?>"
                                            value="<?php echo $product['qty']; ?>">
                                     <input type="hidden" name="bundle_option[<?php echo $option['option_id']; ?>]"
                                            value="<?php echo $product['selection_id']; ?>">
