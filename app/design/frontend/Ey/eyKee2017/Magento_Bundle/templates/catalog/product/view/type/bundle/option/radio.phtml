@@ -76,6 +76,8 @@
                         class="input-text qty<?php if (!$_canChangeQty) echo ' qty-disabled' ?>"
                         type="number"
                         name="bundle_option_qty[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                        data-optionId="<?php echo $_option->getId(); ?>"
+                        data-optionValueId="<?php echo $_option->getSelections()[0]->getSelectionId(); ?>"
                         value="<?php /* @escapeNotVerified */ echo $_defaultQty ?>"/>
                 </div>
             </div>
