@@ -50,12 +50,11 @@ define([
                     $.each(productOptions.options, function(optId, opts){
                         $.each(opts.selections, function(selId, sels){
                             window.optionConfig[index].options[optId].selections[selId].qty = 0;
-                            // window.optionConfig[index].options[optId].selections[selId].customQty = 0;
                         });
                     });
                 }
             });
-
+            $('input.change-container-classname').attr('checked',false);
             options.trigger('change');
         },
 
@@ -65,7 +64,7 @@ define([
         _create: function createPriceBundle() {
             var form = this.element,
                 options = $(form).find(this.options.productBundleSelector),
-                // priceBox = $(form).find(this.options.priceBoxSelector),
+                priceBox = $(form).find(this.options.priceBoxSelector),
                 qty = $(form).find(this.options.qtyFieldSelector);
 
             this._applyQtyFix();
@@ -117,21 +116,20 @@ define([
         _onBundleOptionChanged: function onBundleOptionChanged(event) {
             var changes,
                 bundleOption = $(event.target),
-                // priceBox = $(this.element).find(this.options.priceBoxSelector),
+                priceBox = $(this.element).find(this.options.priceBoxSelector),
                 handler = this.options.optionHandlers[bundleOption.data('role')];
 
             bundleOption.data('optionContainer', bundleOption.closest(this.options.controlContainer));
-            // Comment line below for qty 0, qty selected 4 for some reason, and subtotal 0.
             bundleOption.data('qtyField', bundleOption.data('optionContainer').find(this.options.qtyFieldSelector));
 
             if (handler && handler instanceof Function) {
                 changes = handler(bundleOption, window.optionConfig[this.element.data('product-id')], this);
             } else {
-                // Comment line below for qty 0, qty selected 4 for some reason, and subtotal 0.
                 changes = defaultGetOptionValue(bundleOption, window.optionConfig[this.element.data('product-id')]);
             }
             if (changes) {
                 this._reloadPrice(window.optionConfig[this.element.data('product-id')], changes);
+                priceBox.trigger('updatePrice', changes);
             }
             this.updateProductSummary();
         },
@@ -145,22 +143,51 @@ define([
             var field = $(event.target),
                 optionInstance,
                 optionConfig;
-
-            if (field.data('optionId') && field.data('optionValueId')) {
+            if (field.data('optionid') && field.data('optionvalueid')) {
                 optionInstance = field.data('option');
                 optionConfig = window.optionConfig[this.element.data('product-id')]
-                    .options[field.data('optionId')]
-                    .selections[field.data('optionValueId')];
+                    .options[field.data('optionid')]
+                    .selections[field.data('optionvalueid')];
                 optionConfig.qty = field.val();
 
                 if(optionConfig.qty == 0){
-                    $('#bundle-option-'+field.data('optionId')).prop("checked", true);
+                    // $('#bundle-option-'+field.data('optionid')).prop("checked", true);
+                    $('#bundle-option-'+field.data('optionid')+'-'+field.data('optionvalueid')).prop("checked", false);
                 } else{
-                    $('#bundle-option-'+field.data('optionId')+'-'+field.data('optionValueId')).prop("checked", true);
+                    $('#bundle-option-'+field.data('optionid')+'-'+field.data('optionvalueid')).prop("checked", true);
                 }
+                var parentForm = field.closest('form');
+                var totalQty = 0;
+                $(parentForm).find('.input-text.qty').each(function(){
+                    if ($(this).attr('name') != 'qty') {
+                        totalQty += parseInt($(this).val());
+                    }
+                });
+                var grandTotal = 0;
+                $(parentForm).find('.field.option').each(function(){
+                    var subQty = 0;
+                    var subPrice = 0;
+                    var subTotal = 0;
+                    $(this).find('.input-text.qty').each(function(){
+                        if ($(this).attr('name') != 'qty') {
+                            subQty = parseInt($(this).val());
+                            // console.log(subQty);
+                        }
+                    });
+                    subPrice = parseFloat($(this).find('.price-wrapper').data('priceAmount'));
+                    subTotal = subPrice * subQty;
+                    grandTotal += subTotal;
 
-                optionInstance.trigger('change');
+                });
+                // console.log(grandTotal);
+                parentForm.find('div.total-qty span.total-qty').text(totalQty);
+                // var thisPrice = parseFloat(field.closest('.field.option').find('.price-wrapper').data('priceAmount'));
+                // var thisTotal = thisPrice * totalQty;
+                // console.log(thisPrice);
+                var totalPrice = parentForm.find('#bundleSummary').find('span.price');
+                totalPrice.text('$' + grandTotal.toFixed(2));
             }
+            // this.updateProductSummary();
         },
 
         /**
@@ -170,7 +197,8 @@ define([
          * @private
          */
         _applyQtyFix: function applyQtyFix() {
-            var config = window.optionConfig[this.element.data('product-id')];
+            // var config = window.optionConfig[this.element.data('product-id')];
+            var config = this.options.optionConfig;
             if (config.isFixedPrice) {
                 _.each(config.options, function (option) {
                     _.each(option.selections, function (item) {
