@@ -7,14 +7,19 @@
         "OSL-3.0",
         "AFL-3.0"
     ],
-    "repositories": [
-        {
+    "repositories": {
+        "0": {
             "type": "composer",
             "url": "https://repo.magento.com/"
+        },
+        "fastly-magento2": {
+            "type": "git",
+            "url": "https://github.com/fastly/fastly-magento2.git"
         }
-    ],
+    },
     "require": {
-        "magento/magento-cloud-metapackage": "2.1.7"
+        "magento/magento-cloud-metapackage": "2.1.7",
+        "fastly/magento2": "^1.2"
     },
     "config": {
         "use-include-path": true
