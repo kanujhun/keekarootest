@@ -71,10 +71,11 @@ define([
 
         toggle: function () {
             if ($('html').hasClass('nav-open')) {
-                $('html').removeClass('nav-open');
+                // $('html').toggleClass('nav-open');
                 setTimeout(function () {
                     $('html').removeClass('nav-before-open');
-                }, 300);
+                    $('html').removeClass('nav-open');
+                }, 100);
             } else {
                 $('html').addClass('nav-before-open');
                 setTimeout(function () {
