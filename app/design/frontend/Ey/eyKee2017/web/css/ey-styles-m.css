@@ -11191,7 +11191,7 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    font-family:'open sans';
+    font-family:'open sans', sans-serif;
     letter-spacing: 1px;
 }
 .copyright p > span > a {
@@ -12600,6 +12600,7 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
 span[name="leftLocation"] .today_schedule {
     display: none;
 }
+
 @media only screen and (max-width: 479px) {
     .tooltip.wrapper .tooltip.content {
         min-width: 10rem;

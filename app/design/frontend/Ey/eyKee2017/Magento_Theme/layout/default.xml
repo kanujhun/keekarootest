@@ -8,6 +8,7 @@
     <head>
         <link src="https://fonts.googleapis.com/css?family=Quicksand:400,500,700" rel="stylesheet" src_type="url" type="text/css"/>
         <link src="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" src_type="url" type="text/css"/>
+        <link src="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" src_type="url" type="text/css"/>
         <link src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" src_type="url" type="text/css"/>
         <css src="css/ey-styles-m.css"/>
         <css src="css/ey-styles-l.css" media="screen and (min-width:980px)"/>

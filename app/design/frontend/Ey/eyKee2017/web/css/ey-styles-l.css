@@ -563,9 +563,15 @@
         display: inline-block;
         width: calc(100% - 280px);
     }
-    #shipping-method-buttons-container, #payment .action.primary.checkout {
+    #shipping-method-buttons-container {
         display: none;
     }
+    #payment .payment-method .action.primary.checkout[title="Place Order"] {
+        display:none;
+    }
+    /*#payment .payment-method ~ .payment-method .action.primary.checkout {*/
+        /*display: block;*/
+    /*}*/
     .easytwostep {
         float: left;
         color: white;
