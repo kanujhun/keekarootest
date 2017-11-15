@@ -1,2 +1,0 @@
-<?php
-namespace Schogini\Firstdataglobalgateway\Model\Response; class Factory { protected $objectManager; protected $instanceName; public function __construct(\Magento\Framework\ObjectManagerInterface $sp6b3797, $sp87df22 = 'Schogini\\Firstdataglobalgateway\\Model\\Response') { $this->objectManager = $sp6b3797; $this->instanceName = $sp87df22; } public function create(array $sp854ab2 = array()) { return $this->objectManager->create($this->instanceName, $sp854ab2); } }
