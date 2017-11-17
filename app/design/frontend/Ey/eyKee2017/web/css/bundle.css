@@ -267,7 +267,7 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
 
 .list.products-list .bundle-option-holder {
     /*max-width: 152px;*/
-    width: 1px;
+    /*width: 1px;*/
 }
 
 .list.products-list .fieldset.fieldset-bundle-options {
@@ -345,8 +345,8 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
 }
 
 .bundle-option-holder {
-    height: 1px !important;
-    overflow: hidden !important;
+    /*height: 1px !important;*/
+    /*overflow: hidden !important;*/
 }
 
 .product-item-details .qty.box-tocart {
