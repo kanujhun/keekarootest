@@ -1,4 +1,4 @@
-.bundle-edit{margin-top: 10px;}
+.bundle-edit{margin-top: 10px;display:none;}
 .bundle-edit-link{font-size: 11px;color: #870a0e;font-weight: 400;text-transform: uppercase;}
 .bundle-container{position: fixed;width: 100%;height: 100vh;z-index: 997;top: 0;left: 0;}
 body:not(.bundle-finished) .bundle-container{display: none;}

@@ -5662,6 +5662,7 @@ fieldset[disabled] .action-braintree-paypal-logo {
 }
 .page-products .product-item-info {
     width: 240px;
+    position:relative;
 }
 .product-item-actions {
     display: none;
@@ -7051,6 +7052,7 @@ body.catalog-product-compare-index .action.print {
 }
 .cart.table-wrapper .action:last-child {
     margin-right: 0;
+    display: none;
 }
 .cart.table-wrapper .action.help.map {
     font-weight: 400;
@@ -14885,11 +14887,15 @@ span[name="leftLocation"] .today_schedule {
     .products-grid .product-item-info.active .product-item-inner {
         display: block;
     }
+    .catalogsearch-result-index .products-grid .product-item-info:hover .product-item-inner,
+    .catalogsearch-result-index .products-grid .product-item-info.active .product-item-inner {
+        display: none;
+    }
     .products-grid .product-item-inner {
         background: #ffffff;
-        box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, 0.3);
-        border: 1px solid #bbbbbb;
-        border-top: none;
+        /*box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, 0.3);*/
+        /*border: 1px solid #bbbbbb;*/
+        /*border-top: none;*/
         left: 0;
         margin: 9px 0 0 -1px;
         padding: 0 9px 9px;

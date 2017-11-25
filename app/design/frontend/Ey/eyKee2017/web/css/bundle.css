@@ -138,8 +138,9 @@
     width: calc(100% - 74px);
     max-width: 120px;
     float: left;
+    display:none;
 }
-
+.left-wrapper .price-final_price {display:none;}
 .bundle-option-holder .price-notice {
     float: right;
     display: none;

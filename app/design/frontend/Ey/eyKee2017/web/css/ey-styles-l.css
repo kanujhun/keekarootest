@@ -23,6 +23,9 @@
         width: auto;
         margin: 0;
     }
+    .product-unlogged-form .action.primary {
+        margin: 0 10px 10px 0;
+    }
     .catalog-product-view .usp-inner li {
         width: auto;
         margin-left: 20px;
