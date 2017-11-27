@@ -400,7 +400,8 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
 .category-replacement-parts .bundle-options-container .option .control{
     float: right;
 }
-.category-quick-order .list.products-list .bundle-options-container .box-tocart .fieldset > .field {
+.category-quick-order .list.products-list .bundle-options-container .box-tocart .fieldset > .field,
+.category-replacement-parts .list.products-list .bundle-options-container .box-tocart .fieldset > .field {
     display: none;
 }
 @media only screen and (min-width: 1201px) {
