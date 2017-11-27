@@ -3966,7 +3966,7 @@ a.action.primary:focus {
     font-weight: 600;
     padding: 7px 15px;
     box-sizing: border-box;
-    vertical-align: middle;
+    vertical-align: top;
     border-radius: 10px;
     text-transform: uppercase;
     width: 100%;
@@ -12598,6 +12598,35 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
     font-size: 12px;
     margin-right: 5px;
     font-weight: normal;
+}
+.owl-nav {
+    width: calc(100% + 60px);
+    position: absolute;
+    top: 50px;
+    left: -30px;
+    pointer-events: none;
+    font-size: 30px;
+}
+.owl-nav .owl-next {
+    float:right;
+    pointer-events: auto;
+}
+.owl-nav .owl-prev {
+    float: left;
+    pointer-events: auto;
+}
+.owl-nav .owl-next:before {
+    content: '\f054';
+}
+.owl-nav .owl-prev:before {
+    content: '\f053';
+}
+.owl-nav .owl-next:before, .owl-nav .owl-prev:before {
+    font-family: 'fontawesome';
+    color: #898989;
+}
+.owl-nav .owl-next.disabled:before, .owl-nav .owl-prev.disabled:before {
+    color: #ebebeb;
 }
 span[name="leftLocation"] .today_schedule {
     display: none;
