@@ -128,6 +128,7 @@
     color: #5a574f;
     width: calc(80% - 74px);
     max-width: 140px;
+    float: left;
 }
 
 .fieldset.fieldset-bundle-options > .field > .label:after {
@@ -247,8 +248,10 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
 }
 
 .list.products-list .bundle-options-container .fieldset > .field {
-    clear: both;
+    /*clear: both;*/
     margin-bottom: 10px;
+    width:100%;
+    display: inline-block;
 }
 
 .list.products-list .fieldset.fieldset-bundle-options > .field > .label {
@@ -397,6 +400,9 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
 .category-replacement-parts .bundle-options-container .option .control{
     float: right;
 }
+.category-quick-order .list.products-list .bundle-options-container .box-tocart .fieldset > .field {
+    display: none;
+}
 @media only screen and (min-width: 1201px) {
     .catalog-category-view .list.products-list .product-add-form {
         float: right;
@@ -438,13 +444,13 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
     }
     .category-quick-order .list.products-list .bundle-options-container .block-bundle-summary,
     .category-replacement-parts .list.products-list .bundle-options-container .block-bundle-summary{
-        width: 33%;
+        width: 36%;
         float: left;
         padding-left: 10px;
     }
     .category-quick-order .list.products-list .fieldset.fieldset-bundle-options,
     .category-replacement-parts .list.products-list .fieldset.fieldset-bundle-options{
-        width: 67%;
+        width: 64%;
         float: left;
         padding: 0;
     }
