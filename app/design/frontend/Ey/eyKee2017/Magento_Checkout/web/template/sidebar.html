@@ -31,7 +31,7 @@
         <div class="primary">
             <button type="submit" class="button action continue primary" onclick='
                 if(window.location.href.indexOf("#payment") > -1){
-                    jQuery("#payment .action.primary.checkout[title=\"Place Order\"]").trigger("click");
+                    jQuery("#payment ._active .action.primary.checkout").trigger("click");
                 } else {
                     jQuery("#shipping-method-buttons-container .button.action.continue.primary").trigger("click");
                 }'>
