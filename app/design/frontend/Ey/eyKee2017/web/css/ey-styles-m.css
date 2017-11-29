@@ -12359,6 +12359,9 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
     padding: 0;
     max-width: 100%;
 }
+.cms-home .columns .column.main > p:first-of-type {
+    display: none;
+}
 .cms-home .page-header {
     margin-bottom: 0;
 }

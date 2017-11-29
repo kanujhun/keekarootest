@@ -15,5 +15,10 @@
                 <argument name="block_id" xsi:type="string">easy2stepcheckout</argument>
             </arguments>
         </referenceBlock>
+        <referenceBlock name="checkout.cart.summary.title">
+            <arguments>
+                <argument translate="true" name="text" xsi:type="string">Order Summary</argument>
+            </arguments>
+        </referenceBlock>
     </body>
 </page>
