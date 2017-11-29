@@ -5794,6 +5794,8 @@ fieldset[disabled] .action-braintree-paypal-logo {
 .category-quick-order .products-list .product-item-info,
 .category-replacement-parts .products-list .product-item-info{
     position: relative;
+    display:block;
+    width:100%;
 }
 .products-list .product-item-photo {
     display: table-cell;

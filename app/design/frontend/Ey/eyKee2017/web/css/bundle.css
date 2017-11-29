@@ -126,9 +126,10 @@
 .fieldset.fieldset-bundle-options > .field > .label {
     font-weight: 700;
     color: #5a574f;
-    width: calc(80% - 74px);
-    max-width: 140px;
-    float: left;
+    width: calc(100% - 60px);
+    display:inline-block;
+    vertical-align: middle;
+    margin:0;
 }
 
 .fieldset.fieldset-bundle-options > .field > .label:after {
@@ -398,7 +399,8 @@ body.page-product-bundle .product-info-price .price-box .price-container .price:
 }
 .category-quick-order .bundle-options-container .option .control,
 .category-replacement-parts .bundle-options-container .option .control{
-    float: right;
+    display:inline-block;
+    vertical-align: middle;
 }
 .category-peanut-quick-order .list.products-list .bundle-options-container .box-tocart .fieldset > .field,
 .category-quick-order .list.products-list .bundle-options-container .box-tocart .fieldset > .field,
