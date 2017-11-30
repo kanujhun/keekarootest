@@ -62,10 +62,10 @@
         font-style: italic;
     }
     .footer-retailers-wrapper {
-        width: 12.58%;
+        width: 14.58%;
     }
     .footer-company-wrapper {
-        width: 16.66%;
+        width: 14.66%;
     }
     .footer-supporter-wrapper {
         width: 16.66%;
@@ -810,6 +810,10 @@
     }
     .cms-home .outgrow-wrapper {
         background-size: contain;
+        margin-top:40px;
+    }
+    .cms-home .product-line-items h4 {
+        font-size: 29px;
     }
     .cms-home div.outgrow-txt span {
         background-color: #f68e56;
@@ -3298,7 +3302,7 @@
         list-style: none;
         font-size: 0;
         font-family: 'quicksand', sans-serif;
-        letter-spacing:1px;
+        letter-spacing:0px;
     }
     .navigation ul.logged {
         text-align: left;
@@ -3327,7 +3331,7 @@
     .navigation ul > li {
         display: inline-block;
         vertical-align: top;
-        margin: 0 30px 0 0;
+        margin: 0 60px 0 0;
     }
     .navigation ul > li:last-child {
         margin: 0;

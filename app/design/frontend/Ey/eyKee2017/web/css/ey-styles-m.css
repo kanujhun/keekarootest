@@ -3949,9 +3949,14 @@ a.action.primary:focus {
     content: '\e90a';
     font-family: 'icomoon';
     font-size: 10px;
-    vertical-align: top;
     font-weight: 100;
     margin-right: 5px;
+}
+#shipping-method-buttons-container .button.action.continue.primary > span:before {
+    vertical-align: bottom;
+}
+#sidebar-buttons .button.action.continue.primary > span:before {
+    vertical-align: top;
 }
 .methods-shipping .actions-toolbar {
     padding-bottom: 40px;
@@ -5663,7 +5668,7 @@ fieldset[disabled] .action-braintree-paypal-logo {
     -webkit-hyphens: auto;
     display: block;
     hyphens: auto;
-    margin: 5px 0;
+    margin: 5px 0 15px 0;
     word-wrap: break-word;
 }
 .product-item-info {
@@ -5813,6 +5818,10 @@ fieldset[disabled] .action-braintree-paypal-logo {
     padding-top: 60px;
     position: relative;
     z-index: 1;
+}
+.page-products.category-kids-chairs .columns,
+.page-products.category-high-chairs .columns {
+    display: none;
 }
 .toolbar {
     margin-bottom: 30px;
@@ -8157,7 +8166,7 @@ fieldset[disabled] .opc-estimated-wrapper .minicart-wrapper button.action.showca
 }
 .opc-block-summary .product-item .price {
     font-size: 1.6rem;
-    font-weight: 400;
+    font-weight: 600;
 }
 .opc-block-summary .product-item .price-including-tax + .price-excluding-tax .price {
     font-size: 1rem;
@@ -12189,6 +12198,7 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
     display: inline-block;
     margin: 0;
     vertical-align: middle;
+    margin-left:10px;
 }
 .sp-top-products .product-item-name a {
     font-size:24px;
@@ -12457,6 +12467,7 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
     width: 50%;
     font-size:14px;
     font-family:'quicksand', sans-serif;
+    margin-bottom:20px;
 }
 .cms-home .product-line-items h4 {
     font-weight: 500;
