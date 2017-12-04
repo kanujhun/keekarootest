@@ -12500,6 +12500,10 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
 .cms-home .peaceofmind-content {
     background-color: #f3fbfe;
     padding: 30px 20px;
+    display:block;
+}
+.cms-home .peaceofmind-content:hover {
+    text-decoration:none;
 }
 .cms-home .peaceofmind-txt img {
     margin: 0 auto;
