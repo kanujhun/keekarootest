@@ -1,10 +1,4 @@
 <?php
-/**
- * @author Amasty Team
- * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
- * @package Amasty_Storelocator
- */
-
 
 namespace Amasty\Storelocator\Block\Adminhtml\Location\Edit\Tab;
 use Magento\Backend\Block\Widget\Form\Generic;

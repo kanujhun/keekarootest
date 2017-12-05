@@ -1,10 +1,3 @@
-<?php
-/**
- * @author Amasty Team
- * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
- * @package Amasty_Storelocator
- */
-?>
 <?php /** @var \Amasty\Storelocator\Block\Location $block */ ?>
 <?php
 $locations = $block->getLocations();
@@ -15,57 +8,60 @@ $dayNames = $block->dataHelper->getDaysNames();
 $i = 1;
 ?>
 <div id="amlocator_left">
-    <?php foreach ($locations as $location): ?>
-        <span name="leftLocation" data-amid="<?php echo $i ?>">
-                <div class="location_header"><?php echo $this->escapeHtml($location->getName()); ?></div>
-            <?= __('Address') ?>: <?php echo $this->escapeHtml($location->getAddress()); ?>
+    <?php foreach ($locations as $location) : ?>
+        <span name="leftLocation" data-amid="<?= $i ?>">
+                <div class="location_header"><?= $this->escapeHtml($location->getName()); ?></div>
+            <?= __('Address') ?>: <?= $this->escapeHtml($location->getAddress()); ?>
             <br/>
-            <?php echo $this->escapeHtml($location->getCity()); ?>
-            , <?php echo $this->escapeHtml($location->getZip()); ?>
+            <?php if ($this->escapeHtml($location->getState())) : ?>
+                <?= __('State') ?>: <?= $this->escapeHtml($location->getState()); ?>
+                <br/>
+            <?php endif; ?>
+            <?= $this->escapeHtml($location->getCity()); ?>
+            , <?= $this->escapeHtml($location->getZip()); ?>
 
-            <?php if ($this->getShowAttributes()) { ?>
-                <?php if (trim($location->getPhone())) { ?>
+            <?php if ($this->getShowAttributes()) : ?>
+                <?php if (trim($location->getPhone())) : ?>
                     <br/>
-                    <?php echo __('Phone') ?>: <?php echo $this->escapeHtml($location->getPhone()); ?>
-                <?php }?>
-                <?php if (trim($location->getEmail())) { ?>
+                    <?= __('Phone') ?>: <?= $this->escapeHtml($location->getPhone()); ?>
+                <?php endif; ?>
+                <?php if (trim($location->getEmail())) : ?>
                     <br/>
-                    <?php echo __('E-mail') ?>: <?php echo $this->escapeHtml($location->getEmail()); ?>
-                <?php }?>
-                <?php if (trim($location->getWebsite())) { ?>
+                    <?= __('E-mail') ?>: <?= $this->escapeHtml($location->getEmail()); ?>
+                <?php endif; ?>
+                <?php if (trim($location->getWebsite())) : ?>
                     <br/>
-                    <?php echo __('URL') ?>: <?php echo $this->escapeHtml($location->getWebsite()); ?>
-                <?php }?>
-            <?php }?>
+                    <?= __('URL') ?>: <?= $this->escapeHtml($location->getWebsite()); ?>
+                <?php endif; ?>
+            <?php endif; ?>
 
-            <?php
-            if ($location->getScheduleArray() != false):
+            <?php if ($location->getScheduleArray() != false) :
                 $schedule = $location->getScheduleArray();
                 ?>
 
                 <div class="today_schedule">
                         <?= __('Work Time Today:')?>
                     <span>
-                            <?php echo $schedule[$currentDay]['from'][0] ?>:<?php echo $schedule[$currentDay]['from'][1] ?>
+                            <?= $schedule[$currentDay]['from'][0] ?>:<?= $schedule[$currentDay]['from'][1] ?>
                         -
-                        <?php echo $schedule[$currentDay]['to'][0] ?>:<?php echo $schedule[$currentDay]['to'][1] ?>
+                        <?= $schedule[$currentDay]['to'][0] ?>:<?= $schedule[$currentDay]['to'][1] ?>
                         <div class="locator_arrow"></div>
                         </span>
 
                     </div>
 
-                <div class="all_schedule" id="schedule<?php echo $i ?>">
+                <div class="all_schedule" id="schedule<?= $i ?>">
                     <?php
                     $scheduleDay = 1;
 
                     foreach ($schedule as $key => $item) {
                         ?>
                         <div>
-                            <?php echo __($dayNames[$key]); ?>:
+                            <?= __($dayNames[$key]); ?>:
                             <span>
-                                <?php echo $item['from'][0] ?>:<?php echo $item['from'][1] ?>
+                                <?= $item['from'][0] ?>:<?= $item['from'][1] ?>
                                 -
-                                <?php echo $item['to'][0] ?>:<?php echo $item['to'][1] ?>
+                                <?= $item['to'][0] ?>:<?= $item['to'][1] ?>
                             </span>
                         </div>
                         <?php
@@ -73,9 +69,7 @@ $i = 1;
                     }
                     ?>
                 </div>
-                <?php
-            endif;
-            ?>
+            <?php endif; ?>
             </span>
         <?php $i++ ?>
     <?php endforeach; ?>

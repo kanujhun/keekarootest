@@ -1,0 +1,44 @@
+---
+image: amasty/magento2-ci:latest
+variables:
+  MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+  MYSQL_DATABASE: magento
+  MYSQL_USER: magento
+  MYSQL_PASSWORD: magento
+  COMPOSER_ALLOW_SUPERUSER: "1"
+stages:
+- test
+- deploy
+check:composer:
+  stage: test
+  tags:
+  - docker
+  script:
+  - /ci-scripts/check_composer
+check:codesniffer:
+  stage: test
+  tags:
+  - docker
+  script:
+  - /ci-scripts/check_codesniffer
+check:i18n:
+  stage: test
+  tags:
+  - docker
+  only:
+  - master
+  - dev
+  script:
+  - /ci-scripts/check_i18n
+install:
+  stage: deploy
+  services:
+  - mysql:5.6
+  tags:
+  - docker
+  only:
+  - master
+  - dev
+  script:
+  - /ci-scripts/check_install
+...

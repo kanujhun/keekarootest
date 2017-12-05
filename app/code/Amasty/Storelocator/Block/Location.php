@@ -3,9 +3,9 @@
 namespace Amasty\Storelocator\Block;
 
 /**
- * @author Amasty Team
- * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
- * @package Amasty_Storelocator
+ * @author    Amasty Team
+ * @copyright Copyright (c) 2014 Amasty (http://www.amasty.com)
+ * @package   Amasty_Locator
  */
 class Location extends \Magento\Framework\View\Element\Template
 {

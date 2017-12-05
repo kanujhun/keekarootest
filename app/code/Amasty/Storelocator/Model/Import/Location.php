@@ -1,10 +1,4 @@
 <?php
-/**
- * @author Amasty Team
- * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
- * @package Amasty_Storelocator
- */
-
 
 namespace Amasty\Storelocator\Model\Import;
 
@@ -160,6 +154,10 @@ class Location extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
      * @var \Magento\Framework\HTTP\Adapter\CurlFactory
      */
     private $curlFactory;
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $scopeConfig;
 
     public function __construct(
         \Magento\Framework\Json\Helper\Data $jsonHelper,
@@ -173,6 +171,7 @@ class Location extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
         \Magento\Framework\Filesystem $filesystem,
         \Magento\Framework\Filesystem\File\ReadFactory $readFactory,
         \Magento\Framework\HTTP\Adapter\CurlFactory $curlFactory,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
 
         \Amasty\Storelocator\Model\Import\Proxy\Location\ResourceModelFactory $resourceModelFactory,
         \Amasty\Storelocator\Model\Import\Validator\Country $validatorCountry,
@@ -194,6 +193,7 @@ class Location extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
         foreach (array_merge($this->errorMessageTemplates, $this->_messageTemplates) as $errorCode => $message) {
             $this->getErrorAggregator()->addErrorMessageTemplate($errorCode, $message);
         }
+        $this->scopeConfig = $scopeConfig;
         $this->readFactory = $readFactory;
         $this->curlFactory = $curlFactory;
         $this->_resourceFactory = $resourceModelFactory;
@@ -213,6 +213,21 @@ class Location extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
     public function getEntityTypeCode()
     {
         return 'amasty_storelocator';
+    }
+
+    /**
+     * Google maps api key getter.
+     *
+     * @return string
+     */
+    public function getGoogleMapsApiKey()
+    {
+        $apiKey = $this->scopeConfig->getValue(
+            'amlocator/locator/api',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+
+        return $apiKey;
     }
 
     /**
@@ -281,12 +296,12 @@ class Location extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
                 continue;
             }
 
-           // $rowData = $this->_customFieldsMapping($rowData);
+            // $rowData = $this->_customFieldsMapping($rowData);
 
             $this->validateRow($rowData, $source->key());
             $source->next();
         }
-       // $this->checkUrlKeyDuplicates();
+        // $this->checkUrlKeyDuplicates();
         //$this->getOptionEntity()->validateAmbiguousData();
         return parent::_saveValidatedBunches();
     }
@@ -403,6 +418,7 @@ class Location extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
      */
     protected function saveAndReplaceLocations()
     {
+        $googleMapsApiKey = $this->getGoogleMapsApiKey();
         $behavior = $this->getBehavior();
         if (\Magento\ImportExport\Model\Import::BEHAVIOR_REPLACE == $behavior) {
             $this->_cachedSkuToDelete = null;
@@ -430,7 +446,7 @@ class Location extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
                     foreach ($this->coordinatesFields as $coordinatesField) {
                         $locationInfo[] = $rowData[$coordinatesField];
                     }
-                    $coordinates = $this->getCoordinates(implode(' ', $locationInfo));
+                    $coordinates = $this->getCoordinates(implode(' ', $locationInfo), $googleMapsApiKey);
                     if (is_array($coordinates)) {
                         $locationsRows[] = 'lat';
                         $locationsRows[] = 'lng';
@@ -544,10 +560,15 @@ class Location extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
         return $country;
     }
 
-    public function getCoordinates($address)
+    public function getCoordinates($address, $apiKey)
     {
-        $address = str_replace(" ", "+", $address); // replace all the white space with "+" sign to match with google search pattern
-        $url = "https://maps.google.com/maps/api/geocode/json?sensor=false&address=$address";
+        $query = [
+            'sensor' => 'false',
+            'address'=> $address,
+            'key'    => $apiKey
+        ];
+
+        $url = "https://maps.google.com/maps/api/geocode/json?".http_build_query($query);
         $httpAdapter = $this->curlFactory->create();
         $httpAdapter->write(\Zend_Http_Client::GET, $url, '1.1', ['Connection: close']);
         $response = $httpAdapter->read();

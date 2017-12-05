@@ -1,11 +1,4 @@
 <?php
-/**
- * @author Amasty Team
- * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
- * @package Amasty_Storelocator
- */
-?>
-<?php
 
 /** @var $block \Amasty\Storelocator\Block\Adminhtml\Attribute\Edit\Tab\Option\Field */
 
@@ -93,18 +86,22 @@ $stores = $block->getStoresSortedBySortOrder();
 
 <script>
     require([
-        'jquery'
-    ], function (jquery) {
+        'jquery',
+        'uiRegistry'
+    ], function (jquery, rg) {
         var initialized = false;
 
-        function init(){
+        function init() {
             if (!initialized) {
                 jquery('#manage-options-panel').trigger('render');
 
                 jquery('[data-role=options-container]').sortable({cancel: 'select, input, button'});
             }
         }
-        setTimeout(init, 1000);
+
+        rg.get('manage-options-panel', function () {
+            init();
+        });
     });
 </script>
 

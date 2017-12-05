@@ -1,10 +1,4 @@
 <?php
-/**
- * @author Amasty Team
- * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
- * @package Amasty_Storelocator
- */
-
 
 namespace Amasty\Storelocator\Block\Adminhtml\Location\Edit\Tab;
 use Magento\Backend\Block\Widget\Form\Generic;
@@ -111,6 +105,9 @@ class Attribute extends Generic implements TabInterface
                         $optionValues = $this->serializer->unserialize($option['options_serialized']);
                         if (isset($optionValues[0])) {
                             if ($option['is_default']) {
+                                if (is_string($value)) {
+                                    $value = [];
+                                }
                                 $value[] = $option->getId();
                             }
                             $values[] = ['label' => $optionValues[0], 'value' => $option->getId()];
