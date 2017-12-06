@@ -4022,6 +4022,15 @@ fieldset[disabled] .action.primary {
     width: 100%;
     border-bottom: 1px solid #b7b7b7;
 }
+.catalog-product-view .product.data.items > .item.title.soHotRightNow a:after {
+    content:'\e908';
+}
+.catalog-product-view .product.data.items > .item.title + .data.item.content {
+    display: none;
+}
+.catalog-product-view .product.data.items > .item.title.soHotRightNow + .data.item.content {
+    display:block;
+}
 .product.data.items > .item.title > .switch {
     display: block;
 }
@@ -6289,6 +6298,9 @@ fieldset[disabled] .action-braintree-paypal-logo {
 .product-info-price .price-box .old-price {
     font-size: 20px;
     font-weight: 300;
+}
+.page-product-configurable .product-info-price .price-box .sly-old-price.soHotRightNow {
+    display:block !important;
 }
 .product-options-bottom .price-box .old-price .price-container > span,
 .product-info-price .price-box .old-price .price-container > span {
