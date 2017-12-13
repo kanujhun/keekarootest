@@ -11,6 +11,7 @@ use Magento\Mtf\Client\Element\SimpleElement;
 use Magento\Backend\Test\Block\Template;
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\Rma\Test\Block\Adminhtml\Rma\NewRma\Tab\Items\Grid as ItemsGrid;
+use Magento\Rma\Test\Block\Adminhtml\Rma\NewRma\Tab\Items\Item\AddDetails;
 use Magento\Rma\Test\Block\Adminhtml\Rma\NewRma\Tab\Items\Order\Grid as OrderItemsGrid;
 
 /**
@@ -88,6 +89,26 @@ class Items extends \Magento\Rma\Test\Block\Adminhtml\Rma\Edit\Tab\Items
         }
 
         return $this;
+    }
+
+    /**
+     * Fill details modal window.
+     *
+     * @param array $fields
+     * @param SimpleElement $element
+     * @return array
+     */
+    protected function fillDetailsForm(array $fields, SimpleElement $element)
+    {
+        if (isset($fields['additional_attributes'])) {
+            $this->blockFactory->create(
+                AddDetails::class,
+                ['element' => $element]
+            )->fillDetails($fields['additional_attributes']);
+            unset($fields['additional_attributes']);
+        }
+
+        return $fields;
     }
 
     /**
