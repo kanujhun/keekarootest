@@ -1,0 +1,105 @@
+commit 630eddfa279c2b1d47ef7ab7779f739aed3d246c
+Author: Sergey Nosov <snosov@magento.com>
+Date:   Fri May 26 17:12:16 2017 +0300
+
+    MDVA-4352: [Magento Cloud] - Error message on failed checkout
+    - ported fix from MAGETWO-67095
+
+diff --git a/vendor/magento/module-checkout/Model/GuestPaymentInformationManagement.php b/vendor/magento/module-checkout/Model/GuestPaymentInformationManagement.php
+index 19ff0bfbb6b..1e22cafa103 100644
+--- a/vendor/magento/module-checkout/Model/GuestPaymentInformationManagement.php
++++ b/vendor/magento/module-checkout/Model/GuestPaymentInformationManagement.php
+@@ -43,6 +43,11 @@ class GuestPaymentInformationManagement implements \Magento\Checkout\Api\GuestPa
+     protected $cartRepository;
+ 
+     /**
++     * @var \Psr\Log\LoggerInterface
++     */
++    private $logger;
++
++    /**
+      * @param \Magento\Quote\Api\GuestBillingAddressManagementInterface $billingAddressManagement
+      * @param \Magento\Quote\Api\GuestPaymentMethodManagementInterface $paymentMethodManagement
+      * @param \Magento\Quote\Api\GuestCartManagementInterface $cartManagement
+@@ -79,7 +84,13 @@ class GuestPaymentInformationManagement implements \Magento\Checkout\Api\GuestPa
+         $this->savePaymentInformation($cartId, $email, $paymentMethod, $billingAddress);
+         try {
+             $orderId = $this->cartManagement->placeOrder($cartId);
++        } catch (\Magento\Framework\Exception\LocalizedException $e) {
++            throw new CouldNotSaveException(
++                __($e->getMessage()),
++                $e
++            );
+         } catch (\Exception $e) {
++            $this->getLogger()->critical($e);
+             throw new CouldNotSaveException(
+                 __('An error occurred on the server. Please try to place the order again.'),
+                 $e
+@@ -117,4 +128,18 @@ class GuestPaymentInformationManagement implements \Magento\Checkout\Api\GuestPa
+         $quoteIdMask = $this->quoteIdMaskFactory->create()->load($cartId, 'masked_id');
+         return $this->paymentInformationManagement->getPaymentInformation($quoteIdMask->getQuoteId());
+     }
++
++    /**
++     * Get logger instance
++     *
++     * @return \Psr\Log\LoggerInterface
++     * @deprecated
++     */
++    private function getLogger()
++    {
++        if (!$this->logger) {
++            $this->logger = \Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class);
++        }
++        return $this->logger;
++    }
+ }
+diff --git a/vendor/magento/module-checkout/Model/PaymentInformationManagement.php b/vendor/magento/module-checkout/Model/PaymentInformationManagement.php
+index e20456a45e6..da1175298df 100644
+--- a/vendor/magento/module-checkout/Model/PaymentInformationManagement.php
++++ b/vendor/magento/module-checkout/Model/PaymentInformationManagement.php
+@@ -35,6 +35,11 @@ class PaymentInformationManagement implements \Magento\Checkout\Api\PaymentInfor
+     protected $cartTotalsRepository;
+ 
+     /**
++     * @var \Psr\Log\LoggerInterface
++     */
++    private $logger;
++
++    /**
+      * @param \Magento\Quote\Api\BillingAddressManagementInterface $billingAddressManagement
+      * @param \Magento\Quote\Api\PaymentMethodManagementInterface $paymentMethodManagement
+      * @param \Magento\Quote\Api\CartManagementInterface $cartManagement
+@@ -67,7 +72,13 @@ class PaymentInformationManagement implements \Magento\Checkout\Api\PaymentInfor
+         $this->savePaymentInformation($cartId, $paymentMethod, $billingAddress);
+         try {
+             $orderId = $this->cartManagement->placeOrder($cartId);
++        } catch (\Magento\Framework\Exception\LocalizedException $e) {
++            throw new CouldNotSaveException(
++                __($e->getMessage()),
++                $e
++            );
+         } catch (\Exception $e) {
++            $this->getLogger()->critical($e);
+             throw new CouldNotSaveException(
+                 __('An error occurred on the server. Please try to place the order again.'),
+                 $e
+@@ -102,4 +113,18 @@ class PaymentInformationManagement implements \Magento\Checkout\Api\PaymentInfor
+         $paymentDetails->setTotals($this->cartTotalsRepository->get($cartId));
+         return $paymentDetails;
+     }
++
++    /**
++     * Get logger instance
++     *
++     * @return \Psr\Log\LoggerInterface
++     * @deprecated
++     */
++    private function getLogger()
++    {
++        if (!$this->logger) {
++            $this->logger = \Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class);
++        }
++        return $this->logger;
++    }
+ }
