@@ -100,25 +100,25 @@ $showSku = true;
                                 <?php echo $_product->getData('short_description'); ?>
                             </div>
                             <?php echo $block->getReviewsSummaryHtml($_product, $templateType); ?>
-
-                            <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product) ?>
-
+                            <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product); ?>
+                            <div class="baseprice">
+                            <?php
+                            $bundleChildren = $_product->getTypeInstance(true)->getSelectionsCollection(
+                                    $_product->getTypeInstance(true)->getOptionsIds($_product), $_product
+                            );
+                            foreach($bundleChildren as $option) {
+                                $priceArray[] = $option->getData('price');
+                            }
+                            sort($priceArray);
+                            ?>
+                                <span>Starting at $<?php echo number_format($priceArray[0], 2);?></span>
+                            </div>
                             <?php if ($showSku): ?>
                                 <div class="sku"><?php echo $_product->getSku(); ?></div>
                             <?php endif; ?>
                         </div>
-                        <span style="display:none;">
-                            <?php
-                            echo ' isenabled:'.$this->helper('\Ey\Wholesale\Helper\Data')->isEnabled();
-                            echo ' isenabledtype:'.gettype($this->helper('\Ey\Wholesale\Helper\Data')->isEnabled());
-                            echo ' typeid:'.$_product->getTypeId();
-                            echo ' typeidtype:'.gettype($_product->getTypeId());
-                            ?>
-                        </span>
                         <?php if (
-//                            $this->helper('\Ey\Wholesale\Helper\Data')->isEnabled() == true &&
                             $viewMode == 'list' &&
-//                            $_product->getTypeId() == \Magento\Bundle\Model\Product\Type::TYPE_CODE
                             $_product->getTypeId() == 'bundle'
                         ): ?>
                             <?php $this->helper('\Ey\Wholesale\Helper\Data')

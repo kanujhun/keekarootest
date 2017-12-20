@@ -4040,6 +4040,13 @@ fieldset[disabled] .action.primary {
     float: none;
     margin: 0;
 }
+.baseprice {
+    font-weight: bold;
+    font-size:16px;
+}
+.category-peanut-quick-order .baseprice{
+    display:none;
+}
 .product.data.items > .item.content:before,
 .product.data.items > .item.content:after {
     content: '';
@@ -9304,10 +9311,11 @@ fieldset[disabled] .opc-estimated-wrapper .minicart-wrapper button.action.showca
 }
 .filter .block-subtitle {
     border-bottom: 1px solid #cccccc;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: bold;
     line-height: 1em;
     padding: 10px 10px 20px;
+    text-transform:uppercase;
 }
 .filter-subtitle {
     display: none;
@@ -9366,6 +9374,8 @@ fieldset[disabled] .opc-estimated-wrapper .minicart-wrapper button.action.showca
     z-index: 1;
     display: block;
     text-decoration: none;
+    color:#679db3;
+    font-size:16px;
 }
 .filter-options-title:after {
     -webkit-font-smoothing: antialiased;
@@ -9395,20 +9405,21 @@ fieldset[disabled] .opc-estimated-wrapper .minicart-wrapper button.action.showca
 .filter-options-content {
     margin: 0;
     padding: 10px;
+    display:none;
 }
 .filter-options-content .item {
     line-height: 1.5em;
     margin: 10px 0;
 }
 .filter-options-content a {
-    color: #494949;
+    color: #4a4a4a;
     margin-left: -5px;
     margin-right: -5px;
     padding-left: 5px;
     padding-right: 7px;
+    font-size:16px;
 }
 .filter-options-content a:hover {
-    background-color: #e8e8e8;
     text-decoration: none;
 }
 .filter-options-content a:hover + .count {

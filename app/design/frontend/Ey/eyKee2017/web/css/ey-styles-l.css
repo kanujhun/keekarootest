@@ -3347,6 +3347,7 @@
         border: 0;
         margin-bottom: 0;
         height: 102px;
+        min-height:102px;
     }
     .checkout-cart-index .page-header {
         border-bottom: 10px solid #679fb0;
