@@ -9418,6 +9418,7 @@ fieldset[disabled] .opc-estimated-wrapper .minicart-wrapper button.action.showca
     padding-left: 5px;
     padding-right: 7px;
     font-size:16px;
+    font-weight:600;
 }
 .filter-options-content a:hover {
     text-decoration: none;
