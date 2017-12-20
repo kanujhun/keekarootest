@@ -17,6 +17,7 @@ return [
                 'sku' => 'sku1',
                 'max_characters' => 10,
             ],
-            'ProductSku should be specified',
-        ]
+            'Requested product doesn\'t exist',
+            404,
+        ],
 ];

@@ -79,5 +79,21 @@
             <constraint name="Magento\Rma\Test\Constraint\AssertRmaInGrid" />
             <constraint name="Magento\Rma\Test\Constraint\AssertRmaOnFrontendForGuest" />
         </variation>
+        <variation name="CreateRmaEntityOnBackendTestVariation6" summary="Create RMA with additional required attribute" ticketId="MAGETWO-75397">
+            <data name="configData" xsi:type="string">rma_enable_on_frontend</data>
+            <data name="rma/data/order_id/dataset" xsi:type="string">default</data>
+            <data name="rma/data/order_id/data/customer_id/dataset" xsi:type="string">default</data>
+            <data name="rma/data/order_id/data/entity_id/products" xsi:type="string">catalogProductSimple::default</data>
+            <data name="rma/data/items/0/qty_requested" xsi:type="string">1</data>
+            <data name="rma/data/items/0/reason" xsi:type="string">Wrong Size</data>
+            <data name="rma/data/items/0/condition" xsi:type="string">Damaged</data>
+            <data name="rma/data/items/0/resolution" xsi:type="string">Exchange</data>
+            <data name="rma/data/contact_email" xsi:type="string">test%isolation%@example.com</data>
+            <data name="rma/data/comment/comment" xsi:type="string">comments %isolation%</data>
+            <data name="rma/data/comment/is_visible_on_front" xsi:type="string">Yes</data>
+            <data name="rma/data/status" xsi:type="string">Pending</data>
+            <data name="rma/data/attribute_ids/dataset" xsi:type="string">required_attribute</data>
+            <constraint name="Magento\Rma\Test\Constraint\AssertRmaForm" />
+        </variation>
     </testCase>
 </config>

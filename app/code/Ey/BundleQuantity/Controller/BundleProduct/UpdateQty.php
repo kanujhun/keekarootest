@@ -30,20 +30,20 @@ class UpdateQty extends \Magento\Framework\App\Action\Action
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param \Magento\Checkout\Model\Cart $cart
      * @param \Magento\Catalog\Model\Product $product
-//     * @param \Magento\Framework\Message\ManagerInterface $messageManager
+     * @param \Magento\Framework\Message\ManagerInterface $messageManager
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Checkout\Model\Cart $cart,
         \Magento\Catalog\Model\Product $product
-//        \Magento\Framework\Message\ManagerInterface $messageManager
-    ) {
+    )
+    {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->_cart = $cart;
         $this->_product = $product;
-//        $this->_messageManager = $messageManager;
+        $this->_messageManager = $context->getMessageManager();
     }
 
     /**

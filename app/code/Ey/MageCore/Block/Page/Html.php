@@ -9,7 +9,7 @@ class Html extends \Magento\Cms\Block\Block
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-//    protected $_scopeConfig;
+    protected $_scopeConfig;
 
     /**
      * @var \Magento\Framework\ObjectManagerInterface
@@ -33,7 +33,7 @@ class Html extends \Magento\Cms\Block\Block
 
     /**
      * Html constructor.
-//     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Framework\ObjectManagerInterface $objectManager
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\View\Element\Context $context
@@ -43,7 +43,6 @@ class Html extends \Magento\Cms\Block\Block
      * @param array $data
      */
     public function __construct(
-//        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\ObjectManagerInterface $objectManager,
         \Magento\Framework\Registry $registry,
         Context $context,
@@ -55,7 +54,7 @@ class Html extends \Magento\Cms\Block\Block
     {
         parent::__construct($context, $filterProvider, $storeManager, $blockFactory, $data);
         $this->_objectManager = $objectManager;
-        $this->_scopeConfig = $scopeConfig;
+        $this->_scopeConfig = $context->getScopeConfig();
         $this->_coreRegistry = $registry;
         if(array_key_exists('xml_path', $data)){
             $this->_xmlPath = $data['xml_path'];

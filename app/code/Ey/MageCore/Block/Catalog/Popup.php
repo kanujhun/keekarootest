@@ -37,7 +37,7 @@ class Popup extends \Magento\Framework\View\Element\Template
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */
-//    protected $storeManager;
+    protected $storeManager;
 
     /**
      * @var \Magento\Catalog\Model\ResourceModel\Product\Collection
@@ -53,7 +53,7 @@ class Popup extends \Magento\Framework\View\Element\Template
      * @param \Magento\Checkout\Helper\Cart $cartHelper
      * @param \Magento\Catalog\Block\Product\ImageBuilder $imageBuilder
      * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
-//     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection
      * @param array $data
      */
@@ -65,7 +65,6 @@ class Popup extends \Magento\Framework\View\Element\Template
         \Magento\Checkout\Helper\Cart $cartHelper,
         \Magento\Catalog\Block\Product\ImageBuilder $imageBuilder,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-//        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection,
         array $data = []
     )
@@ -77,7 +76,7 @@ class Popup extends \Magento\Framework\View\Element\Template
         $this->cartHelper = $cartHelper;
         $this->imageBuilder = $imageBuilder;
         $this->productRepository = $productRepository;
-        $this->storeManager = $_storeManager;
+        $this->storeManager = $context->getStoreManager();
         $this->productCollection = $productCollection;
     }
 

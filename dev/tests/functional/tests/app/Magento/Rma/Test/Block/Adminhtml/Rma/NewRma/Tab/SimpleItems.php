@@ -22,8 +22,9 @@ class SimpleItems extends Items
         /** @var \Magento\Catalog\Test\Fixture\CatalogProductSimple $product */
         $product = $itemData['product'];
         unset($itemData['product']);
-        $fields = $this->dataMapping($itemData);
         $itemRow = $this->getItemsGrid()->getItemRow($product);
+        $itemData = $this->fillDetailsForm($itemData, $itemRow);
+        $fields = $this->dataMapping($itemData);
         $this->_fill($fields, $itemRow);
     }
 }
