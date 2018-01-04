@@ -168,7 +168,7 @@ class AssertCustomerAddressAttributeVisibleOnCheckout extends AbstractConstraint
             AddNewShippingAddressStep::class,
             [
                 'checkoutOnepage' => $this->checkoutOnepage,
-                'address' => $address
+                'shippingAddress' => $address
             ]
         )->run();
 

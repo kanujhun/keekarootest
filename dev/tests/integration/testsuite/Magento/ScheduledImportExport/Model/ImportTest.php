@@ -5,6 +5,9 @@
  */
 namespace Magento\ScheduledImportExport\Model;
 
+use Magento\ImportExport\Model\Import;
+use Magento\ImportExport\Model\Import\ErrorProcessing\ProcessingErrorAggregatorInterface;
+
 class ImportTest extends \PHPUnit_Framework_TestCase
 {
     /**

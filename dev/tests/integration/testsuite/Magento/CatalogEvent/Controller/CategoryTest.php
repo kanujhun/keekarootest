@@ -21,7 +21,8 @@ class CategoryTest extends \Magento\TestFramework\TestCase\AbstractBackendContro
     {
         $this->dispatch('backend/catalog/category/edit/id/3');
         $this->assertContains(
-            'onclick="setLocation(\'http://localhost/index.php/backend/admin/catalog_event/new/category/1/category_id/',
+            'onclick="setLocation(&#039;' .
+            'http://localhost/index.php/backend/admin/catalog_event/new/category/1/category_id/',
             $this->getResponse()->getBody()
         );
     }
@@ -36,7 +37,7 @@ class CategoryTest extends \Magento\TestFramework\TestCase\AbstractBackendContro
     {
         $this->dispatch('backend/catalog/category/edit/id/3');
         $this->assertContains(
-            'onclick="setLocation(\'http://localhost/index.php/backend/admin/catalog_event/edit/id/',
+            'onclick="setLocation(&#039;http://localhost/index.php/backend/admin/catalog_event/edit/id/',
             $this->getResponse()->getBody()
         );
     }
@@ -45,7 +46,7 @@ class CategoryTest extends \Magento\TestFramework\TestCase\AbstractBackendContro
     {
         /** @var $event \Magento\CatalogEvent\Model\Event */
         $event = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\CatalogEvent\Model\Event'
+            \Magento\CatalogEvent\Model\Event::class
         );
         $event->setStoreId(0);
         $event->setCategoryId('3');
