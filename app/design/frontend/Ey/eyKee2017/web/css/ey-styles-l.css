@@ -1847,7 +1847,7 @@
         z-index: 1;
     }
     .block-search .block-content {
-        width: 300px;
+        width:240px;
         position: absolute;
         top: -4px;
         background-color: white;
