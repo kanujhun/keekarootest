@@ -43,7 +43,7 @@
         isLogin();
         function isLogin() {
             var get_url = '<?php echo $block->getBaseUrl().'/customer/ajax/islogin'?>';
-            var groupArray = new Array("2", "4", "5", "6", "7", "8", "11", "14", "17");
+            var groupArray = new Array("2", "4", "5", "6", "7", "8", "11", "14", "17", "20", "25");
             $.ajax({
                 type: 'GET',
                 url: get_url,
@@ -54,7 +54,7 @@
                         $('.wholesale').show();
                         $('.unlogged').hide();
                     } else {
-//                        console.log('NOPE');
+                        console.log(data['login']+' : '+data['group']);
                     }
                 }, error: function(xhr, ajaxOptions, thrownError) {
                     console.log(xhr.responseText);
