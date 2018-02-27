@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magenest. All rights reserved.
+ */
+-->
+
+<admin_system_config_changed_section_sectionaname>
+    <observers>
+        <modulename>
+            <type>singleton</type>
+            <class>emailnotificationss/observer/saveconfig/saveconfig</class>
+            <method>observersection</method>
+        </modulename>
+    </observers>
+</admin_system_config_changed_section_sectionaname>

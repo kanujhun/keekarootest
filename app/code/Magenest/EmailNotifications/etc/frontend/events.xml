@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © 2016 Magenest. All rights reserved.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_register_success">
+        <observer name="magenest_emailnotifications" instance="Magenest\EmailNotifications\Observer\NewRegistration\NewRegistration" />
+    </event>
+
+    <event name="newsletter_subscriber_save_commit_after">
+        <observer name="magenest_emailnotifications" instance="Magenest\EmailNotifications\Observer\NewSubscription\NewSubscription" />
+    </event>
+
+    <event name="wishlist_add_product">
+        <observer name="magenest_emailnotifications" instance="Magenest\EmailNotifications\Observer\Wishlist\WishlistAddProduct" />
+    </event>
+
+    <event name="review_save_after">
+        <observer name="magenest_emailnotifications" instance="Magenest\EmailNotifications\Observer\NewReview\NewReview" />
+    </event>
+</config>

@@ -1,0 +1,8 @@
+{{template config_path="design/email/header_template"}}
+<!--@subject New Order Status @-->
+<h1>New order status</h1>
+<p>Order ID: {{var orderId}}</p>
+<p>Previous Status: {{var statebefore}}</p>
+<p>Current Status: {{var stateafter}}</p>
+<p>Updated time: {{var updated_at}}</p>
+{{template config_path="design/email/footer_template"}}
