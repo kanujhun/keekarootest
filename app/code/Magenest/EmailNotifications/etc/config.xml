@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magenest. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <emailnotifications_config>
+            <config_group_new_registration>
+                <config_new_registration_template>emailnotifications_config_config_group_new_registration_config_new_registration_template</config_new_registration_template>
+            </config_group_new_registration>
+
+            <config_group_new_review>
+                <config_new_review_template>emailnotifications_config_config_group_new_review_config_new_review_template</config_new_review_template>
+            </config_group_new_review>
+
+            <config_group_new_order>
+                <config_new_order_template>emailnotifications_config_config_group_new_order_config_new_order_template</config_new_order_template>
+            </config_group_new_order>
+
+            <config_group_new_coupon>
+                <config_new_coupon_template>emailnotifications_config_config_group_new_coupon_config_new_coupon_template</config_new_coupon_template>
+            </config_group_new_coupon>
+
+            <config_group_new_subscription>
+                <config_new_subscription_template>emailnotifications_config_config_group_new_subscription_config_new_subscription_template</config_new_subscription_template>
+            </config_group_new_subscription>
+
+            <config_group_new_orderstatus>
+                <config_new_orderstatus_template1>emailnotifications_config_config_group_new_orderstatus_config_new_orderstatus_template1</config_new_orderstatus_template1>
+            </config_group_new_orderstatus>
+
+            <config_group_new_orderstatus>
+                <config_new_orderstatus_template2>emailnotifications_config_config_group_new_orderstatus_config_new_orderstatus_template2</config_new_orderstatus_template2>
+            </config_group_new_orderstatus>
+
+            <config_group_new_orderstatus>
+                <config_new_orderstatus_template3>emailnotifications_config_config_group_new_orderstatus_config_new_orderstatus_template3</config_new_orderstatus_template3>
+            </config_group_new_orderstatus>
+        </emailnotifications_config>
+    </default>
+</config>

@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magenest. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="emailnotifications" translate="label" sortOrder="800">
+            <label>Email Notification</label>
+        </tab>
+
+        <section id="emailnotifications_config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+            <class>separator-top</class>
+            <label>Email Notifications Configuration</label>
+            <tab>emailnotifications</tab>
+            <resource>Magenest_EmailNotifications::config_emailnotifications</resource>
+
+            <group id="config_group_email_sender" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>Email sender</label>
+                <field id="config_email_sender" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+            </group>
+
+            <group id="config_group_new_order" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>New Order</label>
+                <field id="config_new_order_enable" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_order_template" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_order_enable">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_order_receiver" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_order_enable">yes</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="config_group_new_wishlist" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>New Wishlist</label>
+                <field id="config_new_wishlist_enable" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_wishlist_template" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_wishlist_enable">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_wishlist_receiver" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_wishlist_enable">yes</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="config_group_new_coupon" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>New Coupon Code used</label>
+                <field id="config_new_coupon_enable" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_coupon_template" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_coupon_enable">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_coupon_receiver" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_coupon_enable">yes</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="config_group_new_registration" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>New Customer Registration</label>
+                <field id="config_new_registration_enable" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_registration_template" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_registration_enable">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_registration_receiver" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_registration_enable">yes</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="config_group_new_review" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>New Product Review</label>
+                <field id="config_new_review_enable" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_review_template" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_review_enable">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_review_receiver" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_review_enable">yes</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="config_group_new_subscription" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>Customer subscribed to Newsletter</label>
+                <field id="config_new_subscription_enable" translate="label comment" type="select" sortOrder="160" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_subscription_template" translate="label comment" type="select" sortOrder="170" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_subscription_enable">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_subscription_receiver" translate="label comment" type="text" sortOrder="180" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_subscription_enable">yes</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="config_group_new_unsubscription" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>Customer unsubscribed to Newsletter</label>
+                <field id="config_new_unsubscription_enable" translate="label comment" type="select" sortOrder="160" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_unsubscription_template" translate="label comment" type="select" sortOrder="170" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_unsubscription_enable">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_unsubscription_receiver" translate="label comment" type="text" sortOrder="180" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_unsubscription_enable">yes</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="config_group_new_orderstatus" translate="label" type="text" sortOrder="270" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>Order Status Change</label>
+
+                <field id="config_new_orderstatus_enable1" translate="label comment" type="select" sortOrder="280" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification (1)</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_orderstatus_from1" translate="label comment" type="select" sortOrder="290" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>An order Status Has Changed From</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsStatus</source_model>
+                    <depends>
+                        <field id="config_new_orderstatus_enable1">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_to1" translate="label comment" type="select" sortOrder="300" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>An order Status Has Changed To</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsStatus</source_model>
+                    <depends>
+                        <field id="config_new_orderstatus_enable1">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_template1" translate="label comment" type="select" sortOrder="310" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_orderstatus_enable1">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_receiver1" translate="label comment" type="text" sortOrder="320" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_orderstatus_enable1">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_enable2" translate="label comment" type="select" sortOrder="330" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification (2)</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_orderstatus_from2" translate="label comment" type="select" sortOrder="340" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>An order Status Has Changed From</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsStatus</source_model>
+                    <depends>
+                        <field id="config_new_orderstatus_enable2">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_to2" translate="label comment" type="select" sortOrder="350" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>An order Status Has Changed To</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsStatus</source_model>
+                    <depends>
+                        <field id="config_new_orderstatus_enable2">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_template2" translate="label comment" type="select" sortOrder="360" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_orderstatus_enable2">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_receiver2" translate="label comment" type="text" sortOrder="370" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_orderstatus_enable2">yes</field>
+                    </depends>
+                </field>
+
+                <field id="config_new_orderstatus_enable3" translate="label comment" type="select" sortOrder="380" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Notification (3)</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsYesNo</source_model>
+                </field>
+                <field id="config_new_orderstatus_from3" translate="label comment" type="select" sortOrder="390" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>An order Status Has Changed From</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsStatus</source_model>
+                    <depends>
+                        <field id="config_new_orderstatus_enable3">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_to3" translate="label comment" type="select" sortOrder="400" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>An order Status Has Changed To</label>
+                    <source_model>Magenest\EmailNotifications\Model\Config\OptionsStatus</source_model>
+                    <depends>
+                        <field id="config_new_orderstatus_enable3">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_template3" translate="label comment" type="select" sortOrder="410" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="config_new_orderstatus_enable3">yes</field>
+                    </depends>
+                </field>
+                <field id="config_new_orderstatus_receiver3" translate="label comment" type="text" sortOrder="420" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Email Receiver</label>
+                    <comment>Use ; to separate receiver emails.</comment>
+                    <depends>
+                        <field id="config_new_orderstatus_enable3">yes</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

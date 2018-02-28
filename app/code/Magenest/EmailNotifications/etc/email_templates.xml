@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="emailnotifications_config_config_group_new_registration_config_new_registration_template"
+              label="New Registration - Magenest Email Notifications"
+              file="config_new_registration_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+
+    <template id="emailnotifications_config_config_group_new_review_config_new_review_template"
+              label="New Review - Magenest Email Notifications - "
+              file="config_new_review_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+
+    <template id="emailnotifications_config_config_group_new_order_config_new_order_template"
+              label="New Order - Magenest Email Notifications - "
+              file="config_new_order_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+
+    <template id="emailnotifications_config_config_group_new_wishlist_config_new_wishlist_template"
+              label="New Wishlist - Magenest Email Notifications - "
+              file="config_new_wishlist_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+
+    <template id="emailnotifications_config_config_group_new_coupon_config_new_coupon_template"
+              label="New Coupon - Magenest Email Notifications - "
+              file="config_new_coupon_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+    <template id="emailnotifications_config_config_group_new_subscription_config_new_subscription_template"
+              label="Newsletter Subscription - Magenest Email Notifications - "
+              file="config_new_subscription_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+
+    <template id="emailnotifications_config_config_group_new_unsubscription_config_new_unsubscription_template"
+              label="Newsletter Unsubscription - Magenest Email Notifications - "
+              file="config_new_unsubscription_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+
+    <template id="emailnotifications_config_config_group_new_orderstatus_config_new_orderstatus_template1"
+              label="New Order Change - Magenest Email Notifications - "
+              file="config_new_order_status_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+    <template id="emailnotifications_config_config_group_new_orderstatus_config_new_orderstatus_template2"
+              label="New Order Change - Magenest Email Notifications - "
+              file="config_new_order_status_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+
+    <template id="emailnotifications_config_config_group_new_orderstatus_config_new_orderstatus_template3"
+              label="New Order Change - Magenest Email Notifications - "
+              file="config_new_order_status_template_html.html" type="html"
+              module="Magenest_EmailNotifications" area="frontend"
+    />
+
+</config>
