@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -17,7 +17,6 @@ return [
                 'sku' => 'sku1',
                 'max_characters' => 10,
             ],
-            'Requested product doesn\'t exist',
-            404,
-        ],
+            'ProductSku should be specified',
+        ]
 ];

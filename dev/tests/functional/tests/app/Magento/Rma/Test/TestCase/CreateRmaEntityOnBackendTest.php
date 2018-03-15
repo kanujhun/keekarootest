@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -28,14 +28,13 @@ use Magento\Sales\Test\Fixture\OrderInjectable;
  * 5. Submit returns.
  * 6. Perform all assertions.
  *
- * @group RMA_(CS)
+ * @group RMA
  * @ZephyrId MAGETWO-28571
  */
 class CreateRmaEntityOnBackendTest extends AbstractRmaEntityTest
 {
     /* tags */
     const MVP = 'no';
-    const DOMAIN = 'CS';
     const TEST_TYPE = 'extended_acceptance_test';
     /* end tags */
 
@@ -58,14 +57,14 @@ class CreateRmaEntityOnBackendTest extends AbstractRmaEntityTest
      *
      * @var TestStepFactory
      */
-    private $testStepFactory;
+    protected $testStepFactory;
 
     /**
      * Additional Rma attributes.
      *
      * @var array
      */
-    private $rmaAttributes = [];
+    protected $rmaAttributes = [];
 
     /**
      * Inject data.
@@ -73,6 +72,7 @@ class CreateRmaEntityOnBackendTest extends AbstractRmaEntityTest
      * @param RmaChooseOrder $rmaChooseOrder
      * @param RmaNew $rmaNew
      * @param TestStepFactory $testStepFactory
+     *
      * @return void
      */
     public function __inject(
@@ -91,6 +91,7 @@ class CreateRmaEntityOnBackendTest extends AbstractRmaEntityTest
      * @param string $configData
      * @param Rma $rma
      * @param AssertRmaSuccessSaveMessage $assertRmaSuccessSaveMessage
+     *
      * @return array
      */
     public function test($configData, Rma $rma, AssertRmaSuccessSaveMessage $assertRmaSuccessSaveMessage)
@@ -105,9 +106,12 @@ class CreateRmaEntityOnBackendTest extends AbstractRmaEntityTest
         )->run();
         /** @var OrderInjectable $order */
         $order = $rma->getDataFieldConfig('order_id')['source']->getOrder();
+        $products = $order->getEntityId()['products'];
+        $cart['data']['items'] = ['products' => $products];
+        $cart = $this->fixtureFactory->createByCode('cart', $cart);
         $this->testStepFactory->create(
             \Magento\Sales\Test\TestStep\CreateInvoiceStep::class,
-            ['order' => $order]
+            ['order' => $order, 'cart' => $cart]
         )->run();
         $this->testStepFactory->create(
             \Magento\Sales\Test\TestStep\CreateShipmentStep::class,
@@ -125,7 +129,6 @@ class CreateRmaEntityOnBackendTest extends AbstractRmaEntityTest
 
         $rmaId = $this->getRmaId($rma);
         $rma = $this->createRma($rma, ['entity_id' => $rmaId]);
-
         return ['rma' => $rma];
     }
 

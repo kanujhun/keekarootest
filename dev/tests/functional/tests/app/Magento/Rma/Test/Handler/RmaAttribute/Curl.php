@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -9,7 +9,7 @@ namespace Magento\Rma\Test\Handler\RmaAttribute;
 use Magento\Catalog\Test\Handler\CatalogProductAttribute\Curl as ProductAttributeCurl;
 
 /**
- * Create new Rma Attribute via curl.
+ * Create new Rma Attribute via curl
  */
 class Curl extends ProductAttributeCurl implements RmaAttributeInterface
 {

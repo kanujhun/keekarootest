@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -8,19 +8,17 @@ namespace Magento\TargetRule\Test\TestCase;
 
 use Magento\Catalog\Test\Fixture\CatalogProductSimple;
 use Magento\CustomerSegment\Test\Fixture\CustomerSegment;
-use Magento\Mtf\Fixture\FixtureFactory;
-use Magento\Mtf\TestCase\Injectable;
-use Magento\Mtf\TestStep\TestStepFactory;
 use Magento\TargetRule\Test\Fixture\TargetRule;
 use Magento\TargetRule\Test\Page\Adminhtml\TargetRuleEdit;
 use Magento\TargetRule\Test\Page\Adminhtml\TargetRuleIndex;
 use Magento\TargetRule\Test\Page\Adminhtml\TargetRuleNew;
-use Magento\Ui\Block\Component\StepsWizard\StepInterface;
+use Magento\Mtf\TestCase\Injectable;
+use Magento\Catalog\Test\Fixture\CatalogProductAttribute;
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductAttributeIndex;
+use Magento\Catalog\Test\Page\Adminhtml\CatalogProductAttributeNew;
 
 /**
  * Parent class for TargetRule tests.
- *
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 abstract class AbstractTargetRuleEntityTest extends Injectable
 {
@@ -39,6 +37,11 @@ abstract class AbstractTargetRuleEntityTest extends Injectable
     protected $targetRuleNew;
 
     /**
+     * @var  CatalogProductAttribute
+     */
+    protected $productAttribute;
+
+    /**
      * Target rule edit page.
      *
      * @var TargetRuleEdit
@@ -53,48 +56,42 @@ abstract class AbstractTargetRuleEntityTest extends Injectable
     protected $targetRuleName;
 
     /**
-     * Fixture factory.
+     *  Attribute grid page
      *
-     * @var FixtureFactory
+     * @var CatalogProductAttributeIndex
      */
-    protected $fixtureFactory;
+    protected $attributeIndex;
 
     /**
-     * Update attribute step factory.
-     *
-     * @var TestStepFactory
+     * @var CatalogProductAttributeNew
      */
-    protected $stepFactory;
+    protected $attributeNew;
 
     /**
-     * Update attribute step holder for tearDown().
-     *
-     * @var StepInterface
-     */
-    protected $updateAttributeStep = null;
-
-    /**
-     * Injection data.
+     * Injection data
      *
      * @param TargetRuleIndex $targetRuleIndex
      * @param TargetRuleNew $targetRuleNew
      * @param TargetRuleEdit $targetRuleEdit
-     * @param FixtureFactory $fixtureFactory
-     * @param TestStepFactory $stepFactory
+     * @param CatalogProductAttributeIndex $attributeIndex
+     * @param CatalogProductAttributeNew $attributeNew
+     * @param CatalogProductAttribute $productAttribute
      * @return void
      */
     public function __inject(
         TargetRuleIndex $targetRuleIndex,
         TargetRuleNew $targetRuleNew,
         TargetRuleEdit $targetRuleEdit,
-        FixtureFactory $fixtureFactory,
-        TestStepFactory $stepFactory
+        CatalogProductAttributeIndex $attributeIndex,
+        CatalogProductAttributeNew $attributeNew,
+        CatalogProductAttribute $productAttribute
     ) {
         $this->targetRuleIndex = $targetRuleIndex;
         $this->targetRuleNew = $targetRuleNew;
         $this->targetRuleEdit = $targetRuleEdit;
-        $this->fixtureFactory = $fixtureFactory;
-        $this->stepFactory = $stepFactory;
+        $this->attributeIndex = $attributeIndex;
+        $this->attributeNew = $attributeNew;
+        $this->productAttribute = $productAttribute;
     }
 
     /**
@@ -116,17 +113,15 @@ abstract class AbstractTargetRuleEntityTest extends Injectable
      */
     public function tearDown()
     {
-        if (!empty($this->targetRuleName)) {
-            $filter = ['name' => $this->targetRuleName];
-            $this->targetRuleIndex->open();
-            $this->targetRuleIndex->getTargetRuleGrid()->searchAndOpen($filter);
-            $this->targetRuleEdit->getPageActions()->delete();
-            $this->targetRuleEdit->getModalBlock()->acceptAlert();
-            $this->targetRuleName = '';
+        if (empty($this->targetRuleName)) {
+            return;
         }
-        if ($this->updateAttributeStep !== null) {
-            $this->updateAttributeStep->cleanup();
-        }
+        $filter = ['name' => $this->targetRuleName];
+        $this->targetRuleIndex->open();
+        $this->targetRuleIndex->getTargetRuleGrid()->searchAndOpen($filter);
+        $this->targetRuleEdit->getPageActions()->delete();
+        $this->targetRuleEdit->getModalBlock()->acceptAlert();
+        $this->targetRuleName = '';
     }
 
     /**
@@ -134,84 +129,93 @@ abstract class AbstractTargetRuleEntityTest extends Injectable
      *
      * @param CatalogProductSimple $product
      * @param CatalogProductSimple $promotedProduct
-     * @param string $conditionEntity
+     * @param string|null $conditionEntity
      * @param CustomerSegment|null $customerSegment
      * @return array
      */
     protected function getReplaceData(
         CatalogProductSimple $product,
         CatalogProductSimple $promotedProduct,
-        $conditionEntity = 'category',
+        $conditionEntity = null,
         CustomerSegment $customerSegment = null
     ) {
-        $customerSegmentName = ($customerSegment && $customerSegment->hasData()) ? $customerSegment->getName() : '';
+        if ($conditionEntity !== 'attributeProductName') {
+            $customerSegmentName = ($customerSegment && $customerSegment->hasData()) ? $customerSegment->getName() : '';
+
+            return [
+                'rule_information' => [
+                    'customer_segment_ids' => [
+                        '%customer_segment%' => $customerSegmentName,
+                    ],
+                ],
+                'products_to_match' =>
+                    $this->getProductsConditionsData($product, $promotedProduct, $conditionEntity)['products_to_match'],
+                'products_to_display' =>
+                    $this->getProductsConditionsData(
+                        $product,
+                        $promotedProduct,
+                        $conditionEntity
+                    )['products_to_display'],
+            ];
+        }
+    }
+
+    /**
+     * Get product attribute.
+     *
+     * @param CatalogProductSimple $product
+     * @return mixed
+     */
+    private function getAttribute(CatalogProductSimple $product)
+    {
+        return $product->getDataFieldConfig('attribute_set_id')['source']->getAttributeSet()
+            ->getDataFieldConfig('assigned_attributes')['source']->getAttributes()[0];
+    }
+
+    /**
+     * Get products conditions data for replace in variations.
+     *
+     * @param CatalogProductSimple $product
+     * @param CatalogProductSimple $promotedProduct
+     * @param string|null $conditionEntity
+     * @return array
+     */
+    private function getProductsConditionsData(
+        CatalogProductSimple $product,
+        CatalogProductSimple $promotedProduct,
+        $conditionEntity = null
+    ) {
+        $result = [];
         switch ($conditionEntity) {
-            case 'attribute':
-                /** @var \Magento\Catalog\Test\Fixture\CatalogProductAttribute[] $attrs */
-                $attributes = $product->getDataFieldConfig('attribute_set_id')['source']
-                    ->getAttributeSet()->getDataFieldConfig('assigned_attributes')['source']->getAttributes();
-                $replaceData = [
-                    'rule_information' => [
-                        'customer_segment_ids' => [
-                            '%customer_segment%' => $customerSegmentName,
-                        ],
-                    ],
-                    'products_to_match' => [
-                        'conditions_serialized' => [
-                            '%attribute_name%' => $attributes[0]->getFrontendLabel(),
-                            '%attribute_value%' => $attributes[0]->getOptions()[0]['view'],
-                        ],
-                    ],
-                    'products_to_display' => [
-                        'actions_serialized' => [
-                            '%attribute_name%' => $attributes[0]->getFrontendLabel(),
-                        ],
-                    ],
-                ];
-                break;
-            case 'sku':
-                $replaceData = [
-                    'rule_information' => [
-                        'customer_segment_ids' => [
-                            '%customer_segment%' => $customerSegmentName,
-                        ],
-                    ],
-                    'products_to_match' => [
-                        'conditions_serialized' => [
-                            '%sku%' => $product->getSku(),
-                        ],
-                    ],
-                    'products_to_display' => [
-                        'actions_serialized' => [
-                            '%promoted_sku%' => $promotedProduct->getSku(),
-                        ],
-                    ],
-                ];
-                break;
             case 'category':
-            default:
-                $sourceCategory = $product->getDataFieldConfig('category_ids')['source'];
-                $sourceRelatedCategory = $promotedProduct->getDataFieldConfig('category_ids')['source'];
-                $replaceData = [
-                    'rule_information' => [
-                        'customer_segment_ids' => [
-                            '%customer_segment%' => $customerSegmentName,
-                        ],
+                $result['products_to_match'] = [
+                    'conditions_serialized' => [
+                        '%category_1%' => $product->getDataFieldConfig('category_ids')['source']->getIds()[0],
                     ],
-                    'products_to_match' => [
-                        'conditions_serialized' => [
-                            '%category_1%' => $sourceCategory->getIds()[0],
-                        ],
+                ];
+                $result['products_to_display'] = [
+                    'actions_serialized' => [
+                        '%category_2%' =>
+                            $promotedProduct->getDataFieldConfig('category_ids')['source']->getIds()[0],
                     ],
-                    'products_to_display' => [
-                        'actions_serialized' => [
-                            '%category_2%' => $sourceRelatedCategory->getIds()[0],
-                        ],
+                ];
+                break;
+            case 'attribute':
+                $result['products_to_match'] = [
+                    'conditions_serialized' => [
+                        '%attribute_name%' => $this->getAttribute($product)->getFrontendLabel(),
+                        '%attribute_value%' => $this->getAttribute($product)->getOptions()[0]['view'],
+                    ],
+                ];
+                $result['products_to_display'] = [
+                    'actions_serialized' => [
+                        '%attribute_name%' => $this->getAttribute($promotedProduct)->getFrontendLabel(),
+                        '%attribute_value%' => $this->getAttribute($promotedProduct)->getOptions()[1]['view'],
                     ],
                 ];
                 break;
         }
 
-        return $replaceData;
+        return $result;
     }
 }

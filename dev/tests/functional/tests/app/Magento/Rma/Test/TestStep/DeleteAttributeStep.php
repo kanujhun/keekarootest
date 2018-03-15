@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -21,21 +21,21 @@ class DeleteAttributeStep implements TestStepInterface
      *
      * @var RmaAttributeIndex
      */
-    private $rmaAttributeIndex;
+    protected $rmaAttributeIndex;
 
     /**
      * Rma Attribute New page.
      *
      * @var RmaAttributeEdit
      */
-    private $rmaAttributeEdit;
+    protected $rmaAttributeEdit;
 
     /**
      * RmaAttribute fixture.
      *
      * @var RmaAttribute
      */
-    private $attribute;
+    protected $attribute;
 
     /**
      * @param RmaAttributeIndex $rmaAttributeIndex
