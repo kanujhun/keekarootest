@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -10,7 +10,7 @@ use Magento\Mtf\Block\Form;
 use Magento\Rma\Test\Fixture\RmaAttribute;
 
 /**
- * Add details to item.
+ * Add details to item
  */
 class AddDetails extends Form
 {
@@ -19,21 +19,21 @@ class AddDetails extends Form
      *
      * @var string
      */
-    private $buttonAddDetails = '.col-actions a:last-of-type span';
+    protected $buttonAddDetails = '.col-actions a:last-of-type span';
 
     /**
      * Modal slide Rma item details.
      *
      * @var string
      */
-    private $rmaItemDetailsModal = '.rma_form_rma_item_details_modal';
+    protected $rmaItemDetailsModal = '.rma_form_rma_item_details_modal';
 
     /**
      * Button "OK" on dialog box.
      *
      * @var string
      */
-    private $buttonConfirm = 'button.action-primary';
+    protected $buttonConfirm = 'button.action-primary';
 
     /**
      * Mapping codes for frontend input types.
@@ -78,7 +78,7 @@ class AddDetails extends Form
     }
 
     /**
-     * Add data mapping based on selected attributes.
+     * Add data mapping based on selected attributes
      *
      * @param array $attributes
      * @return void
@@ -97,7 +97,7 @@ class AddDetails extends Form
     }
 
     /**
-     * Prepare fields data based on selected attributes.
+     * Prepare fields data based on selected attributes
      *
      * @param array $attributes
      * @return array
@@ -117,7 +117,7 @@ class AddDetails extends Form
     }
 
     /**
-     * Returns input code for frontend type of element.
+     * Returns input code for frontend type of element
      *
      * @param string $input
      * @return string|null

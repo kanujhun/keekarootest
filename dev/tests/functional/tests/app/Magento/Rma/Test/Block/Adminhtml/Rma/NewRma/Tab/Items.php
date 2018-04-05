@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -92,7 +92,7 @@ class Items extends \Magento\Rma\Test\Block\Adminhtml\Rma\Edit\Tab\Items
     }
 
     /**
-     * Fill details modal window.
+     * Fill details modal window
      *
      * @param array $fields
      * @param SimpleElement $element
@@ -142,7 +142,7 @@ class Items extends \Magento\Rma\Test\Block\Adminhtml\Rma\Edit\Tab\Items
     protected function getOrderItemsGrid()
     {
         return $this->blockFactory->create(
-            'Magento\Rma\Test\Block\Adminhtml\Rma\NewRma\Tab\Items\Order\Grid',
+            \Magento\Rma\Test\Block\Adminhtml\Rma\NewRma\Tab\Items\Order\Grid::class,
             ['element' => $this->_rootElement->find($this->orderItemsGrid)]
         );
     }
@@ -155,7 +155,7 @@ class Items extends \Magento\Rma\Test\Block\Adminhtml\Rma\Edit\Tab\Items
     protected function getItemsGrid()
     {
         return $this->blockFactory->create(
-            'Magento\Rma\Test\Block\Adminhtml\Rma\NewRma\Tab\Items\Grid',
+            \Magento\Rma\Test\Block\Adminhtml\Rma\NewRma\Tab\Items\Grid::class,
             ['element' => $this->_rootElement->find($this->rmaItemsGrid)]
         );
     }
@@ -186,7 +186,7 @@ class Items extends \Magento\Rma\Test\Block\Adminhtml\Rma\Edit\Tab\Items
     protected function getTemplateBlock()
     {
         return $this->blockFactory->create(
-            '\Magento\Backend\Test\Block\Template',
+            \Magento\Backend\Test\Block\Template::class,
             ['element' => $this->_rootElement->find($this->templateBlock, Locator::SELECTOR_XPATH)]
         );
     }

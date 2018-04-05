@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 namespace Magento\CustomerSegment\Model\Segment\Condition\Product;
@@ -13,7 +13,7 @@ use Magento\CustomerSegment\Model\ResourceModel\Segment as ResourceModel;
 /**
  * Test for @see \Magento\CustomerSegment\Model\Segment\Condition\Product\Attributes
  */
-class AttributesTest extends \PHPUnit_Framework_TestCase
+class AttributesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ProductAttributesCondition
