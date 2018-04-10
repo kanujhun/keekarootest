@@ -14,4 +14,8 @@
     </type>
     <preference for="Magento\Bundle\Block\Adminhtml\Catalog\Product\Edit\Tab\Bundle\Option"
                 type="Ey\ConfigurableBundle\Block\Adminhtml\Catalog\Product\Edit\Tab\Bundle\Option" />
+
+    <type name="Magento\Bundle\Ui\DataProvider\Product\Form\Modifier\BundlePanel">
+        <plugin name="bundle_product_panel" type="Ey\ConfigurableBundle\Plugin\BundlePanel" sortOrder="1"/>
+    </type>
 </config>
