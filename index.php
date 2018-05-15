@@ -36,4 +36,8 @@ HTML;
 $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
 /** @var \Magento\Framework\App\Http $app */
 $app = $bootstrap->createApplication(\Magento\Framework\App\Http::class);
+<<<<<<< HEAD
 $bootstrap->run($app);
+=======
+$bootstrap->run($app);
+>>>>>>> 00ada2106cbad29c2efef875d4cb566a89b48ca4

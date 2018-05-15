@@ -1847,7 +1847,7 @@
         z-index: 1;
     }
     .block-search .block-content {
-        width: 300px;
+        width:240px;
         position: absolute;
         top: -4px;
         background-color: white;
@@ -3909,7 +3909,7 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        margin-top: 100px;
+        margin-top: 40px;
     }
     .sp-bottom-list .sp-bl {
         display: block;

@@ -7092,7 +7092,10 @@ body.catalog-product-compare-index .action.print {
 }
 .cart.table-wrapper .action:last-child {
     margin-right: 0;
-    display: none;
+    /*display: none;*/
+}
+.cart.table-wrapper .col.qty .action.update {
+    display:none;
 }
 .cart.table-wrapper .action.help.map {
     font-weight: 400;
@@ -12685,7 +12688,12 @@ fieldset[disabled] .sidebar .block-addbysku .action.remove {
 span[name="leftLocation"] .today_schedule {
     display: none;
 }
-
+.sp-klogo {
+    width: 100%;
+    max-width:640px;
+    margin: 40px auto 0;
+    display:block;
+}
 @media only screen and (max-width: 479px) {
     .tooltip.wrapper .tooltip.content {
         min-width: 10rem;
@@ -14041,12 +14049,16 @@ span[name="leftLocation"] .today_schedule {
     .cart.table-wrapper .col.qty,
     .cart.table-wrapper .col.price,
     .cart.table-wrapper .col.subtotal,
-    .cart.table-wrapper .col.msrp {
+    .cart.table-wrapper .col.msrp,
+    .cart.table-wrapper .col.actions {
         box-sizing: border-box;
         display: block;
         float: left;
         white-space: nowrap;
         width: 30%;
+    }
+    .cart.table-wrapper .col.actions {
+        width: 10%;
     }
     .cart.table-wrapper .col.actions-toolbar {
         -webkit-box-sizing: border-box;
